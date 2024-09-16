@@ -1,7 +1,7 @@
-import {Body, Controller, Get, Post} from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { FileService } from './file.service';
 import { downloadImagesByUrl } from 'src/helpers/utils';
-import path from "path";
+import path from 'path';
 
 @Controller('file')
 export class FileController {
@@ -16,7 +16,6 @@ export class FileController {
 
   @Get('front')
   async front() {
-
     return path.resolve();
   }
 }

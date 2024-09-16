@@ -1,4 +1,4 @@
-import {Length} from "class-validator";
+import { Length } from 'class-validator';
 
 export class LoginAdminDto {
   username: string;

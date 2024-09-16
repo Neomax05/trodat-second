@@ -8,7 +8,7 @@ export type SuccessIntegrationAnswer = {
     response: number;
     error: false;
     message: string;
-  }
+  };
 };
 
 export type ErrorIntegrationAnswer = {
@@ -42,4 +42,4 @@ export type IntegrationGroup = {
   name: string;
   ID: string;
   ownerID: string;
-}
+};

@@ -1,31 +1,35 @@
 import { IProduct } from '../interfaces/products.interface';
-import mongoose from "mongoose";
-import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
+import mongoose from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema()
 export class Product implements IProduct {
-  @Prop({required: true})
+  @Prop({ required: true })
   product1cId: string;
 
-  @Prop({required: true})
+  @Prop({ required: true })
   article: string;
 
-  @Prop({required: true})
+  @Prop({ required: true })
   name: string;
 
-  @Prop({required: true})
+  @Prop({ required: true })
   description: string;
 
-  @Prop({required: true})
+  @Prop({ required: true })
   description1c: string;
 
-  @Prop({required: true, default: [], type: [String]})
+  @Prop({ required: true, default: [], type: [String] })
   color: string[];
 
-  @Prop({required: true, default: [], type: [String]})
+  @Prop({ required: true, default: [], type: [String] })
   equipment: string[];
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Category', default: null })
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category',
+    default: null,
+  })
   category: string | null;
 
   @Prop()

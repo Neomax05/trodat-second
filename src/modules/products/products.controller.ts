@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, Put} from '@nestjs/common';
+import { Body, Controller, Get, Param, Put, Query } from '@nestjs/common';
 import { ProductsService } from './products.service';
 
 @Controller('products')
@@ -11,21 +11,24 @@ export class ProductsController {
   }
 
   @Get('byCategory/:categoryId')
-  async getProductsByCategoryId(@Param() param: {categoryId: string}) {
+  async getProductsByCategoryId(@Param() param: { categoryId: string }) {
     return await this.productsService.getProductsByCategoryId(param.categoryId);
   }
 
   @Get('notInCategory/:categoryId')
-  async getProductsNotInCategory(@Param() param: {categoryId: string}) {
-    return await this.productsService.getProductsNotInCategory(param.categoryId);
+  async getProductsNotInCategory(@Param() param: { categoryId: string }) {
+    return await this.productsService.getProductsNotInCategory(
+      param.categoryId,
+    );
   }
 
   @Put('changeCategory')
-  async changeCategory(@Body() body: {categoryId: string, productId: string}) {
+  async changeCategory(
+    @Body() body: { categoryId: string; productId: string },
+  ) {
     console.log('body', body);
     return this.productsService.changeCategory(body.productId, body.categoryId);
   }
-
 
   @Get('integration')
   async integration() {
@@ -33,8 +36,7 @@ export class ProductsController {
   }
 
   @Get('parse')
-  async parse() {
-    return await this.productsService.parse();
+  async parse(@Query('id') id: string) {
+    return await this.productsService.parse(id);
   }
-
 }

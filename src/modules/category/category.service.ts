@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import {IntegrationGroup} from "../../types/integration.type";
-import {InjectModel} from "@nestjs/mongoose";
-import {Model} from "mongoose";
-import {Category} from "./schemas/category.schema";
+import { IntegrationGroup } from '../../types/integration.type';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Category } from './schemas/category.schema';
 
 @Injectable()
 export class CategoryService {
@@ -18,13 +18,15 @@ export class CategoryService {
     const category = new this.categoryModel({
       category1cId: group.ID,
       name: group.name,
-      isPublic: true
+      isPublic: true,
     });
     return category.save();
   }
 
   async checkIsCategoryExist(group: IntegrationGroup) {
-    const category = await this.categoryModel.findOne({category1cId: group.ID});
+    const category = await this.categoryModel.findOne({
+      category1cId: group.ID,
+    });
     console.log('checkIsCategoryExist', category);
     return !!category;
   }
@@ -37,22 +39,22 @@ export class CategoryService {
   }
 
   async getCategoryBy1cId(id: string) {
-    return this.categoryModel.findOne({category1cId: id});
+    return this.categoryModel.findOne({ category1cId: id });
   }
 
   async createCategory(name: string) {
     const category = new this.categoryModel({
       category1cId: null,
       isPublic: false,
-      name
+      name,
     });
     await category.save();
     return category;
   }
 
   async deleteCategory(id: string) {
-    const category = await this.categoryModel.deleteOne({_id: id});
+    const category = await this.categoryModel.deleteOne({ _id: id });
     console.log('category', category);
-    return {id};
+    return { id };
   }
 }

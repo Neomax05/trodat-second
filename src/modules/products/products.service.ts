@@ -1,19 +1,26 @@
-
-import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { Product } from './schemas/product.schema';
 import { CreateParsedProductDto } from './dto/create-parsed-product.dto';
 import { Parser } from 'src/helpers/parser';
 import { downloadImagesByUrl } from 'src/helpers/utils';
-import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
-import axios from "axios";
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import axios from 'axios';
 import {
   ErrorIntegrationAnswer,
   IntegrationProduct,
-  SuccessIntegrationAnswer
-} from "../../types/integration.type";
-import { CategoryService } from "../category/category.service";
-import { ParsedOptionsType, productRusFieldToEng } from "./helper";
+  SuccessIntegrationAnswer,
+} from '../../types/integration.type';
+import { CategoryService } from '../category/category.service';
+import {
+  getGoodsFrom1C,
+  ParsedOptionsType,
+  productRusFieldToEng,
+} from './helper';
 
 @Injectable()
 export class ProductsService {
@@ -27,9 +34,9 @@ export class ProductsService {
     this.parser.init();
   }
 
-  async parse() {
+  async parse(productId: string) {
     try {
-      const result = await this.parser.parseTrodat2('46042');
+      const result = await this.parser.parseTrodat2(productId);
       console.log('Parsed data:', result);
     } catch (error) {
       console.error('Error during parsing:', error);
@@ -61,7 +68,9 @@ export class ProductsService {
   async createParsedProduct(data: CreateParsedProductDto) {
     const existingProduct = await this.findByProductId(data.product_id);
     if (existingProduct) {
-      console.log(`Product with ID ${data.product_id} already exists. Skipping creation.`);
+      console.log(
+        `Product with ID ${data.product_id} already exists. Skipping creation.`,
+      );
       return;
     }
     const downloaded_images = await downloadImagesByUrl(data.images);
@@ -70,7 +79,13 @@ export class ProductsService {
   }
 
   async getProducts() {
-    return this.productModel.find().populate('category').exec();
+    const mongodbProducts = await this.productModel
+      .find()
+      .populate('category')
+      .exec();
+    const goodsGetFrom1C = await getGoodsFrom1C();
+
+    return [...mongodbProducts, ...goodsGetFrom1C];
   }
 
   getParseOptions(description: string): ParsedOptionsType {
@@ -80,7 +95,7 @@ export class ProductsService {
       .replaceAll('\t', '')
       .replaceAll('', '')
       .split(',');
-    strArr.forEach(str => {
+    strArr.forEach((str) => {
       const splitedParams = str.split('-');
       const param = productRusFieldToEng[splitedParams[0].trim()];
       if (param) parsedOptions[param] = splitedParams[1].trim();
@@ -105,13 +120,15 @@ export class ProductsService {
       equipment: options.equipment ? [options.equipment] : [],
       frame: options.frame,
       geometry: options.geometry,
-      category: category?._id || null
+      category: category?._id || null,
     });
     return product.save();
   }
 
   async checkIsProductExist(good: IntegrationProduct) {
-    const product = await this.productModel.findOne({ product1cId: good.goodID }).exec();
+    const product = await this.productModel
+      .findOne({ product1cId: good.goodID })
+      .exec();
     return !!product;
   }
 
@@ -123,11 +140,10 @@ export class ProductsService {
     return this.productModel.find().where('category').ne(categoryId).exec();
   }
 
-
   async startIntegration() {
     try {
       // Запускает метод parse, который используется для парсинга данных
-      await this.parse();
+      await this.parse('46042');
       // Возможно, добавьте другие операции, связанные с интеграцией
       return { message: 'Integration started successfully' };
     } catch (error) {
@@ -136,12 +152,3 @@ export class ProductsService {
     }
   }
 }
-
-
-
-
-
-
-
-
-

@@ -1,9 +1,9 @@
-import {Injectable} from '@nestjs/common';
-import {MinioClientService} from '../minio-client/minio-client.service';
-import {BufferedFile} from '../minio-client/interfaces/file.interface';
-import {File} from './schemas/file.schema';
-import {InjectModel} from "@nestjs/mongoose";
-import {Model} from "mongoose";
+import { Injectable } from '@nestjs/common';
+import { MinioClientService } from '../minio-client/minio-client.service';
+import { BufferedFile } from '../minio-client/interfaces/file.interface';
+import { File } from './schemas/file.schema';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class FileService {
