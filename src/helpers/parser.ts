@@ -1,11 +1,15 @@
-import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import {Browser, chromium} from "playwright";
+import { Browser, chromium } from 'playwright';
 import { AppModule } from 'src/app.module';
 import { AppConfig } from 'src/modules/config/configs';
 import { ProductsService } from 'src/modules/products/products.service';
 import { IntegrationProduct } from '../types/integration.type';
-
+import { toBase64 } from './utils';
 
 @Injectable()
 export class Parser {
@@ -21,7 +25,11 @@ export class Parser {
   async init() {
     this.browser = await chromium.launch({
       headless: false,
-      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+      ],
     });
   }
 
@@ -39,8 +47,12 @@ export class Parser {
     }
   }
 
-
-  async parseTrodat2(article: string): Promise<{ description: string, size: string }> {
+  async parseTrodat2(article: string): Promise<{
+    description: string;
+    size: string;
+    imagesBase64: string[];
+    imageBase64: string;
+  }> {
     try {
       console.log('parseTrodat2 method called', article);
       if (!this.browser) {
@@ -50,18 +62,29 @@ export class Parser {
       await page.goto('https://trodat-russia.ru/search/');
       const filterCatalog = await page.$('#filter_3');
       await filterCatalog.click();
-      const searchInput = await page.$('body > main > div > div > form > input');
+      const searchInput = await page.$(
+        'body > main > div > div > form > input',
+      );
       await searchInput.fill(article);
-      const searchButton = await page.$('body > main > div > div > form > button');
+      const searchButton = await page.$(
+        'body > main > div > div > form > button',
+      );
       await searchButton.click();
       console.log('test 1');
-      await page.waitForLoadState("networkidle");
-      const answerArr = await page.$$('body > main > div > div > ul > li > h3 > a');
+      await page.waitForLoadState('networkidle');
+      const answerArr = await page.$$(
+        'body > main > div > div > ul > li > h3 > a',
+      );
       console.log(`We found ${answerArr.length} products`);
       if (!answerArr.length) {
         this.logger.warn('No element was found');
         await page.close();
-        return { description: '', size: '' };
+        return {
+          description: '',
+          size: '',
+          imagesBase64: [],
+          imageBase64: '',
+        };
       }
       let usingIndex = 0;
       for (const [i, answer] of answerArr.entries()) {
@@ -75,18 +98,44 @@ export class Parser {
       await firstEl.click();
       await page.waitForLoadState('domcontentloaded');
       await page.evaluate(() => {
-        const aboutTitle = document.querySelector('body > main > div > div > div.product > div.product-description > div.product-text > h4');
+        const aboutTitle = document.querySelector(
+          'body > main > div > div > div.product > div.product-description > div.product-text > h4',
+        );
         if (aboutTitle) aboutTitle.remove();
       });
-      const productDescriptionElement = await page.$('body > main > div > div > div.product > div.product-description > div.product-text');
-      const productDescription = productDescriptionElement ? await productDescriptionElement.innerText() : '';
+      const productDescriptionElement = await page.$(
+        'body > main > div > div > div.product > div.product-description > div.product-text',
+      );
+      const productDescription = productDescriptionElement
+        ? await productDescriptionElement.innerText()
+        : '';
       const normalizeDescription = productDescription.replace(/\n/g, ' ');
-      const sizeEl = await page.$('body > main > div > div > div.product > div.product-description > div.features > div > div:nth-child(1) > div:nth-child(3) > span');
+      const sizeEl = await page.$(
+        'body > main > div > div > div.product > div.product-description > div.features > div > div:nth-child(1) > div:nth-child(3) > span',
+      );
       const size = sizeEl ? await sizeEl.textContent() : '';
       console.log('test 2');
       this.logger.log('Parser successfully end');
+
+      // Получение всех URL изображений
+      const imageUrls = await page.$$eval('img', (imgs) =>
+        imgs.map((img) => img.src),
+      );
+
+      // Конвертация всех изображений в Base64
+      const imagesBase64 = await Promise.all(
+        imageUrls.map((url) => toBase64(url)),
+      );
+
+      const imageBase64 = imagesBase64.length > 0 ? imagesBase64[0] : '';
+
       await page.close();
-      return { description: normalizeDescription || '', size: size || '' };
+      return {
+        description: normalizeDescription || '',
+        size: size || '',
+        imagesBase64,
+        imageBase64,
+      };
     } catch (error) {
       console.error('Error in parseTrodat2:', error);
       throw new InternalServerErrorException('Error in parseTrodat2');
@@ -100,18 +149,26 @@ export class Parser {
     const app = await NestFactory.createApplicationContext(AppModule);
     const appConfig = app.get(AppConfig);
 
-    console.log("appConfig", appConfig);
+    console.log('appConfig', appConfig);
 
     this.productService = app.get<ProductsService>(ProductsService);
     this.browser = await chromium.launch({
       headless: false,
-      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+      ],
     });
 
     const page = await this.browser.newPage();
     await page.goto(appConfig.parse_url);
-    const orderManagerContent = await page.$('.div-footer-right .footer-block-content');
-    const links = await orderManagerContent.$$eval('a', anchors => anchors.map(anchor => anchor.href));
+    const orderManagerContent = await page.$(
+      '.div-footer-right .footer-block-content',
+    );
+    const links = await orderManagerContent.$$eval('a', (anchors) =>
+      anchors.map((anchor) => anchor.href),
+    );
     const linksParsed = links.slice(0, 3);
     console.log(linksParsed);
 
@@ -119,11 +176,12 @@ export class Parser {
       await page.goto(link);
 
       const good: IntegrationProduct = {
-        goodID: await page.$eval('.goodID', el => el.textContent) || '',
-        name: await page.$eval('.name', el => el.textContent) || '',
-        description: await page.$eval('.description', el => el.textContent) || '',
-        article: await page.$eval('.article', el => el.textContent) || '',
-        ownerID: await page.$eval('.ownerID', el => el.textContent) || '',
+        goodID: (await page.$eval('.goodID', (el) => el.textContent)) || '',
+        name: (await page.$eval('.name', (el) => el.textContent)) || '',
+        description:
+          (await page.$eval('.description', (el) => el.textContent)) || '',
+        article: (await page.$eval('.article', (el) => el.textContent)) || '',
+        ownerID: (await page.$eval('.ownerID', (el) => el.textContent)) || '',
         sku: '',
         type: 0,
         vat: '',
@@ -148,8 +206,6 @@ export class Parser {
     }
   }
 
-
-
   private async categoryParse(links) {
     const products = [];
     for (const link of links) {
@@ -158,19 +214,27 @@ export class Parser {
         await productPage.goto(link.url);
         const categoryManager = await productPage.$('.div-box-category');
         if (categoryManager) {
-          const categoryLinks = await productPage.$$eval('.div-content-category', (elements) => {
-            return elements.map((element) => {
-              const anchorElement = element as HTMLAnchorElement;
-              return anchorElement.href;
-            });
-          });
+          const categoryLinks = await productPage.$$eval(
+            '.div-content-category',
+            (elements) => {
+              return elements.map((element) => {
+                const anchorElement = element as HTMLAnchorElement;
+                return anchorElement.href;
+              });
+            },
+          );
 
-          const productLinks = await this.parseCategoryLinks(productPage, categoryLinks);
+          const productLinks = await this.parseCategoryLinks(
+            productPage,
+            categoryLinks,
+          );
           await this.parseProducts(productPage, productLinks);
         } else {
           await productPage.goto(link.url);
           const productLinks = await productPage.evaluate(() => {
-            const buttons = document.querySelectorAll('.div-content-products .button-newsbox');
+            const buttons = document.querySelectorAll(
+              '.div-content-products .button-newsbox',
+            );
             const linksArray = [];
             buttons.forEach((button) => {
               const href = button.getAttribute('href');
@@ -195,9 +259,14 @@ export class Parser {
     let linksProduct = [];
     for (const categoryLink of categoryLinks) {
       await productPage.goto(categoryLink);
-      await productPage.select('.div-shopnav-right .ergebnisse-left .selector_shopnav .select-field-2', '9999');
+      await productPage.select(
+        '.div-shopnav-right .ergebnisse-left .selector_shopnav .select-field-2',
+        '9999',
+      );
       const productLinks = await productPage.evaluate(() => {
-        const buttons = document.querySelectorAll('.div-content-products .button-newsbox');
+        const buttons = document.querySelectorAll(
+          '.div-content-products .button-newsbox',
+        );
         const linksArray = [];
         buttons.forEach((button) => {
           const href = button.getAttribute('href');
@@ -213,11 +282,18 @@ export class Parser {
   private async parseProducts(productPage, linksProduct) {
     for (const linkProduct of linksProduct) {
       await productPage.goto(linkProduct);
-      const product_id = await productPage.$eval('.h1-product', (element) => element.textContent.trim());
-      const product_name = await productPage.$eval('.sl-product', (element) => element.textContent.trim());
-      const product_images = await productPage.$$eval('.div-image-productdetail-slider img', (images) => {
-        return images.map((img) => img.src);
-      });
+      const product_id = await productPage.$eval('.h1-product', (element) =>
+        element.textContent.trim(),
+      );
+      const product_name = await productPage.$eval('.sl-product', (element) =>
+        element.textContent.trim(),
+      );
+      const product_images = await productPage.$$eval(
+        '.div-image-productdetail-slider img',
+        (images) => {
+          return images.map((img) => img.src);
+        },
+      );
       await this.productService.createParsedProduct({
         product_id: product_id,
         name: product_name,
@@ -226,11 +302,3 @@ export class Parser {
     }
   }
 }
-
-
-
-
-
-
-
-
