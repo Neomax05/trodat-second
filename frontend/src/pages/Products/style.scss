@@ -1,0 +1,15 @@
+.products {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  &__title {
+    margin: 0;
+  }
+
+  &__description-column {
+    min-width: 500px;
+  }
+}
