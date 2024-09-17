@@ -34,6 +34,14 @@ const Products = () => {
       align: 'center',
     },
     {
+      title: 'Изображения',
+      dataIndex: 'imageBase64',
+      key: 'imageBase64',
+      width: 100,
+      render: (text) => <img src={text} alt={text} />,
+      align: 'center',
+    },
+    {
       title: 'Название',
       dataIndex: 'name',
       key: 'name',
@@ -157,7 +165,8 @@ const Products = () => {
         },
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.data, 'res');
+        setProducts((prev) => [...prev, res.data]);
       })
       .catch((err) => alert(err))
       .finally(() => setLoading(false));

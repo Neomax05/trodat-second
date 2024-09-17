@@ -37,6 +37,8 @@ export class ProductsController {
 
   @Get('parse')
   async parse(@Query('id') id: string) {
-    return await this.productsService.parse(id);
+    const parsedData = await this.productsService.parse(id);
+
+    return parsedData;
   }
 }

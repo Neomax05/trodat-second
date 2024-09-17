@@ -38,6 +38,7 @@ export class ProductsService {
     try {
       const result = await this.parser.parseTrodat2(productId);
       console.log('Parsed data:', result);
+      return result;
     } catch (error) {
       console.error('Error during parsing:', error);
       throw new InternalServerErrorException('Parsing error');

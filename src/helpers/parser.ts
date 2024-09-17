@@ -117,24 +117,17 @@ export class Parser {
       console.log('test 2');
       this.logger.log('Parser successfully end');
 
-      // Получение всех URL изображений
-      const imageUrls = await page.$$eval('img', (imgs) =>
-        imgs.map((img) => img.src),
+      const imgUrl = await page.$eval(
+        '.slick-slide.slick-current.slick-active img',
+        (el: HTMLImageElement) => el.src,
       );
-
-      // Конвертация всех изображений в Base64
-      const imagesBase64 = await Promise.all(
-        imageUrls.map((url) => toBase64(url)),
-      );
-
-      const imageBase64 = imagesBase64.length > 0 ? imagesBase64[0] : '';
 
       await page.close();
       return {
         description: normalizeDescription || '',
         size: size || '',
-        imagesBase64,
-        imageBase64,
+        imagesBase64: [imgUrl],
+        imageBase64: imgUrl,
       };
     } catch (error) {
       console.error('Error in parseTrodat2:', error);
