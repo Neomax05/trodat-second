@@ -1,0 +1,297 @@
+html,
+body {
+   margin: 0;
+   line-height: normal;
+   height: 100%;
+}
+
+:root {
+   /* fonts */
+   --font-roboto: Roboto;
+   --font-source-sans-pro: "Source Sans Pro";
+   --body-2: Poppins;
+   --button-2: "DM Sans";
+   --font-inter: Inter;
+
+   /* font sizes */
+   --hairline-2-size: 12px;
+   --body-2-size: 16px;
+   --button-2-size: 14px;
+   --font-size-29xl: 48px;
+   --font-size-31xl: 50px;
+   --font-size-sm-6: 13.6px;
+   --font-size-smi-6: 12.6px;
+   --font-size-lg: 18px;
+   --font-size-mini: 15px;
+   --font-size-mid: 17px;
+   --font-size-sm-5: 13.5px;
+   --font-size-3xl: 22px;
+   --font-size-16xl: 35px;
+   --font-size-5xl: 24px;
+
+   /* Colors */
+   --color-lightgray-100: #ccc;
+   --gray-scale-white: #fff;
+   --color-darkslategray-100: #353945;
+   --text: #2f2f2f;
+   --primary-3: #ef466f;
+   --red-2: #ee272e;
+   --grey: #ececec;
+   --ios-safari-bars-background-light: rgba(248, 248, 248, 0.88);
+   --red: #ee575c;
+   --black: #000;
+   --color-dimgray-100: #676767;
+   --color-dimgray-200: #5c5c5c;
+   --color-dimgray-300: #555;
+   --text-2: #515151;
+   --neutrals-6: #e6e8ec;
+   --neutrals-8: #fcfcfd;
+   --color-gray-100: #7e7e7e;
+   --color-gray-200: #272b38;
+   --neutrals-2: #23262f;
+   --color-gray-300: #21232a;
+   --primary-4: #45b36b;
+   --green: #45b26b;
+   --color-linen: #f5ece2;
+   --color-cornflowerblue: #456ab3;
+   --primary-1: #3772ff;
+   --ios-active-color: #007aff;
+   --color-darkgray-100: #aeaeae;
+   --ios-inactive-color: #a3a3a3;
+   --gray-scale-gray-400: #999;
+   --ios-safari-address-field-background: rgba(189, 189, 189, 0.4);
+
+   /* Gaps */
+   --gap-mini: 15px;
+   --gap-xl: 20px;
+   --gap-xs: 12px;
+   --gap-smi-6: 12.6px;
+   --gap-136xl: 155px;
+   --gap-8xs-2: 4.2px;
+   --gap-lg-8: 18.8px;
+   --gap-xs-3: 11.3px;
+   --gap-9xs: 4px;
+   --gap-8xs: 5px;
+   --gap-6xl: 25px;
+   --gap-125xl: 144px;
+
+   /* Paddings */
+   --padding-2xs: 11px;
+   --padding-15xl: 34px;
+   --padding-5xs: 8px;
+   --padding-3xs: 10px;
+   --padding-7xs: 6px;
+   --padding-lg: 18px;
+   --padding-27xl: 46px;
+   --padding-2xl: 21px;
+   --padding-mini: 15px;
+   --padding-4xs-4: 8.4px;
+   --padding-6xs-3: 6.3px;
+   --padding-xs-3: 11.3px;
+   --padding-smi-6: 12.6px;
+   --padding-base-8: 16.8px;
+   --padding-8xs: 5px;
+   --padding-10xs: 3px;
+   --padding-xs: 12px;
+
+   /* Border radiuses */
+   --br-81xl: 100px;
+   --br-5xl: 24px;
+   --br-3xs: 10px;
+   --br-xl: 20px;
+   --br-9xs: 4px;
+   --br-base: 16px;
+   --br-237xl: 256px;
+   --br-13xl: 32px;
+   --br-base-8: 16.8px;
+   --br-8xs-2: 4.2px;
+   --br-14xl-5: 33.5px;
+   --br-75xl-4: 94.4px;
+   --br-31xl: 50px;
+
+   /* Effects */
+   --depth-1: 0px 8px 16px -8px rgba(15, 15, 15, 0.2);
+}
+
+.profile_root {
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+}
+
+.profile {
+   flex-grow: 1;
+   width: 100%;
+}
+
+.auth-card {
+   display: flex;
+   flex-direction: column;
+   max-width: 480px;
+   width: 100%;
+   gap: 30px;
+}
+
+.auth-card img {
+   width: 66px;
+   height: 83px;
+}
+.auth-card .buttons {
+   width: 100%;
+   max-width: 331px;
+   display: grid;
+   gap: 1rem;
+}
+
+.auth-card button {
+   width: 100%;
+   padding: 1rem 4rem;
+   border-radius: 1rem;
+   border: 1px solid #ee575c;
+   color: #ee575c;
+   font-size: 14px;
+   cursor: pointer;
+}
+
+.auth-card button:hover {
+   background-color: #ee575c;
+   color: #fff;
+}
+
+.auth-card .unauthented-headline {
+   font-weight: 500;
+   font-size: 1.5rem;
+   color: #686868;
+}
+
+.textfield {
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
+}
+
+.textfield label {
+   font-size: 14px;
+   font-weight: 400;
+   color: #868686;
+}
+.textfield input {
+   width: 100%;
+   padding: 0.75rem;
+   font-size: 14px;
+   font-weight: 400;
+   border: none;
+   outline: none;
+   color: #2f2f2f;
+}
+
+.textfield .input-icon {
+   display: flex;
+   align-items: center;
+   border: 1px solid #ececec;
+   padding: 0 15px;
+   border-radius: 15px;
+}
+
+.textfield .input-icon img {
+   width: 20px;
+   height: 20px;
+}
+
+.sign-up-modal-fields {
+   display: grid;
+   gap: 20px;
+}
+
+#sign-up-second-helper-text {
+   color: red;
+   font-size: 12px;
+}
+
+.sign-up-modal-fields button {
+   padding: 13.5px 0;
+   border-radius: 15px;
+   background-color: #ee575c;
+   border: none;
+   color: #fff;
+   cursor: pointer;
+}
+
+.sign-up-modal-fields button:hover {
+   background-color: #ee575ce2;
+}
+.sign-up-modal-fields button:disabled {
+   background-color: #ee575caf;
+}
+
+.modal {
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   max-width: 480px;
+   width: 100%;
+   background-color: #fff;
+   border-radius: 25px;
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+   z-index: 101; /* Above backdrop */
+   display: none;
+   overflow: hidden;
+}
+
+.modal .content {
+   width: 100%;
+   flex-shrink: 0;
+}
+
+.modal-slider {
+   display: flex;
+   transition: transform 0.6s ease;
+   width: 200%;
+}
+
+.backdrop {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.5);
+   z-index: 100; /* Behind modal */
+   display: none; /* Hidden by default */
+}
+
+.flex {
+   display: flex;
+}
+
+.items-center {
+   align-items: center;
+}
+
+.justify-center {
+   justify-content: center;
+}
+
+.p-1 {
+   padding: 1rem;
+}
+
+.p-3 {
+   padding: 3rem;
+}
+
+.px-1 {
+   padding: 0 1rem;
+}
+
+.py-1 {
+   padding: 1rem 0;
+}
+.py-3 {
+   padding: 3rem 0;
+}
+
+.none {
+   display: none;
+}
