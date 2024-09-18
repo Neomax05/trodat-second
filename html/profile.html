@@ -1,355 +1,467 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="initial-scale=1, width=device-width" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
 
-      <link rel="stylesheet" href="./styles/catalog.css" />
-      <link rel="stylesheet" href="./styles/component.css" />
-      <link rel="stylesheet" href="./styles/global.css" />
-      <link
-         rel="stylesheet"
-         href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-      />
-      <link
-         rel="stylesheet"
-         href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800&display=swap"
-      />
-      <link
-         rel="stylesheet"
-         href="https://fonts.googleapis.com/css2?family=DM Sans:wght@700&display=swap"
-      />
-      <link
-         rel="stylesheet"
-         href="https://fonts.googleapis.com/css2?family=Source Sans Pro:wght@400;600&display=swap"
-      />
-      <link
-         rel="stylesheet"
-         href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap"
-      />
-   </head>
+    <link rel="stylesheet" href="./styles/catalog.css" />
+    <link rel="stylesheet" href="./styles/component.css" />
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM Sans:wght@700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Source Sans Pro:wght@400;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap"
+    />
+  </head>
 
-   <body>
-      <div class="profile_root">
-         <nav class="nav">
-            <div class="nav__left">
-               <img class="nav__logo" src="./icons/logo.png" alt="logo" />
-               <img class="nav__logo-mob" src="./icons/logo-2.png" alt="" />
+  <body>
+    <div class="profile_root">
+      <nav class="nav">
+        <div class="nav__left">
+          <img class="nav__logo" src="./icons/logo.png" alt="logo" />
+          <img class="nav__logo-mob" src="./icons/logo-2.png" alt="" />
+        </div>
+        <div class="nav__center">
+          <div>
+            <a href="./index.html">Главная</a>
+          </div>
+          <div>
+            <a href="/catalog.html">Каталог</a>
+          </div>
+          <div>
+            <a href="/about.html">О компании</a>
+          </div>
+          <div>
+            <div>Акции</div>
+          </div>
+          <div>
+            <a href="./news.html">Новости</a>
+          </div>
+          <div>
+            <a href="./contacts.html">Контакты</a>
+          </div>
+        </div>
+        <div class="nav__right">
+          <img class="nav__right-search" alt="" src="./icons/search-icon.png" />
+          <a href="./profile.html"
+            ><img alt="" class="nav__right-search" src="./icons/profile.png"
+          /></a>
+          <div class="nav__right-cart">
+            <div class="nav__right-text">корзина</div>
+            <div class="nav__right-img">
+              <img alt="" src="./icons/cart.png" />
+              <p class="nav__right-count">0</p>
             </div>
-            <div class="nav__center">
-               <div>
-                  <a href="./index.html">Главная</a>
-               </div>
-               <div>
-                  <a href="/catalog.html">Каталог</a>
-               </div>
-               <div>
-                  <a href="/about.html">О компании</a>
-               </div>
-               <div>
-                  <div>Акции</div>
-               </div>
-               <div>
-                  <a href="./news.html">Новости</a>
-               </div>
-               <div>
-                  <a href="./contacts.html">Контакты</a>
-               </div>
-            </div>
-            <div class="nav__right">
-               <img
-                  class="nav__right-search"
-                  alt=""
-                  src="./icons/search-icon.png"
-               />
-               <a href="./profile.html"
-                  ><img
-                     alt=""
-                     class="nav__right-search"
-                     src="./icons/profile.png"
-               /></a>
-               <div class="nav__right-cart">
-                  <div class="nav__right-text">корзина</div>
-                  <div class="nav__right-img">
-                     <img alt="" src="./icons/cart.png" />
-                     <p class="nav__right-count">0</p>
-                  </div>
-               </div>
-            </div>
-            <img class="nav__menu" src="./icons/menu-alt-2.png" alt="" />
-         </nav>
+          </div>
+        </div>
+        <img class="nav__menu" src="./icons/menu-alt-2.png" alt="" />
+      </nav>
 
-         <section class="contacts container__center profile">
-            <div class="px-1">
-               <h2 class="contacts__title">Личный кабинет</h2>
-               <div class="contacts__line"></div>
-               <div class="profile__info none py-1" id="authented">
-                  <div class="profile__info-left">
-                     <div class="profile__info-card">
-                        <div class="profile__info-img">
-                           <img src="./icons/Group 301.png" alt="" />
-                        </div>
-                        <div class="profile__info-flex">
-                           <p class="profile__info-title">ФИО</p>
-                           <p>Хэмлок Гроув</p>
-                        </div>
-                        <div class="profile__info-flex">
-                           <p class="profile__info-title">Номер телефона</p>
-                           <p>+996 500 24 789</p>
-                        </div>
-                        <div class="profile__info-flex">
-                           <p class="profile__info-title">Почта</p>
-                           <p>hemlok@gmail.com</p>
-                        </div>
-                        <button>Редактировать</button>
-                     </div>
-                     <div class="profile__info-links">
-                        <div class="profile__info-link">
-                           <img src="./icons/lock.png" alt="" />
-                           <p>Сменить пароль</p>
-                        </div>
-                        <div class="profile__info-link">
-                           <img src="./icons/signout.png" alt="" />
-                           <p>Выйти</p>
-                        </div>
-                        <div class="profile__info-link">
-                           <img src="./icons/trash.png" alt="" />
-                           <p>Удалить аккаунт</p>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="profile__info-right">
-                     <div class="profile__info-rightLinks">
-                        <h4>Избранные товары</h4>
-                        <h4>История заказов</h4>
-                     </div>
-                     <div class="profile__info-fav"></div>
-                  </div>
-               </div>
-               <div id="unauthented" class="py-3 none">
-                  <div class="flex justify-center">
-                     <div class="auth-card items-center py-3">
-                        <img src="./icons/user.svg" alt="" />
-                        <div class="unauthented-headline">
-                           У вас нет аккаунта
-                        </div>
-                        <div class="buttons">
-                           <button id="sign-up">Зарегистрироваться</button>
-                           <button id="sign-in">Войти</button>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+      <section class="contacts container__center profile">
+        <div class="px-1">
+          <h2 class="contacts__title">Личный кабинет</h2>
+          <div class="contacts__line"></div>
+          <div class="profile__info none py-1" id="authented">
+            <div class="profile__info-left">
+              <div class="profile__info-card">
+                <div class="profile__info-img">
+                  <img src="./icons/Group 301.png" alt="" />
+                </div>
+                <div class="profile__info-flex">
+                  <p class="profile__info-title">ФИО</p>
+                  <p id="profile-info-title">Хэмлок Гроув</p>
+                </div>
+                <div class="profile__info-flex">
+                  <p class="profile__info-title">Номер телефона</p>
+                  <p id="profile-info-phone-number-value">+996 500 24 789</p>
+                </div>
+                <div class="profile__info-flex">
+                  <p class="profile__info-title">Почта</p>
+                  <p id="profile-info-email-value">hemlok@gmail.com</p>
+                </div>
+                <button>Редактировать</button>
+              </div>
+              <div class="profile__info-links">
+                <div
+                  class="profile__info-link"
+                  id="profile-action-change-password"
+                >
+                  <img src="./icons/lock.png" alt="" />
+                  <p>Сменить пароль</p>
+                </div>
+                <div class="profile__info-link" id="profile-action-log-out">
+                  <img src="./icons/signout.png" alt="" />
+                  <p>Выйти</p>
+                </div>
+                <div class="profile__info-link">
+                  <img src="./icons/trash.png" alt="" />
+                  <p>Удалить аккаунт</p>
+                </div>
+              </div>
             </div>
-         </section>
-         <footer class="footer">
-            <div class="container__center">
-               <div class="footer__top">
-                  <div class="footer__main">
-                     <img src="./icons/logo.png" alt="" />
-                     <p>
-                        Крупнейший производитель оснасток для<br />
-                        печатей и штампов в мире
-                     </p>
-                     <img src="./icons/CTA.png" alt="" />
-                  </div>
-                  <div class="footer__nav">
-                     <div>
-                        <h6>Навигация</h6>
-                        <p>Категории</p>
-                        <p>О компании</p>
-                        <p>Новости</p>
-                        <p>Контакты</p>
-                        <p>Профиль</p>
-                     </div>
-                     <div>
-                        <h6>Печати</h6>
-                        <p>Круглые</p>
-                        <p>Прямоугольные</p>
-                        <p>Плоские</p>
-                        <p>Рельефные</p>
-                     </div>
-                     <div>
-                        <h6>Штампы</h6>
-                        <p>Датер</p>
-                        <p>Овальные</p>
-                        <p>Бухгалтерские</p>
-                        <p>Угловые</p>
-                        <p>Банковские</p>
-                     </div>
-                     <div>
-                        <h6>Контакты</h6>
-                        <p>trodatkg@gmail.com</p>
-                        <p>
-                           Токтогула 125/1<br />
-                           (Бизнес центр<br />
-                           Avangard), Bishkek,<br />
-                           Kyrgyzstan
-                        </p>
-                     </div>
-                  </div>
-               </div>
+            <div class="profile__info-right">
+              <div class="profile__info-rightLinks">
+                <h4 id="favorite-products" class="active">Избранные товары</h4>
+                <h4 id="history-order">История заказов</h4>
+              </div>
+              <div class="profile__info-fav" id="profile-products"></div>
             </div>
-            <div class="footer__bottom">
-               <img src="./icons/Group 39550.svg" alt="" />
-               <p>Trodat © 2023. All Rights Reserved</p>
+          </div>
+          <div id="unauthented" class="py-3 none">
+            <div class="flex justify-center">
+              <div class="auth-card items-center py-3">
+                <img src="./icons/user.svg" alt="" />
+                <div class="unauthented-headline">У вас нет аккаунта</div>
+                <div class="buttons">
+                  <button id="sign-up">Зарегистрироваться</button>
+                  <button id="sign-in">Войти</button>
+                </div>
+              </div>
             </div>
-         </footer>
+          </div>
+        </div>
+      </section>
+      <footer class="footer">
+        <div class="container__center">
+          <div class="footer__top">
+            <div class="footer__main">
+              <img src="./icons/logo.png" alt="" />
+              <p>
+                Крупнейший производитель оснасток для<br />
+                печатей и штампов в мире
+              </p>
+              <img src="./icons/CTA.png" alt="" />
+            </div>
+            <div class="footer__nav">
+              <div>
+                <h6>Навигация</h6>
+                <p>Категории</p>
+                <p>О компании</p>
+                <p>Новости</p>
+                <p>Контакты</p>
+                <p>Профиль</p>
+              </div>
+              <div>
+                <h6>Печати</h6>
+                <p>Круглые</p>
+                <p>Прямоугольные</p>
+                <p>Плоские</p>
+                <p>Рельефные</p>
+              </div>
+              <div>
+                <h6>Штампы</h6>
+                <p>Датер</p>
+                <p>Овальные</p>
+                <p>Бухгалтерские</p>
+                <p>Угловые</p>
+                <p>Банковские</p>
+              </div>
+              <div>
+                <h6>Контакты</h6>
+                <p>trodatkg@gmail.com</p>
+                <p>
+                  Токтогула 125/1<br />
+                  (Бизнес центр<br />
+                  Avangard), Bishkek,<br />
+                  Kyrgyzstan
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <img src="./icons/Group 39550.svg" alt="" />
+          <p>Trodat © 2023. All Rights Reserved</p>
+        </div>
+      </footer>
+    </div>
+
+    <div id="sign-up-modal" class="modal none">
+      <div class="modal-slider" id="modal-slider">
+        <div class="first-content content">
+          <form
+            class="sign-up-modal-fields p-3"
+            id="sign-up-modal-fields-first-form"
+          >
+            <div class="textfield">
+              <label
+                for="sign-up-full-name-input"
+                id="sign-up-full-name-input-label"
+              >
+                ФИО
+              </label>
+              <div class="input-icon">
+                <img src="./icons/user.svg" alt="" />
+                <input
+                  type="text"
+                  id="sign-up-full-name-input"
+                  required
+                  min="3"
+                  max="1000"
+                />
+              </div>
+            </div>
+            <div class="textfield">
+              <label for="sign-up-email-input" id="sign-up-email-input-label">
+                Email
+              </label>
+              <div class="input-icon">
+                <img src="./icons/mail.svg" alt="" />
+                <input
+                  type="email"
+                  id="sign-up-email-input"
+                  required
+                  min="3"
+                  max="100"
+                />
+              </div>
+            </div>
+            <div class="textfield">
+              <label
+                for="sign-up-phone-number-input"
+                id="sign-up-phone-number-input-label"
+              >
+                Номер телефона
+              </label>
+              <div class="input-icon">
+                <img src="./icons/call.svg" alt="" />
+                <input
+                  type="tel"
+                  id="sign-up-phone-number-input"
+                  required
+                  min="3"
+                  max="100"
+                />
+              </div>
+            </div>
+
+            <button id="sign-up-modal-fields-next" type="submit" disabled>
+              Далее
+            </button>
+          </form>
+        </div>
+
+        <div class="second-content content">
+          <form
+            class="sign-up-modal-fields p-3"
+            id="sign-up-modal-fields-second-form"
+          >
+            <div class="textfield">
+              <label for="sign-up-password-input"> Создайте пароль </label>
+              <div class="input-icon">
+                <img src="./icons/lock.svg" alt="" />
+                <input
+                  type="password"
+                  id="sign-up-password-input"
+                  min="5"
+                  max="100"
+                  required
+                />
+              </div>
+            </div>
+            <div class="textfield">
+              <label for="sign-up-confirm-password-input">
+                Повторите пароль
+              </label>
+              <div class="input-icon">
+                <img src="./icons/lock.svg" alt="" />
+                <input
+                  type="password"
+                  id="sign-up-confirm-password-input"
+                  min="5"
+                  max="100"
+                  required
+                />
+              </div>
+            </div>
+
+            <div id="sign-up-second-helper-text"></div>
+
+            <button id="sign-up-modal-fields-submit" type="submit">
+              Зарегистрироваться
+            </button>
+          </form>
+        </div>
       </div>
+    </div>
 
-      <div id="sign-up-modal" class="modal none">
-         <div class="modal-slider" id="modal-slider">
-            <div class="first-content content">
-               <form
-                  class="sign-up-modal-fields p-3"
-                  id="sign-up-modal-fields-first-form"
-               >
-                  <div class="textfield">
-                     <label
-                        for="sign-up-full-name-input"
-                        id="sign-up-full-name-input-label"
-                     >
-                        ФИО
-                     </label>
-                     <div class="input-icon">
-                        <img src="./icons/user.svg" alt="" />
-                        <input
-                           type="text"
-                           id="sign-up-full-name-input"
-                           required
-                           min="3"
-                           max="1000"
-                        />
-                     </div>
-                  </div>
-                  <div class="textfield">
-                     <label
-                        for="sign-up-email-input"
-                        id="sign-up-email-input-label"
-                     >
-                        Email
-                     </label>
-                     <div class="input-icon">
-                        <img src="./icons/mail.svg" alt="" />
-                        <input
-                           type="email"
-                           id="sign-up-email-input"
-                           required
-                           min="3"
-                           max="100"
-                        />
-                     </div>
-                  </div>
-                  <div class="textfield">
-                     <label
-                        for="sign-up-phone-number-input"
-                        id="sign-up-phone-number-input-label"
-                     >
-                        Номер телефона
-                     </label>
-                     <div class="input-icon">
-                        <img src="./icons/call.svg" alt="" />
-                        <input
-                           type="tel"
-                           id="sign-up-phone-number-input"
-                           required
-                           min="3"
-                           max="100"
-                        />
-                     </div>
-                  </div>
+    <div id="sign-in-modal" class="modal none">
+      <div class="content">
+        <form class="sign-up-modal-fields p-3" id="sign-in-form">
+          <div class="textfield">
+            <label for=""> Email </label>
+            <div class="input-icon">
+              <img src="./icons/mail.svg" alt="" />
+              <input
+                type="email"
+                required
+                min="3"
+                max="100"
+                id="sign-in-email"
+              />
+            </div>
+          </div>
 
-                  <button id="sign-up-modal-fields-next" type="submit" disabled>
-                     Далее
-                  </button>
-               </form>
+          <div class="textfield">
+            <label for=""> Пароль </label>
+            <div class="input-icon">
+              <img src="./icons/lock.svg" alt="" />
+              <input
+                type="password"
+                min="5"
+                max="100"
+                required
+                id="sign-in-password"
+              />
+            </div>
+          </div>
+
+          <button id="sign-in-modal-fields-sign-in" disabled type="submit">
+            Войти
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div id="change-password-modal" class="modal none">
+      <div
+        class="change-password-modal-slider"
+        id="change-password-modal-slider"
+      >
+        <div class="change-password-modal-first-content content">
+          <form
+            id="change-password-modal-first-modal"
+            class="sign-up-modal-fields p-2"
+          >
+            <div class="flex justify-flex-end close-change-password-modal">
+              <img
+                src="./icons/close.svg"
+                alt=""
+                id="close-change-password-modal"
+              />
+            </div>
+            <div class="textfield">
+              <label
+                for="sign-up-phone-number-input"
+                id="sign-up-phone-number-input-label"
+              >
+                Номер телефона
+              </label>
+              <div class="input-icon">
+                <img src="./icons/call.svg" alt="" />
+                <input
+                  type="tel"
+                  id="change-password-modal-phone-number-input"
+                  required
+                  min="3"
+                  max="100"
+                />
+              </div>
             </div>
 
-            <div class="second-content content">
-               <form
-                  class="sign-up-modal-fields p-3"
-                  id="sign-up-modal-fields-second-form"
-               >
-                  <div class="textfield">
-                     <label for="sign-up-password-input">
-                        Создайте пароль
-                     </label>
-                     <div class="input-icon">
-                        <img src="./icons/lock.svg" alt="" />
-                        <input
-                           type="password"
-                           id="sign-up-password-input"
-                           min="5"
-                           max="100"
-                           required
-                        />
-                     </div>
-                  </div>
-                  <div class="textfield">
-                     <label for="sign-up-confirm-password-input">
-                        Повторите пароль
-                     </label>
-                     <div class="input-icon">
-                        <img src="./icons/lock.svg" alt="" />
-                        <input
-                           type="password"
-                           id="sign-up-confirm-password-input"
-                           min="5"
-                           max="100"
-                           required
-                        />
-                     </div>
-                  </div>
-
-                  <div id="sign-up-second-helper-text"></div>
-
-                  <button id="sign-up-modal-fields-submit" type="submit">
-                     Зарегистрироваться
-                  </button>
-               </form>
+            <button type="submit">Отправить SMS код</button>
+          </form>
+        </div>
+        <div class="change-password-modal-second-content content">
+          <form
+            id="change-password-modal-second-modal"
+            class="sign-up-modal-fields p-2"
+          >
+            <div class="close-change-password-modal justify-flex-end flex">
+              <img
+                src="./icons/close.svg"
+                alt=""
+                id="close-change-password-modal-2"
+              />
             </div>
-         </div>
+            <div class="textfield">
+              <input
+                type="number"
+                id="change-password-modal-code-input"
+                placeholder="0000"
+                required
+                min="999"
+                max="9999"
+                maxlength="4"
+              />
+            </div>
+
+            <div id="send-code-again-via">
+              Отправить код заново через
+              <span id="send-code-again-via-time"> 1:00 </span>
+            </div>
+
+            <div class="none" id="send-code-again-text">Отправить заново</div>
+
+            <button type="submit">Подтвердить</button>
+          </form>
+        </div>
+
+        <div class="change-password-modal-thirth-content content">
+          <form
+            id="change-password-modal-thirth-modal"
+            class="sign-up-modal-fields p-2"
+          >
+            <div class="flex justify-flex-end close-change-password-modal">
+              <img
+                src="./icons/close.svg"
+                alt=""
+                id="close-change-password-modal-3"
+              />
+            </div>
+            <div class="textfield">
+              <label for="sign-up-password-input"> Новый пароль </label>
+              <div class="input-icon">
+                <img src="./icons/lock.svg" alt="" />
+                <input
+                  type="password"
+                  id="sign-up-password-input"
+                  min="5"
+                  max="100"
+                  required
+                />
+              </div>
+            </div>
+            <div class="textfield">
+              <label for="sign-up-confirm-password-input">
+                Повторите новый пароль
+              </label>
+              <div class="input-icon">
+                <img src="./icons/lock.svg" alt="" />
+                <input
+                  type="password"
+                  id="sign-up-confirm-password-input"
+                  min="5"
+                  max="100"
+                  required
+                />
+              </div>
+            </div>
+
+            <button type="submit">Зарегистрироваться</button>
+          </form>
+        </div>
       </div>
+    </div>
 
-      <div id="sign-in-modal" class="modal none">
-         <div class="content">
-            <form class="sign-up-modal-fields p-3" id="sign-in-form">
-               <div class="textfield">
-                  <label for=""> Email </label>
-                  <div class="input-icon">
-                     <img src="./icons/mail.svg" alt="" />
-                     <input
-                        type="email"
-                        required
-                        min="3"
-                        max="100"
-                        id="sign-in-email"
-                     />
-                  </div>
-               </div>
-
-               <div class="textfield">
-                  <label for=""> Пароль </label>
-                  <div class="input-icon">
-                     <img src="./icons/lock.svg" alt="" />
-                     <input
-                        type="password"
-                        min="5"
-                        max="100"
-                        required
-                        id="sign-in-password"
-                     />
-                  </div>
-               </div>
-
-               <button id="sign-in-modal-fields-sign-in" disabled type="submit">
-                  Войти
-               </button>
-            </form>
-         </div>
-      </div>
-      <div class="backdrop none" id="backdrop"></div>
-      <script src="./favorites.js"></script>
-      <script src="./profile.js"></script>
-   </body>
+    <div class="backdrop none" id="backdrop"></div>
+    <script src="./profile.js"></script>
+    <script src="./profile-change-password.js"></script>
+    <script src="./profile-products.js"></script>
+  </body>
 </html>

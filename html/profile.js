@@ -11,15 +11,25 @@ const signUpModal = document.getElementById('sign-up-modal');
 const modalSlider = document.getElementById('modal-slider');
 const backdrop = document.getElementById('backdrop');
 
+// profile info
+const profileInfoTitle = document.getElementById('profile-info-title');
+const profileInfoPhoneNumberValue = document.getElementById(
+  'profile-info-phone-number-value'
+);
+const profileInfoEmailValue = document.getElementById(
+  'profile-info-email-value'
+);
+const profileActionLogOut = document.getElementById('profile-action-log-out');
+
 // Form fields
 const signUpFullNameInput = document.getElementById('sign-up-full-name-input');
 const signUpEmailInput = document.getElementById('sign-up-email-input');
 const signUpPhoneNumberInput = document.getElementById(
-  'sign-up-phone-number-input',
+  'sign-up-phone-number-input'
 );
 const signUpPasswordInput = document.getElementById('sign-up-password-input');
 const signUpConfirmPasswordInput = document.getElementById(
-  'sign-up-confirm-password-input',
+  'sign-up-confirm-password-input'
 );
 
 const signInEmail = document.getElementById('sign-in-email');
@@ -27,30 +37,28 @@ const signInPassword = document.getElementById('sign-in-password');
 
 // Form buttons
 const signInModalFieldsSubmit = document.getElementById(
-  'sign-up-modal-fields-submit',
+  'sign-up-modal-fields-submit'
 );
 const signInModalFieldsNext = document.getElementById(
-  'sign-up-modal-fields-next',
+  'sign-up-modal-fields-next'
 );
 const signInModalFieldsSignIn = document.getElementById(
-  'sign-in-modal-fields-sign-in',
+  'sign-in-modal-fields-sign-in'
 );
 
 // Form helpers
 const signUpSecondHelperText = document.getElementById(
-  'sign-up-second-helper-text',
+  'sign-up-second-helper-text'
 );
 
 // Form submission
 const signUpModalFieldsFirstForm = document.getElementById(
-  'sign-up-modal-fields-first-form',
+  'sign-up-modal-fields-first-form'
 );
 const signUpModalFieldsSecondForm = document.getElementById(
-  'sign-up-modal-fields-second-form',
+  'sign-up-modal-fields-second-form'
 );
 const signInForm = document.getElementById('sign-in-form');
-
-let isAuth = false;
 
 // Helper Functions
 
@@ -102,12 +110,42 @@ const handleBackdrop = () => {
   signInModal.style.display = 'none';
   signUpModal.style.display = 'none';
   backdrop.style.display = 'none';
+  changePasswordModal.style.display = 'none';
   modalSlider.style.transform = 'translateX(0)';
 };
 
+const LOCALSTORAGE_KEY = 'LOCALSTORAGE_KEY';
+
 // Initialize login state
 const initializationLogin = () => {
+  const values = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
+  const isAuth = values?.isAuth;
+
   toggleAuthState(isAuth);
+
+  renderUserInfo(values);
+};
+
+//
+
+const fetchAuthLogin = async (values) => {
+  try {
+    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(values));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// render user info
+
+const renderUserInfo = (values) => {
+  const fullName = values.fullName;
+  const email = values.email;
+  const phoneNumber = values.phoneNumber;
+
+  profileInfoTitle.innerHTML = fullName;
+  profileInfoPhoneNumberValue.innerHTML = phoneNumber;
+  profileInfoEmailValue.innerHTML = email;
 };
 
 // Add Event Listeners
@@ -130,7 +168,7 @@ backdrop.addEventListener('click', handleBackdrop);
 [signUpFullNameInput, signUpEmailInput, signUpPhoneNumberInput].forEach(
   (input) => {
     input.addEventListener('input', checkSignUpNextFields);
-  },
+  }
 );
 
 [signUpPasswordInput, signUpConfirmPasswordInput].forEach((input) => {
@@ -162,9 +200,12 @@ signUpModalFieldsSecondForm.addEventListener('submit', (e) => {
     email: signUpEmailInput.value,
     phoneNumber: signUpPhoneNumberInput.value,
     password: signUpPasswordInput.value,
+    isAuth: true,
   };
 
-  console.log(values);
+  renderUserInfo(values);
+
+  fetchAuthLogin(values);
   toggleAuthState(true);
   handleBackdrop();
 });
@@ -175,11 +216,20 @@ signInForm.addEventListener('submit', (e) => {
   const values = {
     email: signInEmail.value,
     password: signInPassword.value,
+    isAuth: true,
   };
 
-  console.log(values);
+  fetchAuthLogin(values);
+  renderUserInfo(values);
   toggleAuthState(true);
   handleBackdrop();
+});
+
+profileActionLogOut.addEventListener('click', () => {
+  const values = { isAuth: false };
+  fetchAuthLogin(values);
+
+  initializationLogin();
 });
 
 // Initialize authentication state
