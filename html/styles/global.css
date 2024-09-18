@@ -503,15 +503,40 @@ body {
   padding: 2rem;
 }
 
+.drawer-mobile {
+  position: fixed;
+  top: 0;
+  left: 100%;
+  right: 0;
+  bottom: 0;
+  background-color: #ee575c;
+  padding: 1rem;
+  transition: left 0.3s ease-in-out;
+}
+
+.drawer-mobile-head {
+  border-bottom: 1px solid #d2d2d2;
+  padding-bottom: 1rem;
+  margin-bottom: 50px;
+}
+
+.nav-link {
+  font-weight: 500;
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 28px;
+}
+
 /* Basic Styles */
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: #fff;
+  background-color: #ee575c;
   font-family: 'Arial', sans-serif;
   position: relative;
+  margin: 0;
 }
 
 .nav__left,
@@ -610,6 +635,7 @@ body {
 
 .profile__info-right {
   padding: 0;
+  border: 0;
 }
 
 .footer__main img {
