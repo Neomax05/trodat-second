@@ -33,10 +33,11 @@
     <div class="profile_root">
       <nav class="nav">
         <div class="nav__left">
-          <img class="nav__logo" src="./icons/logo.png" alt="logo" />
+          <img src="./icons/logo.png" class="nav__logo-desktop" alt="logo" />
           <img class="nav__logo-mob" src="./icons/logo-2.png" alt="" />
         </div>
-        <div class="nav__center">
+
+        <div class="nav__center gap-05">
           <div>
             <a href="./index.html">Главная</a>
           </div>
@@ -56,34 +57,41 @@
             <a href="./contacts.html">Контакты</a>
           </div>
         </div>
-        <div class="nav__right">
-          <img class="nav__right-search" alt="" src="./icons/search-icon.png" />
-          <a href="./profile.html"
-            ><img alt="" class="nav__right-search" src="./icons/profile.png"
-          /></a>
+
+        <div class="nav__right justify-center">
+          <div class="nav-search-icon">
+            <img alt="" src="./icons/search.svg" />
+          </div>
+          <div class="nav-search-icon">
+            <a href="./profile.html"><img alt="" src="./icons/user.svg" /></a>
+          </div>
+
           <div class="nav__right-cart">
             <div class="nav__right-text">корзина</div>
             <div class="nav__right-img">
-              <img alt="" src="./icons/cart.png" />
-              <p class="nav__right-count">0</p>
+              <img alt="" src="./icons/cart.svg" />
+              <p class="nav-cart-icon-badge desktop-cart-icon-badge">0</p>
             </div>
           </div>
         </div>
 
-        <div class="nav-search-icon">
-          <img src="./icons/search.svg" alt="" />
+        <div class="mobile-nav-icons flex gap-1 items-center">
+          <div class="nav-search-icon">
+            <img src="./icons/search.svg" alt="" />
+          </div>
+
+          <div class="nav-search-icon">
+            <a href="./profile.html" class="flex items-center justify-center"
+              ><img alt="" src="./icons/user.svg" />
+            </a>
+          </div>
+
+          <div class="nav-cart-icon">
+            <img src="./icons/cart.svg" alt="" />
+            <div class="nav-cart-icon-badge">5</div>
+          </div>
         </div>
 
-        <div class="nav-search-icon">
-          <a href="./profile.html" class="flex items-center justify-center"
-            ><img alt="" src="./icons/user.svg" />
-          </a>
-        </div>
-
-        <div class="nav-cart-icon">
-          <img src="./icons/cart.svg" alt="" />
-          <div class="nav-cart-icon-badge">5</div>
-        </div>
         <img
           class="nav__menu"
           id="nav-menu"
@@ -100,25 +108,25 @@
               alt=""
             />
 
-            <img
-              class="nav__menu"
-              id="nav-menu"
-              src="./icons/menu-alt-2.png"
-              alt=""
-            />
-            <img
-              class="nav__menu"
-              id="nav-menu"
-              src="./icons/menu-alt-2.png"
-              alt=""
-            />
-            <img
-              class="nav__menu"
-              id="nav-menu"
-              src="./icons/menu-alt-2.png"
-              alt=""
-            />
-            <div>Меню</div>
+            <div class="mobile-nav-icons flex gap-1 items-center">
+              <div class="nav-search-icon">
+                <img src="./icons/search.svg" alt="" />
+              </div>
+
+              <div class="nav-search-icon">
+                <a
+                  href="./profile.html"
+                  class="flex items-center justify-center"
+                  ><img alt="" src="./icons/user.svg" />
+                </a>
+              </div>
+
+              <div class="nav-cart-icon">
+                <img src="./icons/cart.svg" alt="" />
+                <div class="nav-cart-icon-badge">5</div>
+              </div>
+            </div>
+            <div class="drawer-mobile-head-menu">Меню</div>
           </div>
 
           <div>
@@ -152,7 +160,22 @@
             <div class="profile__info-left">
               <div class="profile__info-card">
                 <div class="profile__info-img">
-                  <img src="./icons/Group 301.png" alt="" />
+                  <div class="user-avatar">
+                    <img src="./icons/user.svg" id="user-avatar-input" alt="" />
+                    <label
+                      class="user-avatar-upload-camera"
+                      for="user-avatar-upload-camera"
+                    >
+                      <img src="./icons/camera.svg" alt="" />
+                      <input
+                        type="file"
+                        hidden
+                        accept="image/*"
+                        name="avatar"
+                        id="user-avatar-upload-camera"
+                      />
+                    </label>
+                  </div>
                 </div>
                 <div class="profile__info-flex">
                   <p class="profile__info-title">ФИО</p>
@@ -218,7 +241,11 @@
                 Крупнейший производитель оснасток для<br />
                 печатей и штампов в мире
               </p>
-              <img src="./icons/CTA.png" alt="" />
+              <div class="footer-phone-number-or-phone-number">
+                <div class="footer-phone-number">+996  553 66 47 87</div>
+                <div>или</div>
+                <div class="footer-phone-number">+996  553 66 47 87</div>
+              </div>
             </div>
             <div class="footer__nav">
               <div>
@@ -258,8 +285,13 @@
           </div>
         </div>
         <div class="footer__bottom">
-          <img src="./icons/Group 39550.svg" alt="" />
-          <p>Trodat © 2023. All Rights Reserved</p>
+          <div class="container__center">
+            <div class="footer-bottom-certificate">
+              <img src="./icons/Group 39550.svg" alt="" />
+              <p>Trodat © 2023. All Rights Reserved</p>
+              <div></div>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
@@ -537,5 +569,6 @@
     <script src="./profile-change-password.js"></script>
     <script src="./profile-products.js"></script>
     <script src="./drawer.js"></script>
+    <script src="./profile-avatar.js"></script>
   </body>
 </html>

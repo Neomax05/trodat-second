@@ -96,6 +96,7 @@ changePasswordModalSecondModal.addEventListener('submit', (e) => {
 });
 changePasswordModalThirthModal.addEventListener('submit', (e) => {
   e.preventDefault();
+  handleBackdrop();
 });
 
 sendCodeAgainText.addEventListener('click', () => {

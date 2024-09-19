@@ -31,6 +31,7 @@ const signUpPasswordInput = document.getElementById('sign-up-password-input');
 const signUpConfirmPasswordInput = document.getElementById(
   'sign-up-confirm-password-input'
 );
+const userAvatarInput = document.getElementById('user-avatar-input');
 
 const signInEmail = document.getElementById('sign-in-email');
 const signInPassword = document.getElementById('sign-in-password');
@@ -142,10 +143,12 @@ const renderUserInfo = (values) => {
   const fullName = values.fullName;
   const email = values.email;
   const phoneNumber = values.phoneNumber;
+  const avatar = values.avatar;
 
   profileInfoTitle.innerHTML = fullName;
   profileInfoPhoneNumberValue.innerHTML = phoneNumber;
   profileInfoEmailValue.innerHTML = email;
+  if (avatar) userAvatarInput.setAttribute('src', avatar);
 };
 
 // Add Event Listeners
