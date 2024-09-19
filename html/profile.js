@@ -117,6 +117,7 @@ const handleBackdrop = () => {
   backdrop.style.display = 'none';
   changePasswordModal.style.display = 'none';
   modalSlider.style.transform = 'translateX(0)';
+  deleteAccountModal.style.display = 'none';
 };
 
 const LOCALSTORAGE_KEY = 'LOCALSTORAGE_KEY';
@@ -184,6 +185,7 @@ signUpButton.addEventListener('click', () => {
   signUpModalOpen();
   signInModalClose();
   signUpModalFieldsFirstForm.setAttribute('name', 'next');
+  signInModalFieldsNext.innerHTML = 'Далее';
 });
 
 backdrop.addEventListener('click', handleBackdrop);
@@ -283,6 +285,7 @@ signInForm.addEventListener('submit', (e) => {
 
 profileInfoEdit.addEventListener('click', () => {
   signUpModalFieldsFirstForm.setAttribute('name', 'edit');
+  signInModalFieldsNext.innerHTML = 'Редактировать';
   signUpModalFieldsFirstFormHandler('edit');
   signUpModalOpen();
   signInModalClose();
