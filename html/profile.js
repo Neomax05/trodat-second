@@ -61,6 +61,10 @@ const signUpModalFieldsSecondForm = document.getElementById(
 );
 const signInForm = document.getElementById('sign-in-form');
 
+// edit
+
+const profileInfoEdit = document.getElementById('profile-info-edit');
+
 // Helper Functions
 
 // Toggle visibility of authentication states
@@ -153,16 +157,33 @@ const renderUserInfo = (values) => {
 
 // Add Event Listeners
 
-signInButton.addEventListener('click', () => {
+const signInModalOpen = () => {
   signInModal.style.display = 'flex';
-  signUpModal.style.display = 'none';
   backdrop.style.display = 'block';
+};
+
+const signInModalClose = () => {
+  signInModal.style.display = 'none';
+};
+
+const signUpModalOpen = () => {
+  signUpModal.style.display = 'flex';
+  backdrop.style.display = 'block';
+};
+
+const signUpModalClose = () => {
+  signUpModal.style.display = 'none';
+};
+
+signInButton.addEventListener('click', () => {
+  signInModalOpen();
+  signUpModalClose();
 });
 
 signUpButton.addEventListener('click', () => {
-  signInModal.style.display = 'none';
-  signUpModal.style.display = 'flex';
-  backdrop.style.display = 'block';
+  signUpModalOpen();
+  signInModalClose();
+  signUpModalFieldsFirstForm.setAttribute('name', 'next');
 });
 
 backdrop.addEventListener('click', handleBackdrop);
@@ -183,9 +204,41 @@ signInPassword.addEventListener('input', checkSignInFields);
 
 // Form submission events
 
+const signUpModalFieldsFirstFormHandler = (reason = 'next') => {
+  if (reason === 'next') {
+    modalSlider.style.transform = 'translateX(-100%)';
+
+    return;
+  }
+
+  const values = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
+
+  signUpFullNameInput.setAttribute('value', values.fullName || '');
+  signUpEmailInput.setAttribute('value', values.email || '');
+  signUpPhoneNumberInput.setAttribute('value', values.phoneNumber || '');
+};
+
+// submittings
+
 signUpModalFieldsFirstForm?.addEventListener('submit', (e) => {
   e.preventDefault();
-  modalSlider.style.transform = 'translateX(-100%)';
+  const name = e.target.name;
+  if (name === 'next') {
+    signUpModalFieldsFirstFormHandler();
+    return;
+  }
+
+  const values = {
+    fullName: signUpFullNameInput.value,
+    email: signUpEmailInput.value,
+    phoneNumber: signUpPhoneNumberInput.value,
+    isAuth: true,
+  };
+
+  renderUserInfo(values);
+
+  fetchAuthLogin(values);
+  handleBackdrop();
 });
 
 signUpModalFieldsSecondForm.addEventListener('submit', (e) => {
@@ -226,6 +279,13 @@ signInForm.addEventListener('submit', (e) => {
   renderUserInfo(values);
   toggleAuthState(true);
   handleBackdrop();
+});
+
+profileInfoEdit.addEventListener('click', () => {
+  signUpModalFieldsFirstForm.setAttribute('name', 'edit');
+  signUpModalFieldsFirstFormHandler('edit');
+  signUpModalOpen();
+  signInModalClose();
 });
 
 profileActionLogOut.addEventListener('click', () => {
