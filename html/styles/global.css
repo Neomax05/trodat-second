@@ -5,18 +5,63 @@ body {
   height: 100%;
 }
 
+@font-face {
+  font-family: 'Caros Soft';
+  src: url('../font/caros-soft/CarosSoft.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Caros Soft';
+  src: url('../font/caros-soft/CarosSoftBold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Caros Soft';
+  src: url('../font/caros-soft/CarosSoftBlack.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Caros Soft';
+  src: url('../font/caros-soft/CarosSoftHeavy.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Caros Soft';
+  src: url('../font/caros-soft/CarosSoftMedium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Caros Soft';
+  src: url('../font/caros-soft/CarosSoftLight.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Caros Soft';
+  src: url('../font/caros-soft/CarosSoftThin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+}
+
 :root {
   /* fonts */
-  --font-roboto: Roboto;
-  --font-source-sans-pro: 'Source Sans Pro';
-  --body-2: Poppins;
-  --button-2: 'DM Sans';
-  --font-inter: Inter;
+  --font-caros: 'Caros Soft';
 
   /* font sizes */
   --hairline-2-size: 12px;
-  --body-2-size: 16px;
-  --button-2-size: 14px;
+  --font-caros-size: 16px;
+  --font-caros-size: 14px;
   --font-size-29xl: 48px;
   --font-size-31xl: 50px;
   --font-size-sm-6: 13.6px;

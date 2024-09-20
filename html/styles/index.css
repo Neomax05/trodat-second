@@ -1,4 +1,4 @@
-a{
+a {
   text-decoration: none;
   color: inherit;
 }
@@ -21,7 +21,7 @@ a{
   top: 357px;
   left: calc(50% - 118px);
   line-height: 150%;
-  font-family: var(--body-2);
+  font-family: var(--font-caros);
   color: var(--color-gray-100);
 }
 .icon {
@@ -70,7 +70,7 @@ a{
   top: 257px;
   left: 258px;
   line-height: 150%;
-  font-family: var(--body-2);
+  font-family: var(--font-caros);
   color: var(--grey);
 }
 .div4 {
@@ -99,7 +99,7 @@ a{
 }
 .links {
   gap: var(--gap-xs-3);
-  font-size: var(--button-2-size);
+  font-size: var(--font-caros-size);
   color: var(--color-darkgray-100);
 }
 .div5 {
@@ -124,7 +124,7 @@ a{
 .links3 {
   flex-direction: column;
   gap: var(--gap-xs-3);
-  font-size: var(--button-2-size);
+  font-size: var(--font-caros-size);
   color: var(--gray-scale-gray-400);
 }
 .parent {
@@ -133,7 +133,7 @@ a{
   left: 539px;
   flex-direction: row;
   gap: 119px;
-  font-size: var(--body-2-size);
+  font-size: var(--font-caros-size);
 }
 .made-in-icon {
   height: 22%;
@@ -177,7 +177,7 @@ a{
   left: 0;
   width: 1440px;
   height: 399px;
-  font-size: var(--button-2-size);
+  font-size: var(--font-caros-size);
   color: var(--gray-scale-white);
 }
 .div28 {
@@ -202,7 +202,7 @@ a{
 .div29 {
   top: 166px;
   left: 100px;
-  font-size: var(--body-2-size);
+  font-size: var(--font-caros-size);
   line-height: 130%;
   font-weight: 300;
   color: var(--text-2);
@@ -304,7 +304,7 @@ a{
   justify-content: center;
   padding: var(--padding-3xs) var(--padding-mini);
   color: var(--primary-4);
-  font-family: var(--font-roboto);
+  font-family: var(--font-caros);
 }
 .label-price {
   align-self: stretch;
@@ -350,7 +350,7 @@ a{
   gap: var(--gap-smi-6);
   font-size: var(--font-size-lg);
   color: var(--neutrals-2);
-  font-family: var(--body-2);
+  font-family: var(--font-caros);
 }
 .placeholder1,
 .product-card {
@@ -365,9 +365,9 @@ a{
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  font-size: var(--button-2-size);
+  font-size: var(--font-caros-size);
   color: var(--neutrals-8);
-  font-family: var(--button-2);
+  font-family: var(--font-caros);
 }
 .placeholder1 {
   position: relative;
@@ -396,7 +396,7 @@ a{
   display: flex;
   padding: var(--padding-3xs) var(--padding-mini);
   color: var(--color-cornflowerblue);
-  font-family: var(--font-roboto);
+  font-family: var(--font-caros);
 }
 .product-info1 {
   align-self: stretch;
@@ -442,7 +442,7 @@ a{
   justify-content: center;
   padding: var(--padding-3xs) var(--padding-mini);
   color: var(--green);
-  font-family: var(--font-roboto);
+  font-family: var(--font-caros);
 }
 .placeholder3 {
   width: 287px;
@@ -470,7 +470,7 @@ a{
   gap: 31px;
   font-size: var(--font-size-lg);
   color: var(--neutrals-2);
-  font-family: var(--body-2);
+  font-family: var(--font-caros);
 }
 .button1 {
   top: 729px;
@@ -482,9 +482,9 @@ a{
   justify-content: center;
   padding: var(--padding-lg) var(--padding-27xl);
   text-align: center;
-  font-size: var(--button-2-size);
+  font-size: var(--font-caros-size);
   color: var(--color-dimgray-300);
-  font-family: var(--button-2);
+  font-family: var(--font-caros);
 }
 .div27,
 .item {
@@ -521,7 +521,7 @@ a{
 .div41 {
   position: absolute;
   display: inline-block;
-  font-family: var(--font-roboto);
+  font-family: var(--font-caros);
 }
 .div41 {
   top: 220px;
@@ -534,7 +534,7 @@ a{
 .b2 {
   top: 15px;
   left: 165px;
-  font-size: var(--body-2-size);
+  font-size: var(--font-caros-size);
   line-height: 24px;
   width: 94px;
 }
@@ -643,10 +643,10 @@ a{
   position: absolute;
   top: 11px;
   left: 165px;
-  font-size: var(--body-2-size);
+  font-size: var(--font-caros-size);
   line-height: 24px;
   display: inline-block;
-  font-family: var(--font-roboto);
+  font-family: var(--font-caros);
   width: 119px;
 }
 .label12 {
@@ -705,10 +705,10 @@ a{
   position: absolute;
   top: 25px;
   left: 165px;
-  font-size: var(--body-2-size);
+  font-size: var(--font-caros-size);
   line-height: 24px;
   display: inline-block;
-  font-family: var(--font-roboto);
+  font-family: var(--font-caros);
   width: 94px;
 }
 .medium-1-icon6 {
@@ -778,7 +778,7 @@ a{
   width: 1239px;
   height: 505px;
   font-size: var(--hairline-2-size);
-  font-family: var(--body-2);
+  font-family: var(--font-caros);
 }
 .div44 {
   position: relative;
@@ -843,7 +843,7 @@ a{
   left: 0;
   width: 1440px;
   height: 1064px;
-  font-family: var(--font-source-sans-pro);
+  font-family: var(--font-caros);
 }
 .img-icon {
   position: absolute;
@@ -1079,13 +1079,13 @@ a{
   width: 506px;
 }
 .trodat-gmbh1 {
-  font-family: var(--font-roboto);
+  font-family: var(--font-caros);
 }
 .trodat-gmbh-container {
   position: absolute;
   top: 283px;
   left: 100px;
-  font-size: var(--button-2-size);
+  font-size: var(--font-caros-size);
   line-height: 24px;
   color: var(--text-2);
 }
@@ -1130,9 +1130,9 @@ a{
   align-items: flex-start;
   justify-content: flex-start;
   padding: var(--padding-3xs);
-  font-size: var(--body-2-size);
+  font-size: var(--font-caros-size);
   color: var(--gray-scale-white);
-  font-family: var(--body-2);
+  font-family: var(--font-caros);
 }
 .icon2 {
   top: 463px;
@@ -1247,7 +1247,7 @@ a{
   height: 12px;
   font-size: 8px;
   color: var(--gray-scale-white);
-  font-family: var(--font-roboto);
+  font-family: var(--font-caros);
 }
 .div68 {
   width: 113px;
@@ -1267,7 +1267,7 @@ a{
   justify-content: flex-start;
   gap: var(--gap-mini);
   color: var(--black);
-  font-family: var(--font-source-sans-pro);
+  font-family: var(--font-caros);
 }
 .div71,
 .div73,
@@ -1287,7 +1287,7 @@ a{
   justify-content: center;
   padding: var(--padding-2xs) var(--padding-15xl);
   box-sizing: border-box;
-  font-size: var(--body-2-size);
+  font-size: var(--font-caros-size);
   color: var(--gray-scale-white);
 }
 .div73 {
@@ -1348,7 +1348,7 @@ a{
   max-width: 100%;
   height: 4438px;
   text-align: left;
-  font-size: var(--body-2-size);
+  font-size: var(--font-caros-size);
   color: var(--text);
-  font-family: var(--font-roboto);
+  font-family: var(--font-caros);
 }

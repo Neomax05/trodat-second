@@ -1,5 +1,5 @@
 body {
-  font-family: var(--font-roboto);
+  font-family: var(--font-caros);
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -28,7 +28,7 @@ a {
   height: 2.1rem;
   padding-top: 1.8rem;
   font-size: var(--hairline-2-size);
-  font-family: var(--font-roboto);
+  font-family: var(--font-caros);
   color: var(--text);
   z-index: 1;
   max-width: 1440px;
@@ -169,7 +169,7 @@ a {
 }
 .catalog {
   margin-top: 6.125rem;
-  font-family: var(--font-roboto);
+  font-family: var(--font-caros);
 }
 .catalog__title {
   font-size: var(--font-size-31xl);
@@ -233,7 +233,7 @@ a {
 .products {
   display: flex;
   gap: 25px;
-  font-family: var(--font-roboto);
+  font-family: var(--font-caros);
   margin-bottom: 30px;
 }
 .products__filters {
@@ -347,7 +347,7 @@ a {
   margin-bottom: 261px;
 }
 .footer {
-  font-family: var(--font-roboto);
+  font-family: var(--font-caros);
   background-color: var(--color-darkslategray-100);
 }
 .footer__top {
@@ -367,7 +367,7 @@ a {
 }
 .footer__nav h6 {
   color: var(--gray-scale-white);
-  font-size: var(--body-2-size);
+  font-size: var(--font-caros-size);
   margin-bottom: 18px;
 }
 .footer__nav p {
