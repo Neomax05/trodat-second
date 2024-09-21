@@ -13,6 +13,7 @@ import { join } from 'path';
 import { MongooseModule } from '@nestjs/mongoose';
 import { NewsModule } from './modules/news/news.module';
 import { MulterModule } from '@nestjs/platform-express';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { MulterModule } from '@nestjs/platform-express';
       rootPath: join(__dirname, '..', 'appFrontend/build'),
       serveRoot: '/',
     }),
+    AuthModule,
   ],
 })
 export class AppModule {}

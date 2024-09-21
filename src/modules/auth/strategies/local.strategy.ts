@@ -1,0 +1,29 @@
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { PassportStrategy } from '@nestjs/passport';
+import { Strategy } from 'passport-local';
+import { AuthService } from '../auth.service';
+import { UserRole } from 'src/modules/users/enums';
+
+@Injectable()
+export class LocalStrategy extends PassportStrategy(Strategy) {
+  constructor(private authService: AuthService) {
+    super();
+  }
+
+  validate(email: string, password: string) {
+    const user = this.authService.signUp({
+      email,
+      password,
+      full_name: '',
+      phone_number: '',
+      role: UserRole.USER,
+      created_at: undefined,
+      updated_at: undefined,
+    });
+
+    console.log(user);
+
+    if (!user) throw new UnauthorizedException();
+    return user;
+  }
+}

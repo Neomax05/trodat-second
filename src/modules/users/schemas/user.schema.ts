@@ -5,7 +5,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema()
 export class User implements IUser {
-  @Prop()
+  @Prop({ unique: [true, 'Dublicate email entered!'] })
   email: string;
 
   @Exclude()

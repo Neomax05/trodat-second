@@ -12,6 +12,7 @@ import {
   imports: [
     NestConfig.ConfigModule.forRoot({
       envFilePath: ['.env'],
+      isGlobal: true,
     }),
   ],
   providers: [
