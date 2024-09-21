@@ -588,6 +588,10 @@ body {
   .profile__info {
     flex-direction: column;
   }
+
+  #profile-products {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .product-order-item-action {
