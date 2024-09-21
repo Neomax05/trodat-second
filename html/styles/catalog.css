@@ -1058,7 +1058,4 @@ a {
   .profile__info {
     flex-wrap: wrap;
   }
-  .profile__info-card {
-    width: 100%;
-  }
 }

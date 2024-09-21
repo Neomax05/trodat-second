@@ -580,7 +580,7 @@ body {
 
 @media only screen and (max-width: 1200px) {
   #profile-products {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -936,6 +936,10 @@ body {
   .footer__bottom {
     flex-direction: column;
     gap: 15px;
+  }
+
+  .container {
+    margin: 0;
   }
 
   .mobile-nav-icons {
