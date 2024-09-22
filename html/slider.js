@@ -4,7 +4,13 @@ const url = !isDev ? 'http://212.67.8.153:3010' : 'http://localhost:8080';
 
 const thumbs = document.getElementById('thumbs');
 
-let sliders = [];
+let sliders = [
+  { id: 1, image: './icons/banner-active-image.png' },
+  { id: 2, image: './icons/about-2.png' },
+  { id: 3, image: './icons/about-black.png' },
+  { id: 4, image: './icons/about-blue.png' },
+  { id: 5, image: './icons/about-green.png' },
+];
 
 const renderThumbItem = (slide) => {
   return `<img
