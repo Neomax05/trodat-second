@@ -1,0 +1,47 @@
+.banner {
+  &__card-image {
+    width: 100%;
+    aspect-ratio: 1/1;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__banner-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 1300px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__banner-item {
+    width: 100%;
+    display: grid;
+    gap: 1rem;
+  }
+
+  &__banner-item-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__banner-item img {
+    width: 100%;
+    aspect-ratio: 1/1;
+  }
+}

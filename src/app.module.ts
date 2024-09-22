@@ -14,6 +14,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { NewsModule } from './modules/news/news.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { AuthModule } from './modules/auth/auth.module';
+import { BannerModule } from './modules/banner/banner.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { AuthModule } from './modules/auth/auth.module';
       serveRoot: '/',
     }),
     AuthModule,
+    BannerModule,
   ],
 })
 export class AppModule {}

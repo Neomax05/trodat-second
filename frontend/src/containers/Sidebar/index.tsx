@@ -1,8 +1,13 @@
 import React from 'react';
-import { Menu, MenuProps } from "antd";
-import { ProductOutlined, SnippetsOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import {useLocation, useNavigate} from "react-router";
-import {Link} from "react-router-dom";
+import { Menu, MenuProps } from 'antd';
+import {
+  ProductOutlined,
+  SnippetsOutlined,
+  UnorderedListOutlined,
+  BoxPlotOutlined,
+} from '@ant-design/icons';
+import { useLocation, useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
   const location = useLocation();
@@ -14,34 +19,42 @@ const Sidebar = () => {
       icon: React.createElement(ProductOutlined),
       key: 'product',
       label: 'Товары',
-      onClick: () => navigate('/product')
+      onClick: () => navigate('/product'),
     },
     {
       icon: React.createElement(UnorderedListOutlined),
       key: 'category',
       label: 'Категории',
-      onClick: () => navigate('/category')
+      onClick: () => navigate('/category'),
     },
     {
       icon: React.createElement(SnippetsOutlined),
       key: 'news',
       label: 'Новости',
-      onClick: () => navigate('/news')
+      onClick: () => navigate('/news'),
+    },
+    {
+      icon: React.createElement(BoxPlotOutlined),
+      key: 'banner',
+      label: 'Банер',
+      onClick: () => navigate('/banner'),
     },
   ];
 
   return (
-      <div style={{width: 300, borderRight: '1px solid rgba(5, 5, 5, 0.06)'}}>
-        <h2 style={{textAlign: 'center'}}>
-          <Link to="/" style={{textDecoration: 'none', color: '#444'}}>Trodat</Link>
-        </h2>
-        <Menu
-          mode="inline"
-          selectedKeys={[activeKey]}
-          style={{ height: '100%', borderRight: 'none' }}
-          items={menuList}
-        />
-      </div>
+    <div style={{ width: 300, borderRight: '1px solid rgba(5, 5, 5, 0.06)' }}>
+      <h2 style={{ textAlign: 'center' }}>
+        <Link to="/" style={{ textDecoration: 'none', color: '#444' }}>
+          Trodat
+        </Link>
+      </h2>
+      <Menu
+        mode="inline"
+        selectedKeys={[activeKey]}
+        style={{ height: '100%', borderRight: 'none' }}
+        items={menuList}
+      />
+    </div>
   );
 };
 

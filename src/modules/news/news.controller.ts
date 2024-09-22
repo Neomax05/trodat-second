@@ -36,7 +36,7 @@ export class NewsController {
   @UseInterceptors(
     FileInterceptor('image', {
       dest: './uploads',
-    }),
+    })
   )
   @Post()
   async createNews(
@@ -45,9 +45,9 @@ export class NewsController {
       new ParseFilePipeBuilder()
         .addFileTypeValidator({ fileType: '.(png|jpeg|jpg)' })
         .addMaxSizeValidator({ maxSize: MAX_PROFILE_PICTURE_SIZE_IN_BYTES })
-        .build({ errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY }),
+        .build({ errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY })
     )
-    file: Express.Multer.File,
+    file: Express.Multer.File
   ) {
     console.log('data', data);
     console.log('file', file);
@@ -61,12 +61,12 @@ export class NewsController {
   @UseInterceptors(
     FileInterceptor('image', {
       dest: './uploads',
-    }),
+    })
   )
   async updateNews(
     @Param('id') id: string,
     @Body() data: NewsUpdateDto,
-    @UploadedFile() file: Express.Multer.File | undefined,
+    @UploadedFile() file: Express.Multer.File | undefined
   ) {
     const existingNews = await this.categoryService.getNewsById(id);
     if (!existingNews) {

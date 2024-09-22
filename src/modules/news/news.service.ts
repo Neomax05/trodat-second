@@ -7,7 +7,7 @@ import { NewsCreateDto, NewsUpdateDto } from './dto/create-news.dto';
 @Injectable()
 export class NewsService {
   constructor(
-    @InjectModel(News.name) private readonly newsModel: Model<News>,
+    @InjectModel(News.name) private readonly newsModel: Model<News>
   ) {}
 
   async getAllNews() {
