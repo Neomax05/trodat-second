@@ -49,4 +49,7 @@ export class SignUpDto {
   @MaxLength(100)
   @MinLength(3)
   updated_at: string;
+
+  @IsString()
+  avatar?: string;
 }

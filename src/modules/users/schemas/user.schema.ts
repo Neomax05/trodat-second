@@ -28,6 +28,9 @@ export class User implements IUser {
   @Exclude()
   @Prop()
   updated_at: Date;
+
+  @Prop()
+  avatar: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

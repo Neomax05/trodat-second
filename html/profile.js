@@ -69,7 +69,7 @@ const profileInfoEdit = document.getElementById('profile-info-edit');
 
 // Toggle visibility of authentication states
 const toggleAuthState = (isAuthenticated) => {
-  profileAuthenticated.style.display = isAuthenticated ? 'flex' : 'none';
+  profileAuthenticated.style.display = isAuthenticated ? 'grid' : 'none';
   profileUnauthenticated.style.display = isAuthenticated ? 'none' : 'block';
 };
 
@@ -125,7 +125,7 @@ const LOCALSTORAGE_KEY = 'LOCALSTORAGE_KEY';
 // Initialize login state
 const initializationLogin = () => {
   const values = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
-  const isAuth = values?.isAuth;
+  const isAuth = values?.token;
 
   toggleAuthState(isAuth);
 
@@ -134,6 +134,51 @@ const initializationLogin = () => {
 
 //
 
+const url = 'http://localhost:8080/api/auth';
+
+const signInFetch = async (values) => {
+  try {
+    const response = await fetch(`${url}/sign-in`, {
+      method: 'POST',
+      body: JSON.stringify(values),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const result = await response.json();
+
+    if (!result.error) {
+      localStorage.setItem(
+        LOCALSTORAGE_KEY,
+        JSON.stringify({ ...result, ...values })
+      );
+      renderUserInfo(values);
+      toggleAuthState(true);
+      handleBackdrop();
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error('error');
+  }
+};
+
+const signUpFetch = async (values) => {
+  try {
+    const valuesJson = JSON.stringify(values);
+    const response = await fetch(`${url}/sign-up`, {
+      method: 'POST',
+      body: valuesJson,
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const result = await response.json();
+    if (!result.error) {
+      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(result));
+      renderUserInfo(values);
+      toggleAuthState(true);
+      handleBackdrop();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 const fetchAuthLogin = async (values) => {
   try {
     localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(values));
@@ -145,9 +190,9 @@ const fetchAuthLogin = async (values) => {
 // render user info
 
 const renderUserInfo = (values) => {
-  const fullName = values.fullName;
+  const fullName = values.full_name;
   const email = values.email;
-  const phoneNumber = values.phoneNumber;
+  const phoneNumber = values.phone_number;
   const avatar = values.avatar;
 
   profileInfoTitle.innerHTML = fullName;
@@ -215,9 +260,9 @@ const signUpModalFieldsFirstFormHandler = (reason = 'next') => {
 
   const values = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
 
-  signUpFullNameInput.setAttribute('value', values.fullName || '');
+  signUpFullNameInput.setAttribute('value', values.full_name || '');
   signUpEmailInput.setAttribute('value', values.email || '');
-  signUpPhoneNumberInput.setAttribute('value', values.phoneNumber || '');
+  signUpPhoneNumberInput.setAttribute('value', values.phone_number || '');
 };
 
 // submittings
@@ -231,10 +276,10 @@ signUpModalFieldsFirstForm?.addEventListener('submit', (e) => {
   }
 
   const values = {
-    fullName: signUpFullNameInput.value,
+    full_name: signUpFullNameInput.value,
     email: signUpEmailInput.value,
-    phoneNumber: signUpPhoneNumberInput.value,
-    isAuth: true,
+    phone_number: signUpPhoneNumberInput.value,
+    // isAuth: true,
   };
 
   renderUserInfo(values);
@@ -243,7 +288,7 @@ signUpModalFieldsFirstForm?.addEventListener('submit', (e) => {
   handleBackdrop();
 });
 
-signUpModalFieldsSecondForm.addEventListener('submit', (e) => {
+signUpModalFieldsSecondForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   if (signUpPasswordInput.value !== signUpConfirmPasswordInput.value) {
@@ -254,33 +299,30 @@ signUpModalFieldsSecondForm.addEventListener('submit', (e) => {
   signUpSecondHelperText.innerHTML = '';
 
   const values = {
-    fullName: signUpFullNameInput.value,
+    full_name: signUpFullNameInput.value,
     email: signUpEmailInput.value,
-    phoneNumber: signUpPhoneNumberInput.value,
+    phone_number: signUpPhoneNumberInput.value,
     password: signUpPasswordInput.value,
-    isAuth: true,
+    // isAuth: true,
+    role: 'USER',
+    created_at: new Date(),
+    updated_at: new Date(),
+    avatar: '',
   };
 
-  renderUserInfo(values);
-
-  fetchAuthLogin(values);
-  toggleAuthState(true);
-  handleBackdrop();
+  await signUpFetch(values);
 });
 
-signInForm.addEventListener('submit', (e) => {
+signInForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const values = {
     email: signInEmail.value,
     password: signInPassword.value,
-    isAuth: true,
+    // isAuth: true,
   };
 
-  fetchAuthLogin(values);
-  renderUserInfo(values);
-  toggleAuthState(true);
-  handleBackdrop();
+  await signInFetch(values);
 });
 
 profileInfoEdit.addEventListener('click', () => {

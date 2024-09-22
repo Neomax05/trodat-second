@@ -1,5 +1,30 @@
+const thumbs = document.getElementById('thumbs');
+
+const sliders = [
+  { id: 1, image: './icons/banner-active-image.png' },
+  { id: 2, image: './icons/about-2.png' },
+  { id: 3, image: './icons/about-black.png' },
+  { id: 4, image: './icons/about-blue.png' },
+  { id: 5, image: './icons/about-green.png' },
+];
+
+const renderThumbItem = (slide) => {
+  return `<img
+                  src="${slide.image}"
+                  alt="Slide 1"
+                  class="slider-image active"
+                />`;
+};
+
+const renderThumbs = (list) => {
+  const mapedList = list.map(renderThumbItem);
+
+  thumbs.innerHTML = mapedList.join('');
+};
+
 document.addEventListener('DOMContentLoaded', function () {
-  const images = document.querySelectorAll('#banner-slider .slider-image');
+  renderThumbs(sliders);
+  const images = document.querySelectorAll('#thumbs .slider-image');
   const mainImage = document.getElementById('banner-main-image');
   const currentSlideElement = document.getElementById('current-slide');
   const totalSlidesElement = document.getElementById('total-slides');
@@ -7,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const prevButton = document.getElementById('prev-slide');
 
   let currentIndex = 0;
-  const totalSlides = images.length;
+  const totalSlides = sliders.length;
 
   // Set the total number of slides dynamically
   totalSlidesElement.textContent = String(totalSlides).padStart(2, '0');

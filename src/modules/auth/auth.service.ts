@@ -27,7 +27,12 @@ export class AuthService {
 
     const token = this.jwtService.sign({ id: user._id });
 
-    return { token };
+    return {
+      token,
+      email: user.email,
+      full_name: user.full_name,
+      phone_number: user.phone_number,
+    };
   }
 
   async signIn(@Body() signInDto: SignInDto) {

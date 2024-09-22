@@ -679,10 +679,7 @@ a {
 .news__right-arrow img {
   width: 18px;
 }
-.profile__info {
-  display: flex;
-  gap: 3rem;
-}
+
 .profile__info-card {
   height: 21rem;
   border: 1px solid var(--grey);
@@ -1054,8 +1051,5 @@ a {
   .news__right {
     width: 100%;
     margin: 0 auto;
-  }
-  .profile__info {
-    flex-wrap: wrap;
   }
 }
