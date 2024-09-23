@@ -1,6 +1,4 @@
-const isDev = window.location.hostname === '127.0.0.1';
-
-const url = !isDev ? 'http://212.67.8.153:3011' : 'http://localhost:8080';
+const url = 'http://212.67.8.153:3011';
 
 const thumbs = document.getElementById('thumbs');
 
@@ -27,7 +25,15 @@ const renderThumbs = (list) => {
 
 const getBannersAsync = async () => {
   try {
-    const response = await fetch(`${url}/api/banner`);
+    const response = await fetch(`${url}/api/banner`, {
+      headers: {
+        Accept: '*/*',
+        'Accept-Language': 'en-US,en;q=0.9,ru;q=0.8,ky;q=0.7',
+        'Cache-Control': 'no-cache',
+        Pragma: 'no-cache',
+        // Include any other headers you need here
+      },
+    });
     const result = await response.json();
     sliders = result;
     renderThumbs(result);
