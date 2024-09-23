@@ -27,12 +27,10 @@ const getBannersAsync = async () => {
   try {
     const response = await fetch(`${url}/api/banner`, {
       method: 'GET',
-      mode: 'cors', // Ensure CORS is enabled for cross-origin requests
+      mode: 'cors', // Enable CORS
       headers: {
-        Accept: '*/*',
-        'Accept-Language': 'en-US,en;q=0.9,ru;q=0.8,ky;q=0.7', // Accept languages
-        // Avoid using Cache-Control and Pragma unless necessary
-        // Remove unnecessary headers to avoid preflight
+        Accept: 'application/json', // Simple headers avoid preflight
+        'Accept-Language': 'en-US,en;q=0.9',
       },
       cache: 'no-cache',
     });
