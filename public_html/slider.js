@@ -26,12 +26,11 @@ const renderThumbs = (list) => {
 const getBannersAsync = async () => {
   try {
     const response = await fetch(`${url}/api/banner`, {
+      method: 'GET',
       headers: {
-        Accept: '*/*',
-        'Accept-Language': 'en-US,en;q=0.9,ru;q=0.8,ky;q=0.7',
-        'Cache-Control': 'no-cache',
-        Pragma: 'no-cache',
-        // Include any other headers you need here
+        Accept: 'application/json', // Expecting JSON response
+        'Content-Type': 'application/json', // Sending JSON data
+        // Add other necessary headers here
       },
     });
     const result = await response.json();
