@@ -11,12 +11,12 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
-    }),
+    })
   );
   app.setGlobalPrefix('api');
 
   await app.listen(appConfig.port, () =>
-    console.log('Server was started on port: ' + appConfig.port),
+    console.log('Server was started on port: ' + appConfig.port)
   );
 }
 bootstrap();

@@ -1,5 +1,7 @@
 const isDev = true;
 
+console.log(window.location.hostname === '127.0.0.1');
+
 const url = !isDev ? 'http://212.67.8.153:3010' : 'http://localhost:8080';
 
 const thumbs = document.getElementById('thumbs');

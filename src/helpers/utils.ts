@@ -9,7 +9,7 @@ export const hashFileName = (temp_filename: string) => {
 export const getFileExtension = (original_name: string) => {
   return original_name.substring(
     original_name.lastIndexOf('.'),
-    original_name.length,
+    original_name.length
   );
 };
 

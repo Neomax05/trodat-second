@@ -63,17 +63,17 @@ export class Parser {
       const filterCatalog = await page.$('#filter_3');
       await filterCatalog.click();
       const searchInput = await page.$(
-        'body > main > div > div > form > input',
+        'body > main > div > div > form > input'
       );
       await searchInput.fill(article);
       const searchButton = await page.$(
-        'body > main > div > div > form > button',
+        'body > main > div > div > form > button'
       );
       await searchButton.click();
       console.log('test 1');
       await page.waitForLoadState('networkidle');
       const answerArr = await page.$$(
-        'body > main > div > div > ul > li > h3 > a',
+        'body > main > div > div > ul > li > h3 > a'
       );
       console.log(`We found ${answerArr.length} products`);
       if (!answerArr.length) {
@@ -99,19 +99,19 @@ export class Parser {
       await page.waitForLoadState('domcontentloaded');
       await page.evaluate(() => {
         const aboutTitle = document.querySelector(
-          'body > main > div > div > div.product > div.product-description > div.product-text > h4',
+          'body > main > div > div > div.product > div.product-description > div.product-text > h4'
         );
         if (aboutTitle) aboutTitle.remove();
       });
       const productDescriptionElement = await page.$(
-        'body > main > div > div > div.product > div.product-description > div.product-text',
+        'body > main > div > div > div.product > div.product-description > div.product-text'
       );
       const productDescription = productDescriptionElement
         ? await productDescriptionElement.innerText()
         : '';
       const normalizeDescription = productDescription.replace(/\n/g, ' ');
       const sizeEl = await page.$(
-        'body > main > div > div > div.product > div.product-description > div.features > div > div:nth-child(1) > div:nth-child(3) > span',
+        'body > main > div > div > div.product > div.product-description > div.features > div > div:nth-child(1) > div:nth-child(3) > span'
       );
       const size = sizeEl ? await sizeEl.textContent() : '';
       console.log('test 2');
@@ -119,7 +119,7 @@ export class Parser {
 
       const imgUrl = await page.$eval(
         '.slick-slide.slick-current.slick-active img',
-        (el: HTMLImageElement) => el.src,
+        (el: HTMLImageElement) => el.src
       );
 
       await page.close();
@@ -157,10 +157,10 @@ export class Parser {
     const page = await this.browser.newPage();
     await page.goto(appConfig.parse_url);
     const orderManagerContent = await page.$(
-      '.div-footer-right .footer-block-content',
+      '.div-footer-right .footer-block-content'
     );
     const links = await orderManagerContent.$$eval('a', (anchors) =>
-      anchors.map((anchor) => anchor.href),
+      anchors.map((anchor) => anchor.href)
     );
     const linksParsed = links.slice(0, 3);
     console.log(linksParsed);
@@ -214,19 +214,19 @@ export class Parser {
                 const anchorElement = element as HTMLAnchorElement;
                 return anchorElement.href;
               });
-            },
+            }
           );
 
           const productLinks = await this.parseCategoryLinks(
             productPage,
-            categoryLinks,
+            categoryLinks
           );
           await this.parseProducts(productPage, productLinks);
         } else {
           await productPage.goto(link.url);
           const productLinks = await productPage.evaluate(() => {
             const buttons = document.querySelectorAll(
-              '.div-content-products .button-newsbox',
+              '.div-content-products .button-newsbox'
             );
             const linksArray = [];
             buttons.forEach((button) => {
@@ -254,11 +254,11 @@ export class Parser {
       await productPage.goto(categoryLink);
       await productPage.select(
         '.div-shopnav-right .ergebnisse-left .selector_shopnav .select-field-2',
-        '9999',
+        '9999'
       );
       const productLinks = await productPage.evaluate(() => {
         const buttons = document.querySelectorAll(
-          '.div-content-products .button-newsbox',
+          '.div-content-products .button-newsbox'
         );
         const linksArray = [];
         buttons.forEach((button) => {
@@ -276,16 +276,16 @@ export class Parser {
     for (const linkProduct of linksProduct) {
       await productPage.goto(linkProduct);
       const product_id = await productPage.$eval('.h1-product', (element) =>
-        element.textContent.trim(),
+        element.textContent.trim()
       );
       const product_name = await productPage.$eval('.sl-product', (element) =>
-        element.textContent.trim(),
+        element.textContent.trim()
       );
       const product_images = await productPage.$$eval(
         '.div-image-productdetail-slider img',
         (images) => {
           return images.map((img) => img.src);
-        },
+        }
       );
       await this.productService.createParsedProduct({
         product_id: product_id,
