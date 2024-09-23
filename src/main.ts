@@ -2,20 +2,20 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { AppConfig } from './modules/config/configs';
-import * as fs from 'fs';
+// import * as fs from 'fs';
 
-import { createCA, createCert } from 'mkcert';
+// import { createCA, createCert } from 'mkcert';
 
-const pathKey = './secrets/create-ca-key.pem';
-const pathCert = './secrets/create-cert-key.pem';
+// const pathKey = './secrets/create-ca-key.pem';
+// const pathCert = './secrets/create-cert-key.pem';
 
-const httpsOptions = {
-  key: fs.readFileSync(pathKey),
-  cert: fs.readFileSync(pathCert),
-};
+// const httpsOptions = {
+//   key: fs.readFileSync(pathKey),
+//   cert: fs.readFileSync(pathCert),
+// };
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { httpsOptions });
+  const app = await NestFactory.create(AppModule);
 
   app.enableCors();
   const appConfig = app.get(AppConfig);
