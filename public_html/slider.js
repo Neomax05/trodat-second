@@ -27,9 +27,9 @@ const getBannersAsync = async () => {
   try {
     const response = await fetch(`${url}/api/banner`, {
       method: 'GET',
-      mode: 'cors', // Enable CORS
+      mode: 'cors',
       headers: {
-        Accept: 'application/json', // Simple headers avoid preflight
+        Accept: 'application/json',
         'Accept-Language': 'en-US,en;q=0.9',
       },
       cache: 'no-cache',
@@ -37,7 +37,7 @@ const getBannersAsync = async () => {
     const result = await response.json();
     sliders = result;
     renderThumbs(result);
-    setupSlider(); // Call setupSlider after the images are rendered
+    setupSlider();
   } catch (error) {
     console.log(error);
   }
