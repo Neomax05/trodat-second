@@ -27,11 +27,14 @@ const getBannersAsync = async () => {
   try {
     const response = await fetch(`${url}/api/banner`, {
       method: 'GET',
+      mode: 'cors', // Ensure CORS is enabled for cross-origin requests
       headers: {
-        Accept: 'application/json', // Expecting JSON response
-        'Content-Type': 'application/json', // Sending JSON data
-        // Add other necessary headers here
+        Accept: '*/*',
+        'Accept-Language': 'en-US,en;q=0.9,ru;q=0.8,ky;q=0.7', // Accept languages
+        // Avoid using Cache-Control and Pragma unless necessary
+        // Remove unnecessary headers to avoid preflight
       },
+      cache: 'no-cache',
     });
     const result = await response.json();
     sliders = result;
