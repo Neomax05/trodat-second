@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/catalog.css" />
+    <link rel="stylesheet" href="./styles/product-detail.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+    />
+  </head>
+  <body>
+    <div class="profile_root">
+      <header>
+        <nav class="nav">
+          <div class="container">
+            <div class="flex justify-space items-center py-1">
+              <div>
+                <img
+                  src="./icons/logo.png"
+                  class="nav__logo-desktop"
+                  alt="logo"
+                />
+                <img class="nav__logo-mob" src="./icons/logo-2.png" alt="" />
+              </div>
+
+              <div class="nav__center gap-05">
+                <div>
+                  <a href="./index.html">Главная</a>
+                </div>
+                <div>
+                  <a href="catalog.html">Каталог</a>
+                </div>
+                <div>
+                  <a href="about.html">О компании</a>
+                </div>
+                <div>
+                  <div>Акции</div>
+                </div>
+                <div>
+                  <a href="news.html">Новости</a>
+                </div>
+                <div>
+                  <a href="contacts.html">Контакты</a>
+                </div>
+              </div>
+
+              <div class="nav__right justify-center gap-1">
+                <div class="nav-search-icon">
+                  <img alt="" src="./icons/search.svg" />
+                </div>
+                <div class="nav-search-icon">
+                  <a href="./profile.html"
+                    ><img alt="" src="./icons/user.svg"
+                  /></a>
+                </div>
+
+                <div class="nav__right-cart">
+                  <div class="nav__right-text">корзина</div>
+                  <div class="nav__right-img">
+                    <img alt="" src="./icons/cart.svg" />
+                    <p class="nav-cart-icon-badge desktop-cart-icon-badge">0</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mobile-nav-icons flex gap-1 items-center">
+                <div class="nav-search-icon">
+                  <img src="./icons/search.svg" alt="" />
+                </div>
+
+                <div class="nav-search-icon">
+                  <a
+                    href="./profile.html"
+                    class="flex items-center justify-center"
+                    ><img alt="" src="./icons/user.svg" />
+                  </a>
+                </div>
+
+                <div class="nav-cart-icon">
+                  <img src="./icons/cart.svg" alt="" />
+                  <div class="nav-cart-icon-badge">5</div>
+                </div>
+              </div>
+
+              <img
+                class="nav__menu"
+                id="nav-menu"
+                src="./icons/menu-alt-2.png"
+                alt=""
+              />
+
+              <div class="drawer-mobile" id="drawer-mobile">
+                <div class="flex items-center justify-space drawer-mobile-head">
+                  <img
+                    class="nav__menu"
+                    id="nav-menu-close"
+                    src="./icons/menu-alt-2.png"
+                    alt=""
+                  />
+
+                  <div class="mobile-nav-icons flex gap-1 items-center">
+                    <div class="nav-search-icon">
+                      <img src="./icons/search.svg" alt="" />
+                    </div>
+
+                    <div class="nav-search-icon">
+                      <a
+                        href="./profile.html"
+                        class="flex items-center justify-center"
+                        ><img alt="" src="./icons/user.svg" />
+                      </a>
+                    </div>
+
+                    <div class="nav-cart-icon">
+                      <img src="./icons/cart.svg" alt="" />
+                      <div class="nav-cart-icon-badge">5</div>
+                    </div>
+                  </div>
+                  <div class="drawer-mobile-head-menu">Меню</div>
+                </div>
+
+                <div>
+                  <div class="nav-link">
+                    <a href="./index.html">Главная</a>
+                  </div>
+                  <div class="nav-link">
+                    <a href="catalog.html">Каталог</a>
+                  </div>
+                  <div class="nav-link">
+                    <a href="about.html">О компании</a>
+                  </div>
+                  <div class="nav-link">
+                    <div class="nav-link">Акции</div>
+                  </div>
+                  <div class="nav-link">
+                    <a href="news.html">Новости</a>
+                  </div>
+                  <div class="nav-link">
+                    <a href="contacts.html">Контакты</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <section class="product-page">
+        <div class="container">
+          <div class="product-page__breadcrumbs py-1">
+            Каталог / Оснастки для печатей / 4642
+          </div>
+
+          <div class="product-page__content">
+            <div class="product-page__images">
+              <img
+                src="./icons/product-detail-main.jpg"
+                alt=""
+                class="product-page__image-main"
+              />
+              <div class="product-page__thumbnails">
+                <img
+                  src="./icons/arrow-left.svg"
+                  alt="arrow-left"
+                  class="product-page__thumbnail-arrow"
+                />
+                <div class="product-page__thumbnail-group">
+                  <div class="product-page__thumbnail">
+                    <img src="./icons/about-2.png" alt="" />
+                  </div>
+                  <div class="product-page__thumbnail">
+                    <img src="./icons/about-2.png" alt="" />
+                  </div>
+                  <div class="product-page__thumbnail">
+                    <img src="./icons/about-2.png" alt="" />
+                    <div class="product-page__thumbnail-overlay">+2</div>
+                  </div>
+                </div>
+                <img
+                  src="./icons/arrow-right.svg"
+                  alt="arrow-right"
+                  class="product-page__thumbnail-arrow"
+                />
+              </div>
+            </div>
+
+            <div class="product-page__details">
+              <div class="product-page__category">Оснастки для печатей</div>
+              <h1 class="product-page__title">4642</h1>
+              <ul class="product-page__features">
+                <li class="product-page__feature">Упаковка</li>
+              </ul>
+
+              <div class="product-page__options">
+                <div class="product-page__options-content">
+                  <div class="product-page__label">Цвета корпуса</div>
+                  <div class="product-page__colors">
+                    <div class="product-page__color"></div>
+                    <div class="product-page__color"></div>
+                    <div class="product-page__color"></div>
+                    <div class="product-page__color"></div>
+                  </div>
+                </div>
+
+                <div class="product-page__size">
+                  <div class="product-page__label">Размер:</div>
+                  <div class="product-page__size-value">
+                    40мм x 40 мм | Макс. размер клише с защитным колпачком.
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-page__pricing">
+                <div class="product-page__price-current">9999с.</div>
+                <div class="product-page__price-old">99 999 с.</div>
+              </div>
+
+              <div class="product-page__actions">
+                <div class="product-page__actions_quantity">
+                  <div class="product-page__quantity">
+                    <div class="product-page__quantity-increment">
+                      <img src="./icons/plus.svg" alt="plus" />
+                    </div>
+                    <div class="product-page__quantity-value">1</div>
+                    <div class="product-page__quantity-decrement">
+                      <img src="./icons/minus.svg" alt="minus" />
+                    </div>
+                  </div>
+
+                  <button class="product-page__add-to-cart">В корзину</button>
+                </div>
+                <img
+                  src="./icons/heart.svg"
+                  alt="heart"
+                  class="product-page__wishlist-icon"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="product-page__description">
+            <div class="product-page__description-title">Описание:</div>
+            <div class="product-page__description-text">
+              Самый простой монтаж текстовой пластины благодаря приподнятому
+              положению держателя текстовой пластины и предварительно
+              наложенному самоклеящемуся. Легко настроить! Бесчисленные варианты
+              для ваших логотипов и индивидуальных отпечатков на корпусе штампа.
+              Награжден австрийской экологической маркировкой в цветах оттиска
+              черного, зеленого и красного цвета в экологически чистой упаковке
+            </div>
+          </div>
+
+          <div class="product-page__examples">
+            <div class="product-page__examples-title">Примеры:</div>
+            <div class="product-page__examples-carousel">
+              <div class="product-page__carousel-arrow">
+                <img src="./icons/arrow-left.svg" alt="arrow-left" />
+              </div>
+              <div class="product-page__carousel-images pt-1">
+                <img src="./icons/image 89.png" alt="" />
+                <img src="./icons/image 90.png" alt="" />
+                <img src="./icons/image 94.png" alt="" />
+              </div>
+              <div class="product-page__carousel-arrow">
+                <img src="./icons/arrow-right.svg" alt="arrow-right" />
+              </div>
+            </div>
+          </div>
+
+          <div class="product-page__related-products">
+            <div class="product-page__related-title">Похожие товары</div>
+
+            <div class="product-page__related-carousel">
+              <div class="product-page__carousel-arrow">
+                <img src="./icons/arrow-left.svg" alt="arrow left" />
+              </div>
+              <div
+                class="product-page__related-items"
+                id="product-page__related-items"
+              ></div>
+              <div class="product-page__carousel-arrow">
+                <img src="./icons/arrow-right.svg" alt="arrow right" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="container">
+          <div class="footer__top">
+            <div class="footer__main">
+              <img src="./icons/logo.png" alt="" />
+              <p>
+                Крупнейший производитель оснасток для<br />
+                печатей и штампов в мире
+              </p>
+              <div class="footer-phone-number-or-phone-number">
+                <div class="footer-phone-number">+996  553 66 47 87</div>
+                <div>или</div>
+                <div class="footer-phone-number">+996  553 66 47 87</div>
+              </div>
+            </div>
+            <div class="footer__nav">
+              <div>
+                <h6>Навигация</h6>
+                <p>Категории</p>
+                <p>О компании</p>
+                <p>Новости</p>
+                <p>Контакты</p>
+                <p>Профиль</p>
+              </div>
+              <div>
+                <h6>Печати</h6>
+                <p>Круглые</p>
+                <p>Прямоугольные</p>
+                <p>Плоские</p>
+                <p>Рельефные</p>
+              </div>
+              <div>
+                <h6>Штампы</h6>
+                <p>Датер</p>
+                <p>Овальные</p>
+                <p>Бухгалтерские</p>
+                <p>Угловые</p>
+                <p>Банковские</p>
+              </div>
+              <div>
+                <h6>Контакты</h6>
+                <p>trodatkg@gmail.com</p>
+                <p>
+                  Токтогула 125/1<br />
+                  (Бизнес центр<br />
+                  Avangard), Bishkek,<br />
+                  Kyrgyzstan
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <div class="container__center">
+            <div class="footer-bottom-certificate">
+              <img src="./icons/Group 39550.svg" alt="" />
+              <p>Trodat © 2023. All Rights Reserved</p>
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="./js/product-detail-products.js"></script>
+  </body>
+</html>
