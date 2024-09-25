@@ -37,3 +37,6 @@ lerna-debug.log*
 # Dev Enviroments
 .env
 .minio.env
+
+#
+/public_html/node_modules
