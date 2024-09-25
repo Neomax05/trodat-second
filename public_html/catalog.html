@@ -1,471 +1,385 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
 
     <link rel="stylesheet" href="./styles/catalog.css" />
-    <link rel="stylesheet" href="./styles/component.css" />
     <link rel="stylesheet" href="./styles/global.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM Sans:wght@700&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source Sans Pro:wght@400;600&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" />
-</head>
+    <link rel="stylesheet" href="./styles/catalog-style.css" />
+  </head>
 
-<body>
-    <nav class="nav">
-        <div class="nav__left">
-            <img class="nav__logo" src="./icons/logo.png" alt="logo" />
-            <img class="nav__logo-mob" src="./icons/logo-2.png" alt="" />
-        </div>
-        <div class="nav__center">
-            <div>
-                <a href="./index.html">Главная</a>
-            </div>
-            <div>
-                <a href="/catalog.html">Каталог</a>
-            </div>
-            <div>
-                <a href="/about.html">О компании</a>
-            </div>
-            <div>
-                <div>Акции</div>
-            </div>
-            <div>
-                <a href="./news.html">Новости</a>
-            </div>
-            <div>
-                <a href="./contacts.html">Контакты</a>
-            </div>
-        </div>
-        <div class="nav__right">
-            <img class="nav__right-search" alt="" src="./icons/search-icon.png" />
-            <a href="./profile.html"><img alt="" class="nav__right-search" src="./icons/profile.png" /></a>
-            <div class="nav__right-cart">
-                <div class="nav__right-text">корзина</div>
-                <div class="nav__right-img">
-                    <img alt="" src="./icons/cart.png" />
-                    <p class="nav__right-count"></p>
-                </div>
-            </div>
-        </div>
-        <img class="nav__menu" src="./icons/menu-alt-2.png" alt="">
-    </nav>
-    <div class="overlay"></div>
+  <body>
+    <div>
+      <header>
+        <nav class="nav">
+          <div class="container">
+            <div class="flex justify-space items-center py-1">
+              <div>
+                <img
+                  src="./icons/logo.png"
+                  class="nav__logo-desktop"
+                  alt="logo"
+                />
+                <img class="nav__logo-mob" src="./icons/logo-2.png" alt="" />
+              </div>
 
-    <section class="cart">
-        <div class="cart__title">
-            <h2>Корзина</h2>
-            <img src="./icons/vuesax.png" alt="" class="cart__close" />
-        </div>
-        <div class="cart_counts">
-            <p class="cart__count">0</p>
-            <p>товаров</p>
-        </div>
-        <div class="cart__body"></div>
-        <div class="cart__total">Итоговая сумма: <span class="cart__sum">0</span></div>
-        <div class="cart__btns">
-            <button class="cart__btns-f">Продолжить покупку</button>
-            <button class="cart__btns-s">Оформить заказ</button>
-        </div>
-    </section>
-
-    <section class="catalog container__center">
-        <h1 class="catalog__title">Каталог Trodat</h1>
-        <div class="catalog__line"></div>
-
-        <div class="catalog__search">
-            <img src="./icons/sorting.png" alt="" />
-            <div class="catalog__right">
-                <input class="catalog__inp" placeholder="Искать товар..." />
-                <img src="./icons/search.png" class="catalog__search-img" alt="" />
-            </div>
-        </div>
-    </section>
-
-    <section class="products container__center">
-        <div class="products__filters">
-            <div class="products__prices">
+              <div class="nav__center gap-05">
                 <div>
-                    <p>По ценам</p>
-                    <div class="double_range_slider_box">
-                        <div class="double_range_slider">
-                            <span class="range_track" id="range_track"></span>
+                  <a href="./index.html">Главная</a>
+                </div>
+                <div>
+                  <a href="catalog.html">Каталог</a>
+                </div>
+                <div>
+                  <a href="/about.html">О компании</a>
+                </div>
+                <div>
+                  <div>Акции</div>
+                </div>
+                <div>
+                  <a href="./news.html">Новости</a>
+                </div>
+                <div>
+                  <a href="./contacts.html">Контакты</a>
+                </div>
+              </div>
 
-                            <input class="range-inp min" type="range" min="0" max="6000" value="0" step="0" />
-                            <input class="range-inp max" type="range" min="0" max="6000" value="20" step="0" />
+              <div class="nav__right justify-center gap-1">
+                <div class="nav-search-icon">
+                  <img alt="" src="./icons/search.svg" />
+                </div>
+                <div class="nav-search-icon">
+                  <a href="./profile.html"
+                    ><img alt="" src="./icons/user.svg"
+                  /></a>
+                </div>
 
-                            <div class="minvalue"></div>
-                            <div class="maxvalue"></div>
-                        </div>
+                <div class="nav__right-cart">
+                  <div class="nav__right-text">корзина</div>
+                  <div class="nav__right-img">
+                    <img alt="" src="./icons/cart.svg" />
+                    <p class="nav-cart-icon-badge desktop-cart-icon-badge">0</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mobile-nav-icons flex gap-1 items-center">
+                <div class="nav-search-icon">
+                  <img src="./icons/search.svg" alt="" />
+                </div>
+
+                <div class="nav-search-icon">
+                  <a
+                    href="./profile.html"
+                    class="flex items-center justify-center"
+                    ><img alt="" src="./icons/user.svg" />
+                  </a>
+                </div>
+
+                <div class="nav-cart-icon">
+                  <img src="./icons/cart.svg" alt="" />
+                  <div class="nav-cart-icon-badge">5</div>
+                </div>
+              </div>
+
+              <img
+                class="nav__menu"
+                id="nav-menu"
+                src="./icons/menu-alt-2.png"
+                alt=""
+              />
+
+              <div class="drawer-mobile" id="drawer-mobile">
+                <div class="flex items-center justify-space drawer-mobile-head">
+                  <img
+                    class="nav__menu"
+                    id="nav-menu-close"
+                    src="./icons/menu-alt-2.png"
+                    alt=""
+                  />
+
+                  <div class="mobile-nav-icons flex gap-1 items-center">
+                    <div class="nav-search-icon">
+                      <img src="./icons/search.svg" alt="" />
                     </div>
+
+                    <div class="nav-search-icon">
+                      <a
+                        href="./profile.html"
+                        class="flex items-center justify-center"
+                        ><img alt="" src="./icons/user.svg" />
+                      </a>
+                    </div>
+
+                    <div class="nav-cart-icon">
+                      <img src="./icons/cart.svg" alt="" />
+                      <div class="nav-cart-icon-badge">5</div>
+                    </div>
+                  </div>
+                  <div class="drawer-mobile-head-menu">Меню</div>
                 </div>
-            </div>
-            <div class="products__filters-inp">
-                <p>По размеру (прямоугольные штампы)</p>
-                <div class="products__filters-inputs">
-                    <input type="text" placeholder="40 мм">
-                    <img class="products__filters-line" src="./icons/Line 28.png" alt="">
-                    <input type="text" placeholder="80 мм">
+
+                <div>
+                  <div class="nav-link">
+                    <a href="./index.html">Главная</a>
+                  </div>
+                  <div class="nav-link">
+                    <a href="/catalog.html">Каталог</a>
+                  </div>
+                  <div class="nav-link">
+                    <a href="/about.html">О компании</a>
+                  </div>
+                  <div class="nav-link">
+                    <div class="nav-link">Акции</div>
+                  </div>
+                  <div class="nav-link">
+                    <a href="./news.html">Новости</a>
+                  </div>
+                  <div class="nav-link">
+                    <a href="./contacts.html">Контакты</a>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
+        </nav>
+      </header>
 
-            <h3>Категории</h3>
-            <div class="products__categories">
-                <label class="radio-label">
-                    <input type="radio" />
-                    <span class="custom-radio"></span>
-                    Круглые печати
-                </label>
-                <label class="radio-label">
-                    <input type="radio" />
-                    <span class="custom-radio"></span>
-                    Прямоугольные печати
-                </label>
-                <label class="radio-label">
-                    <input type="radio" />
-                    <span class="custom-radio"></span>
-                    Рельефные печати
-                </label>
-                <label class="radio-label">
-                    <input type="radio" />
-                    <span class="custom-radio"></span>
-                    Квадратные штампы
-                </label>
-                <label class="radio-label">
-                    <input type="radio" />
-                    <span class="custom-radio"></span>
-                    Нумераторы
-                </label>
-                <label class="radio-label">
-                    <input type="radio" />
-                    <span class="custom-radio"></span>
-                    Карманные штампы
-                </label>
-                <label class="radio-label">
-                    <input type="radio" />
-                    <span class="custom-radio"></span>
-                    Датеры
-                </label>
-                <label class="radio-label">
-                    <input type="radio" />
-                    <span class="custom-radio"></span>
-                    Овальные печати
-                </label>
-                <label class="radio-label">
-                    <input type="radio" />
-                    <span class="custom-radio"></span>
-                    Серия оснасток Professional
-                </label>
-                <label class="radio-label">
-                    <input type="radio" />
-                    <span class="custom-radio"></span>
-                    Самонаборные печати и штампы
-                </label>
-                <label class="radio-label">
-                    <input type="radio" />
-                    <span class="custom-radio"></span>
-                    Сургучная печать
-                </label>
-                <label class="radio-label">
-                    <input type="radio" />
-                    <span class="custom-radio"></span>
-                    Штемпельные подушки
-                </label>
-                <label class="radio-label">
-                    <input type="radio" />
-                    <span class="custom-radio"></span>
-                    Краска для штампов и печатей
-                </label>
-                <label class="radio-label">
-                    <input type="radio" />
-                    <span class="custom-radio"></span>
-                    Расходные материалы
-                </label>
-                <label class="radio-label">
-                    <input type="radio" />
-                    <span class="custom-radio"></span>
-                    Авторучки со штампом Goldring
-                </label>
-
-            </div>
-
+      <section class="catalog-section">
+        <div class="container">
+          <h1 class="catalog-section__title">Каталог Trodat</h1>
         </div>
-        <div class="products__items">
-            <div class="item" data-id="product-1">
-                <div class="item__top">
-                    <p>5200</p>
-                    <img class="item__fav" src="./icons/heart.png" alt="" />
-                </div>
-                <div class="item__center">
-                    <a href="./product-details.html">
-                        <img class="item__img" src="./icons/image 65.png" alt="" />
-                    </a>
-                    <h6>Рельефная печать</h6>
-                    <p>Размер: Max. 41мм* 24мм</p>
-                    <img src="./icons/Frame 789.png" alt="">
-                </div>
-                <div class="item__bottom">
-                    <p>3500 с.</p>
-                    <img class="item__cart" src="./icons/Property 1=Variant2.png" alt="">
-                </div>
+      </section>
+
+      <section class="catalog-section">
+        <div class="catalog-section__container container">
+          <div class="catalog-header pt-2">
+            <button class="catalog-header__button">
+              <img
+                class="catalog-header__icon"
+                src="./icons/filter-alt.svg"
+                alt="Сортировка иконка"
+              />
+              <div class="catalog-header__text">Сортировка</div>
+            </button>
+
+            <div class="catalog-header__search">
+              <img
+                src="./icons/search.svg"
+                alt=""
+                class="catalog-header__search_icon"
+              />
+              <input
+                type="text"
+                class="catalog-header__search_input"
+                placeholder="Искать товар..."
+              />
             </div>
-            <div class="item" data-id="product-2">
-                <div class="item__top">
-                    <p>5200</p>
-                    <img class="item__fav" src="./icons/heart.png" alt="" />
+          </div>
+
+          <div class="catalog-section__content">
+            <div class="catalog-sidebar">
+              <div class="grid gap-3">
+                <div
+                  class="catalog-sidebar__filter catalog-sidebar__filter--price"
+                >
+                  <label class="catalog-sidebar__label" for="">По ценам</label>
+                  <div class="catalog-sidebar__range-values">
+                    <div class="catalog-sidebar__range-min">250 с.</div>
+                    <div class="catalog-sidebar__range-max">4500 с.</div>
+                  </div>
+                  <input class="catalog-sidebar__range-input" type="range" />
                 </div>
-                <div class="item__center">
-                    <a href="./product-details.html">
-                        <img class="item__img" src="./icons/image 65.png" alt="" />
-                    </a>
-                    <h6>Рельефная печать</h6>
-                    <p>Размер: Max. 41мм* 24мм</p>
-                    <img src="./icons/Frame 789.png" alt="">
+
+                <div
+                  class="catalog-sidebar__filter catalog-sidebar__filter--price"
+                >
+                  <label class="catalog-sidebar__label" for="">По ценам</label>
+                  <div class="catalog-sidebar__range-values">
+                    <div class="catalog-sidebar__range-min">250 с.</div>
+                    <div class="catalog-sidebar__range-max">4500 с.</div>
+                  </div>
+                  <input class="catalog-sidebar__range-input" type="range" />
                 </div>
-                <div class="item__bottom">
-                    <p>3500 с.</p>
-                    <img class="item__cart" src="./icons/Property 1=Variant2.png" alt="">
+
+                <div
+                  class="catalog-sidebar__filter catalog-sidebar__filter--size"
+                >
+                  <div class="catalog-sidebar__label">
+                    По размеру (прямоугольные штампы)
+                  </div>
+                  <div class="catalog-sidebar__size-options py-1">
+                    <button class="catalog-sidebar__size-btn">40 мм</button>
+                    <div
+                      class="catalog-sidebar__size-separator flex items-center justify-center"
+                    >
+                      -
+                    </div>
+                    <button class="catalog-sidebar__size-btn">80 мм</button>
+                  </div>
                 </div>
+
+                <div class="catalog-sidebar__filter--categories">
+                  <div class="catalog-sidebar__label-categories">Категории</div>
+                  <div class="catalog-sidebar__category-list">
+                    <div class="catalog-sidebar__category-item">
+                      <input
+                        class="catalog-sidebar__checkbox"
+                        type="checkbox"
+                      />
+                      <div class="catalog-sidebar__category-text">
+                        Круглые печати
+                      </div>
+                    </div>
+                    <div class="catalog-sidebar__category-item">
+                      <input
+                        class="catalog-sidebar__checkbox"
+                        type="checkbox"
+                      />
+                      <div class="catalog-sidebar__category-text">
+                        Прямоугольные печати
+                      </div>
+                    </div>
+                    <div class="catalog-sidebar__category-item">
+                      <input
+                        class="catalog-sidebar__checkbox"
+                        type="checkbox"
+                      />
+                      <div class="catalog-sidebar__category-text">
+                        Рельефные печати
+                      </div>
+                    </div>
+                    <div class="catalog-sidebar__category-item">
+                      <input
+                        class="catalog-sidebar__checkbox"
+                        type="checkbox"
+                      />
+                      <div class="catalog-sidebar__category-text">
+                        Квадратные штампы
+                      </div>
+                    </div>
+                    <div class="catalog-sidebar__category-item">
+                      <input
+                        class="catalog-sidebar__checkbox"
+                        type="checkbox"
+                      />
+                      <div class="catalog-sidebar__category-text">
+                        Нумераторы
+                      </div>
+                    </div>
+                    <div class="catalog-sidebar__category-item">
+                      <input
+                        class="catalog-sidebar__checkbox"
+                        type="checkbox"
+                      />
+                      <div class="catalog-sidebar__category-text">
+                        Карманные штампы
+                      </div>
+                    </div>
+                    <div class="catalog-sidebar__category-item">
+                      <input
+                        class="catalog-sidebar__checkbox"
+                        type="checkbox"
+                      />
+                      <div class="catalog-sidebar__category-text">Датеры</div>
+                    </div>
+                    <div class="catalog-sidebar__category-item">
+                      <input
+                        class="catalog-sidebar__checkbox"
+                        type="checkbox"
+                      />
+                      <div class="catalog-sidebar__category-text">
+                        Овальные печати
+                      </div>
+                    </div>
+                    <div class="catalog-sidebar__category-item">
+                      <input
+                        class="catalog-sidebar__checkbox"
+                        type="checkbox"
+                      />
+                      <div class="catalog-sidebar__category-text">
+                        Серия оснасток Professional
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="item" data-id="product-3">
-                <div class="item__top">
-                    <p>5200</p>
-                    <img class="item__fav" src="./icons/heart.png" alt="" />
-                </div>
-                <div class="item__center">
-                    <a href="./product-details.html">
-                        <img class="item__img" src="./icons/image 65.png" alt="" />
-                    </a>
-                    <h6>Рельефная печать</h6>
-                    <p>Размер: Max. 41мм* 24мм</p>
-                    <img src="./icons/Frame 789.png" alt="">
-                </div>
-                <div class="item__bottom">
-                    <p>3500 с.</p>
-                    <img class="item__cart" src="./icons/Property 1=Variant2.png" alt="">
-                </div>
+
+            <div class="catalog-products">
+              <div class="catalog-product-item">
+                <div></div>
+              </div>
             </div>
-            <div class="item" data-id="product-4">
-                <div class="item__top">
-                    <p>5200</p>
-                    <img class="item__fav" src="./icons/heart.png" alt="" />
-                </div>
-                <div class="item__center">
-                    <a href="./product-details.html">
-                        <img class="item__img" src="./icons/image 65.png" alt="" />
-                    </a>
-                    <h6>Рельефная печать</h6>
-                    <p>Размер: Max. 41мм* 24мм</p>
-                    <img src="./icons/Frame 789.png" alt="">
-                </div>
-                <div class="item__bottom">
-                    <p>3500 с.</p>
-                    <img class="item__cart" src="./icons/Property 1=Variant2.png" alt="">
-                </div>
-            </div>
-            <div class="item" data-id="product-5">
-                <div class="item__top">
-                    <p>5200</p>
-                    <img class="item__fav" src="./icons/heart.png" alt="" />
-                </div>
-                <div class="item__center">
-                    <a href="./product-details.html">
-                        <img class="item__img" src="./icons/image 65.png" alt="" />
-                    </a>
-                    <h6>Рельефная печать</h6>
-                    <p>Размер: Max. 41мм* 24мм</p>
-                    <img src="./icons/Frame 789.png" alt="">
-                </div>
-                <div class="item__bottom">
-                    <p>3500 с.</p>
-                    <img class="item__cart" src="./icons/Property 1=Variant2.png" alt="">
-                </div>
-            </div>
-            <div class="item" data-id="product-6">
-                <div class="item__top">
-                    <p>5200</p>
-                    <img class="item__fav" src="./icons/heart.png" alt="" />
-                </div>
-                <div class="item__center">
-                    <a href="./product-details.html">
-                        <img class="item__img" src="./icons/image 65.png" alt="" />
-                    </a>
-                    <h6>Рельефная печать</h6>
-                    <p>Размер: Max. 41мм* 24мм</p>
-                    <img src="./icons/Frame 789.png" alt="">
-                </div>
-                <div class="item__bottom">
-                    <p>3500 с.</p>
-                    <img class="item__cart" src="./icons/Property 1=Variant2.png" alt="">
-                </div>
-            </div>
-            <div class="item" data-id="product-7">
-                <div class="item__top">
-                    <p>5200</p>
-                    <img class="item__fav" src="./icons/heart.png" alt="" />
-                </div>
-                <div class="item__center">
-                    <a href="./product-details.html">
-                        <img class="item__img" src="./icons/image 65.png" alt="" />
-                    </a>
-                    <h6>Рельефная печать</h6>
-                    <p>Размер: Max. 41мм* 24мм</p>
-                    <img src="./icons/Frame 789.png" alt="">
-                </div>
-                <div class="item__bottom">
-                    <p>3500 с.</p>
-                    <img class="item__cart" src="./icons/Property 1=Variant2.png" alt="">
-                </div>
-            </div>
-            <div class="item" data-id="product-8">
-                <div class="item__top">
-                    <p>5200</p>
-                    <img class="item__fav" src="./icons/heart.png" alt="" />
-                </div>
-                <div class="item__center">
-                    <a href="./product-details.html">
-                        <img class="item__img" src="./icons/image 65.png" alt="" />
-                    </a>
-                    <h6>Рельефная печать</h6>
-                    <p>Размер: Max. 41мм* 24мм</p>
-                    <img src="./icons/Frame 789.png" alt="">
-                </div>
-                <div class="item__bottom">
-                    <p>3500 с.</p>
-                    <img class="item__cart" src="./icons/Property 1=Variant2.png" alt="">
-                </div>
-            </div>
-            <div class="item" data-id="product-9">
-                <div class="item__top">
-                    <p>5200</p>
-                    <img class="item__fav" src="./icons/heart.png" alt="" />
-                </div>
-                <div class="item__center">
-                    <a href="./product-details.html">
-                        <img class="item__img" src="./icons/image 65.png" alt="" />
-                    </a>
-                    <h6>Рельефная печать</h6>
-                    <p>Размер: Max. 41мм* 24мм</p>
-                    <img src="./icons/Frame 789.png" alt="">
-                </div>
-                <div class="item__bottom">
-                    <p>3500 с.</p>
-                    <img class="item__cart" src="./icons/Property 1=Variant2.png" alt="">
-                </div>
-            </div>
-            <div class="item" data-id="product-10">
-                <div class="item__top">
-                    <p>5200</p>
-                    <img class="item__fav" src="./icons/heart.png" alt="" />
-                </div>
-                <div class="item__center">
-                    <a href="./product-details.html">
-                        <img class="item__img" src="./icons/image 65.png" alt="" />
-                    </a>
-                    <h6>Рельефная печать</h6>
-                    <p>Размер: Max. 41мм* 24мм</p>
-                    <img src="./icons/Frame 789.png" alt="">
-                </div>
-                <div class="item__bottom">
-                    <p>3500 с.</p>
-                    <img class="item__cart" src="./icons/Property 1=Variant2.png" alt="">
-                </div>
-            </div>
-            <div class="item" data-id="product-11">
-                <div class="item__top">
-                    <p>5200</p>
-                    <img class="item__fav" src="./icons/heart.png" alt="" />
-                </div>
-                <div class="item__center">
-                    <a href="./product-details.html">
-                        <img class="item__img" src="./icons/image 65.png" alt="" />
-                    </a>
-                    <h6>Рельефная печать</h6>
-                    <p>Размер: Max. 41мм* 24мм</p>
-                    <img src="./icons/Frame 789.png" alt="">
-                </div>
-                <div class="item__bottom">
-                    <p>3500 с.</p>
-                    <img class="item__cart" src="./icons/Property 1=Variant2.png" alt="">
-                </div>
-            </div>
-            <div class="item" data-id="product-12">
-                <div class="item__top">
-                    <p>5200</p>
-                    <img class="item__fav" src="./icons/heart.png" alt="" />
-                </div>
-                <div class="item__center">
-                    <a href="./product-details.html">
-                        <img class="item__img" src="./icons/image 65.png" alt="" />
-                    </a>
-                    <h6>Рельефная печать</h6>
-                    <p>Размер: Max. 41мм* 24мм</p>
-                    <img src="./icons/Frame 789.png" alt="">
-                </div>
-                <div class="item__bottom">
-                    <p>3500 с.</p>
-                    <img class="item__cart" src="./icons/Property 1=Variant2.png" alt="">
-                </div>
-            </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <section class="pagination container__center">
-        <img src="./icons/pagin.png" alt="">
-    </section>
-
-    <footer class="footer">
-        <div class="container__center">
-            <div class="footer__top">
-                <div class="footer__main">
-                    <img src="./icons/logo.png" alt="">
-                    <p>Крупнейший производитель оснасток для<br> печатей и штампов в мире</p>
-                    <img src="./icons/CTA.png" alt="">
-                </div>
-                <div class="footer__nav">
-                    <div>
-                        <h6>Навигация</h6>
-                        <p>Категории</p>
-                        <p>О компании</p>
-                        <p>Новости</p>
-                        <p>Контакты</p>
-                        <p>Профиль</p>
-                    </div>
-                    <div>
-                        <h6>Печати</h6>
-                        <p>Круглые</p>
-                        <p>Прямоугольные</p>
-                        <p>Плоские</p>
-                        <p>Рельефные</p>
-                    </div>
-                    <div>
-                        <h6>Штампы</h6>
-                        <p>Датер</p>
-                        <p>Овальные </p>
-                        <p>Бухгалтерские</p>
-                        <p>Угловые</p>
-                        <p>Банковские</p>
-                    </div>
-                    <div>
-                        <h6>Контакты</h6>
-                        <p>trodatkg@gmail.com</p>
-                        <p>Токтогула 125/1<br> (Бизнес центр<br> Avangard), Bishkek,<br> Kyrgyzstan</p>
-                    </div>
-                </div>
+      <footer class="footer">
+        <div class="container">
+          <div class="footer__top">
+            <div class="footer__main">
+              <img src="./icons/logo.png" alt="" />
+              <p>
+                Крупнейший производитель оснасток для<br />
+                печатей и штампов в мире
+              </p>
+              <div class="footer-phone-number-or-phone-number">
+                <div class="footer-phone-number">+996  553 66 47 87</div>
+                <div>или</div>
+                <div class="footer-phone-number">+996  553 66 47 87</div>
+              </div>
             </div>
+            <div class="footer__nav">
+              <div>
+                <h6>Навигация</h6>
+                <p>Категории</p>
+                <p>О компании</p>
+                <p>Новости</p>
+                <p>Контакты</p>
+                <p>Профиль</p>
+              </div>
+              <div>
+                <h6>Печати</h6>
+                <p>Круглые</p>
+                <p>Прямоугольные</p>
+                <p>Плоские</p>
+                <p>Рельефные</p>
+              </div>
+              <div>
+                <h6>Штампы</h6>
+                <p>Датер</p>
+                <p>Овальные</p>
+                <p>Бухгалтерские</p>
+                <p>Угловые</p>
+                <p>Банковские</p>
+              </div>
+              <div>
+                <h6>Контакты</h6>
+                <p>trodatkg@gmail.com</p>
+                <p>
+                  Токтогула 125/1<br />
+                  (Бизнес центр<br />
+                  Avangard), Bishkek,<br />
+                  Kyrgyzstan
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="footer__bottom">
-            <img src="./icons/Group 39550.svg" alt="">
-            <p>Trodat © 2023. All Rights Reserved</p>
+          <div class="container__center">
+            <div class="footer-bottom-certificate">
+              <img src="./icons/Group 39550.svg" alt="" />
+              <p>Trodat © 2023. All Rights Reserved</p>
+              <div></div>
+            </div>
+          </div>
         </div>
-    </footer>
+      </footer>
+    </div>
+
     <script src="./main.js"></script>
-
-</body>
-
+  </body>
 </html>
