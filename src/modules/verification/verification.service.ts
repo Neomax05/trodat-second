@@ -15,7 +15,7 @@ export class VerificationService {
 
   // Generate a 6-digit random code
   generateCode(): string {
-    return crypto.randomInt(100000, 999999).toString();
+    return crypto.randomInt(1000, 9999).toString();
   }
 
   // Store the code in the database

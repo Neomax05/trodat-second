@@ -253,6 +253,7 @@ signUpButton.addEventListener('click', () => {
   signInModalClose();
   signUpModalFieldsFirstForm.setAttribute('name', 'next');
   signInModalFieldsNext.innerHTML = 'Далее';
+  signUpEmailInput.setAttribute('disabled', false);
 });
 
 backdrop.addEventListener('click', handleBackdrop);
@@ -354,6 +355,7 @@ profileInfoEdit.addEventListener('click', () => {
   signUpModalFieldsFirstForm.setAttribute('name', 'edit');
   signInModalFieldsNext.innerHTML = 'Редактировать';
   signUpModalFieldsFirstFormHandler('edit');
+  signUpEmailInput.setAttribute('disabled', true);
   signUpModalOpen();
   signInModalClose();
 });

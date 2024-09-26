@@ -3,6 +3,20 @@ const profileActionChangePassword = document.getElementById(
   'profile-action-change-password'
 );
 
+// inputs
+const changePasswordModalPhoneNumberInput = document.getElementById(
+  'change-password-modal-phone-number-input'
+);
+const changePasswordModalCodeInput = document.getElementById(
+  'change-password-modal-code-input'
+);
+const signUpChangePasswordInput = document.getElementById(
+  'sign-up-change-password-input'
+);
+const signUpChangeConfirmPasswordInput = document.getElementById(
+  'sign-up-change-confirm-password-input'
+);
+
 // modals
 const changePasswordModal = document.getElementById('change-password-modal');
 
@@ -80,23 +94,124 @@ const startTimer = (initialSeconds) => {
   const timerInterval = setInterval(changeTimer, 1000);
 };
 
+const verifyUrl = 'http://212.67.8.153:3011/api/verification';
+
+const sendCodeWithPhoneNumberAsync = async (values) => {
+  try {
+    const response = await fetch(`${verifyUrl}/send-code`, {
+      method: 'POST',
+      body: JSON.stringify(values),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const result = await response.json();
+
+    console.log(result);
+
+    if (!result.error) {
+      changePasswordModalSlider.style.transform = 'translateX(-100%)';
+      startTimer(60);
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error('error');
+  }
+};
+
+const verifyCodeWithPhoneNumberAsync = async (values) => {
+  try {
+    const response = await fetch(`${verifyUrl}/verify-code`, {
+      method: 'POST',
+      body: JSON.stringify(values),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const result = await response.json();
+
+    console.log(result);
+
+    if (!result.error) {
+      changePasswordModalSlider.style.transform = 'translateX(-200%)';
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error('error');
+  }
+};
+
+const changePasswordAsync = async (values) => {
+  try {
+    const response = await fetch(`${url}/change-password`, {
+      method: 'POST',
+      body: JSON.stringify(values),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const result = await response.json();
+
+    console.log(result);
+
+    if (!result.error) {
+      handleBackdrop();
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error('error');
+  }
+};
+
 profileActionChangePassword.addEventListener('click', () => {
   handleOpenModal();
 });
 
-changePasswordModalFirstModal.addEventListener('submit', (e) => {
+changePasswordModalFirstModal.addEventListener('submit', async (e) => {
   e.preventDefault();
-  changePasswordModalSlider.style.transform = 'translateX(-100%)';
-  startTimer(60);
+
+  const phone_number = changePasswordModalPhoneNumberInput.value;
+
+  const regexPhoneNumber = /^\+\d{9,15}$/;
+
+  if (!regexPhoneNumber.test(phone_number)) {
+    return;
+  }
+
+  await sendCodeWithPhoneNumberAsync({ phone_number });
 });
 
-changePasswordModalSecondModal.addEventListener('submit', (e) => {
+changePasswordModalSecondModal.addEventListener('submit', async (e) => {
   e.preventDefault();
-  changePasswordModalSlider.style.transform = 'translateX(-200%)';
+
+  const phone_number = changePasswordModalPhoneNumberInput.value;
+  const code = changePasswordModalCodeInput.value;
+
+  const regexPhoneNumber = /^\+\d{9,15}$/;
+  const regexCode = /^\d{4}$/;
+
+  if (!regexPhoneNumber.test(phone_number)) {
+    return;
+  }
+
+  if (!regexCode.test(code)) {
+    return;
+  }
+
+  await verifyCodeWithPhoneNumberAsync({ phone_number, code });
 });
-changePasswordModalThirthModal.addEventListener('submit', (e) => {
+changePasswordModalThirthModal.addEventListener('submit', async (e) => {
   e.preventDefault();
-  handleBackdrop();
+
+  const phone_number = changePasswordModalPhoneNumberInput.value;
+  const password = signUpChangePasswordInput.value;
+  const confirmPassword = signUpChangeConfirmPasswordInput.value;
+
+  const regexPhoneNumber = /^\+\d{9,15}$/;
+
+  if (!regexPhoneNumber.test(phone_number)) {
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    return;
+  }
+
+  await changePasswordAsync({ phone_number, password });
 });
 
 sendCodeAgainText.addEventListener('click', () => {
