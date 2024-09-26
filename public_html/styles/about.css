@@ -1,0 +1,150 @@
+.official-representative {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.official-representative__title {
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: -2%;
+  color: #fff;
+}
+
+.official-representative__subtitle {
+  font-size: 50px;
+  font-weight: 900;
+  letter-spacing: -2%;
+  color: #fff;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.official-representative__info {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  align-items: flex-end;
+}
+
+.official-representative__description {
+  font-size: 14px;
+  color: #fff;
+}
+
+.official-representative__logos {
+  display: grid;
+  gap: 10px;
+}
+
+.product-overview__image-gallery {
+  padding-top: 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+}
+
+.product-overview__title {
+  font-size: 45px;
+  font-weight: 500;
+  color: #2f2f2f;
+}
+
+.product-overview__details {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  padding: 35px;
+}
+
+.product-overview__feature {
+  font-size: 18px;
+  color: #81a81b;
+}
+
+.product-overview__description-item {
+  color: #515151;
+}
+
+.product-info {
+  background-color: #f9f9f9;
+  margin: 7rem 0 0;
+  padding-bottom: 70px;
+}
+
+.product-info__content {
+  display: grid;
+  grid-template-columns: 1.5fr 3fr;
+  gap: 1rem;
+
+  position: relative;
+  padding: 3rem 0 0;
+}
+
+.product-info__header {
+  display: grid;
+  border-left: 3px solid #81a81b;
+  padding-left: 1rem;
+  gap: 15px;
+}
+
+.product-info__title,
+.product-info__subtitle {
+  font-size: 35px;
+  font-weight: 500;
+  color: #2f2f2f;
+}
+
+.product-info__description {
+  color: #515151;
+}
+
+.product-info__details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 50px;
+}
+
+.product-info__image {
+  position: absolute;
+  bottom: 0;
+}
+
+.sustainability {
+  height: 80vh;
+  background-image: url(../icons/image\ 75.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.sustainability__title {
+  font-size: 45px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.sustainability__item-title {
+  font-size: 18px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.sustainability__item {
+  display: grid;
+}
+
+.sustainability__item-description {
+  color: #dddddd;
+  max-width: 440px;
+  width: 100%;
+}
+
+.sustainability__list {
+  color: #81a81b;
+  display: grid;
+  gap: 39px;
+}
