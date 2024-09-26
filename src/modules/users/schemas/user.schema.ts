@@ -31,6 +31,15 @@ export class User implements IUser {
 
   @Prop()
   avatar: string;
+
+  @Prop()
+  verificationCode: string;
+
+  @Prop({ default: false })
+  isVerified: boolean;
+
+  @Prop()
+  code: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

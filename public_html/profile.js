@@ -183,15 +183,16 @@ const signUpFetch = async (values) => {
 const changeUserValues = async (values) => {
   try {
     const valuesJson = JSON.stringify(values);
-    const response = await fetch(`http://localhost:8080/api/auth/change`, {
+    const response = await fetch(`${url}/change`, {
       method: 'PUT',
       body: valuesJson,
       headers: { 'Content-Type': 'application/json' },
     });
     const result = await response.json();
     if (!result.error) {
-      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(result));
-      renderUserInfo(values);
+      const newValues = { ...values, ...result };
+      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(newValues));
+      renderUserInfo(newValues);
       toggleAuthState(true);
       handleBackdrop();
     }
@@ -288,7 +289,7 @@ const signUpModalFieldsFirstFormHandler = (reason = 'next') => {
 
 // submittings
 
-signUpModalFieldsFirstForm?.addEventListener('submit', (e) => {
+signUpModalFieldsFirstForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
   const name = e.target.name;
   if (name === 'next') {
@@ -300,13 +301,13 @@ signUpModalFieldsFirstForm?.addEventListener('submit', (e) => {
     full_name: signUpFullNameInput.value,
     email: signUpEmailInput.value,
     phone_number: signUpPhoneNumberInput.value,
+    avatar: '',
     // isAuth: true,
   };
 
   renderUserInfo(values);
 
-  fetchAuthLogin(values);
-  changeUserValues(values);
+  await changeUserValues(values);
   handleBackdrop();
 });
 

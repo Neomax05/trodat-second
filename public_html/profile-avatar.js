@@ -7,7 +7,7 @@ userAvatarUploadCamera.addEventListener('input', ({ target }) => {
 
   const reader = new FileReader();
 
-  reader.onload = function (e) {
+  reader.onload = async function (e) {
     const result = e.target.result;
 
     if (!result) {
@@ -19,7 +19,7 @@ userAvatarUploadCamera.addEventListener('input', ({ target }) => {
 
     const newValues = { ...values, avatar: result };
 
-    fetchAuthLogin(newValues);
+    await changeUserValues(newValues);
     renderUserInfo(newValues);
   };
 

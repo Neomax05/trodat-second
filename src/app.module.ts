@@ -15,6 +15,7 @@ import { NewsModule } from './modules/news/news.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { AuthModule } from './modules/auth/auth.module';
 import { BannerModule } from './modules/banner/banner.module';
+import { VerificationCodeModule } from './modules/verification/verification.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { BannerModule } from './modules/banner/banner.module';
     }),
     AuthModule,
     BannerModule,
+    VerificationCodeModule,
   ],
 })
 export class AppModule {}

@@ -1,4 +1,9 @@
-import { Body, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../users/schemas/user.schema';
 import { Model } from 'mongoose';
@@ -56,19 +61,46 @@ export class AuthService {
     };
   }
 
-  async changeUser(@Body() signUpDto: ChangeAuthValuesDto) {
-    const { email } = signUpDto;
+  async changeUser(@Body() changeUserValuesDto: ChangeAuthValuesDto) {
+    const { email } = changeUserValuesDto;
 
-    const user = await this.userModel.findOneAndUpdate({ email }, signUpDto);
+    const user = await this.userModel.findOneAndUpdate(
+      { email },
+      changeUserValuesDto
+    );
 
     const newUser = {
-      email: user.email,
-      full_name: user.full_name,
-      phone_number: user.phone_number,
-      avatar: user.avatar,
+      email: changeUserValuesDto.email,
+      full_name: changeUserValuesDto.full_name,
+      phone_number: changeUserValuesDto.phone_number,
+      avatar: changeUserValuesDto.avatar,
       role: user.role,
     };
 
     return newUser;
+  }
+
+  async changePassword(
+    phoneNumber: string,
+    newPassword: string
+  ): Promise<boolean> {
+    const user = await this.userModel.findOne({ phone_number: phoneNumber });
+
+    if (!user) {
+      throw new BadRequestException('Invalid verification code.');
+    }
+
+    if (!user.isVerified) {
+      throw new BadRequestException('Verification code no verified');
+    }
+
+    if (user) {
+      const hashedPassword = await bcryptjs.hash(newPassword, 10); // Hash the new password
+      user.password = hashedPassword; // Update the password
+      await user.save(); // Save the user
+      return true;
+    }
+
+    return false;
   }
 }
