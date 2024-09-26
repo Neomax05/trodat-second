@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./styles/catalog.css" />
     <link rel="stylesheet" href="./styles/global.css" />
     <link rel="stylesheet" href="./styles/catalog-style.css" />
+    <link rel="stylesheet" href="./styles/cart.css" />
   </head>
 
   <body>
@@ -32,16 +33,16 @@
                   <a href="catalog.html">Каталог</a>
                 </div>
                 <div>
-                  <a href="/about.html">О компании</a>
+                  <a href="about.html">О компании</a>
                 </div>
                 <div>
                   <div>Акции</div>
                 </div>
                 <div>
-                  <a href="./news.html">Новости</a>
+                  <a href="news.html">Новости</a>
                 </div>
                 <div>
-                  <a href="./contacts.html">Контакты</a>
+                  <a href="contacts.html">Контакты</a>
                 </div>
               </div>
 
@@ -55,7 +56,7 @@
                   /></a>
                 </div>
 
-                <div class="nav__right-cart">
+                <div class="nav__right-cart" id="open-cart-button">
                   <div class="nav__right-text">корзина</div>
                   <div class="nav__right-img">
                     <img alt="" src="./icons/cart.svg" />
@@ -77,7 +78,7 @@
                   </a>
                 </div>
 
-                <div class="nav-cart-icon">
+                <div class="nav-cart-icon" id="open-cart-button-sm">
                   <img src="./icons/cart.svg" alt="" />
                   <div class="nav-cart-icon-badge">5</div>
                 </div>
@@ -125,19 +126,19 @@
                     <a href="./index.html">Главная</a>
                   </div>
                   <div class="nav-link">
-                    <a href="/catalog.html">Каталог</a>
+                    <a href="catalog.html">Каталог</a>
                   </div>
                   <div class="nav-link">
-                    <a href="/about.html">О компании</a>
+                    <a href="about.html">О компании</a>
                   </div>
                   <div class="nav-link">
                     <div class="nav-link">Акции</div>
                   </div>
                   <div class="nav-link">
-                    <a href="./news.html">Новости</a>
+                    <a href="news.html">Новости</a>
                   </div>
                   <div class="nav-link">
-                    <a href="./contacts.html">Контакты</a>
+                    <a href="contacts.html">Контакты</a>
                   </div>
                 </div>
               </div>
@@ -381,6 +382,7 @@
 
     <script src="./main.js"></script>
     <script src="./js/catalog.js"></script>
+    <script src="./js/cart.js"></script>
     <script src="./js/catalog-pagination.js"></script>
   </body>
 </html>

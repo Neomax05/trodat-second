@@ -541,6 +541,9 @@ body {
 .justify-flex-end {
   justify-content: flex-end;
 }
+.justify-items-end {
+  justify-items: end;
+}
 
 .gap-1 {
   gap: 1rem;

@@ -43,11 +43,11 @@ const renderCartProductOrderItem = (product) => {
                         </div>
                       </div>
                     </div>
-                    <div class="grid">
+                    <div class="grid gap-3 justify-items-end">
                         <div class="product-order-item-price" style="color: #000;">${product.price} c.</div>
-                        <div class="flex gap-1">
+                        <div class="flex gap-05 product-order-item-delete">
                             <img src="./icons/delete.svg" alt="" />
-                            <div>Удалить товар</div>
+                            <div style="color: #ACACAC;">Удалить товар</div>
                         </div>
                     </div>
                   </div>
@@ -57,6 +57,9 @@ const renderCartProductOrderItem = (product) => {
 const cartModal = document.getElementById('cart-modal');
 const orderProducts = document.getElementById('order-products');
 const closeButton = document.querySelector('.cart-modal__close');
+const cartSummaryContinueShopping = document.getElementById(
+  'cart-summary__continue-shopping'
+);
 
 // Function to open the drawer
 function openCartModal() {
@@ -72,6 +75,7 @@ function closeCartModal() {
 
 // Event listener for the close button
 closeButton.addEventListener('click', closeCartModal);
+cartSummaryContinueShopping.addEventListener('click', closeCartModal);
 
 // Example: Open the cart drawer when a button is clicked
 document

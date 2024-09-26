@@ -134,7 +134,7 @@ const initializationLogin = () => {
 
 //
 
-const url = 'http://localhost:8080/api/auth';
+const url = 'http://212.67.8.153:3011/api/auth';
 
 const signInFetch = async (values) => {
   try {
@@ -309,6 +309,8 @@ signUpModalFieldsSecondForm.addEventListener('submit', async (e) => {
     updated_at: new Date(),
     avatar: '',
   };
+
+  console.log(values);
 
   await signUpFetch(values);
 });

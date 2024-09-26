@@ -1,135 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
 
     <link rel="stylesheet" href="./styles/catalog.css" />
-    <link rel="stylesheet" href="./styles/component.css" />
     <link rel="stylesheet" href="./styles/global.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM Sans:wght@700&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source Sans Pro:wght@400;600&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" />
-</head>
+    <link rel="stylesheet" href="./styles/cart.css" />
+  </head>
 
-<body>
-    <nav class="nav">
-        <div class="nav__left">
-            <img class="nav__logo" src="./icons/logo.png" alt="logo" />
-            <img class="nav__logo-mob" src="./icons/logo-2.png" alt="" />
-        </div>
-        <div class="nav__center">
+  <body>
+    <header>
+      <nav class="nav">
+        <div class="container">
+          <div class="flex justify-space items-center py-1">
             <div>
+              <img
+                src="./icons/logo.png"
+                class="nav__logo-desktop"
+                alt="logo"
+              />
+              <img class="nav__logo-mob" src="./icons/logo-2.png" alt="" />
+            </div>
+
+            <div class="nav__center gap-05">
+              <div>
                 <a href="./index.html">Главная</a>
-            </div>
-            <div>
-                <a href="/catalog.html">Каталог</a>
-            </div>
-            <div>
-                <a href="/about.html">О компании</a>
-            </div>
-            <div>
+              </div>
+              <div>
+                <a href="catalog.html">Каталог</a>
+              </div>
+              <div>
+                <a href="about.html">О компании</a>
+              </div>
+              <div>
                 <div>Акции</div>
+              </div>
+              <div>
+                <a href="news.html">Новости</a>
+              </div>
+              <div>
+                <a href="contacts.html">Контакты</a>
+              </div>
             </div>
-            <div>
-                <a href="./news.html">Новости</a>
-            </div>
-            <div>
-                <a href="./contacts.html">Контакты</a>
-            </div>
-        </div>
-        <div class="nav__right">
-            <img class="nav__right-search" alt="" src="./icons/search-icon.png" />
-            <a href="./profile.html"><img alt="" class="nav__right-search" src="./icons/profile.png" /></a>
-            <div class="nav__right-cart">
+
+            <div class="nav__right justify-center gap-1">
+              <div class="nav-search-icon">
+                <img alt="" src="./icons/search.svg" />
+              </div>
+              <div class="nav-search-icon">
+                <a href="./profile.html"
+                  ><img alt="" src="./icons/user.svg"
+                /></a>
+              </div>
+
+              <div class="nav__right-cart" id="open-cart-button">
                 <div class="nav__right-text">корзина</div>
                 <div class="nav__right-img">
-                    <img alt="" src="./icons/cart.png" />
-                    <p class="nav__right-count">0</p>
+                  <img alt="" src="./icons/cart.svg" />
+                  <p class="nav-cart-icon-badge desktop-cart-icon-badge">0</p>
                 </div>
+              </div>
             </div>
+
+            <div class="mobile-nav-icons flex gap-1 items-center">
+              <div class="nav-search-icon">
+                <img src="./icons/search.svg" alt="" />
+              </div>
+
+              <div class="nav-search-icon">
+                <a
+                  href="./profile.html"
+                  class="flex items-center justify-center"
+                  ><img alt="" src="./icons/user.svg" />
+                </a>
+              </div>
+
+              <div class="nav-cart-icon" id="open-cart-button-sm">
+                <img src="./icons/cart.svg" alt="" />
+                <div class="nav-cart-icon-badge">5</div>
+              </div>
+            </div>
+
+            <img
+              class="nav__menu"
+              id="nav-menu"
+              src="./icons/menu-alt-2.png"
+              alt=""
+            />
+
+            <div class="drawer-mobile" id="drawer-mobile">
+              <div class="flex items-center justify-space drawer-mobile-head">
+                <img
+                  class="nav__menu"
+                  id="nav-menu-close"
+                  src="./icons/menu-alt-2.png"
+                  alt=""
+                />
+
+                <div class="mobile-nav-icons flex gap-1 items-center">
+                  <div class="nav-search-icon">
+                    <img src="./icons/search.svg" alt="" />
+                  </div>
+
+                  <div class="nav-search-icon">
+                    <a
+                      href="./profile.html"
+                      class="flex items-center justify-center"
+                      ><img alt="" src="./icons/user.svg" />
+                    </a>
+                  </div>
+
+                  <div class="nav-cart-icon">
+                    <img src="./icons/cart.svg" alt="" />
+                    <div class="nav-cart-icon-badge">5</div>
+                  </div>
+                </div>
+                <div class="drawer-mobile-head-menu">Меню</div>
+              </div>
+
+              <div>
+                <div class="nav-link">
+                  <a href="./index.html">Главная</a>
+                </div>
+                <div class="nav-link">
+                  <a href="catalog.html">Каталог</a>
+                </div>
+                <div class="nav-link">
+                  <a href="about.html">О компании</a>
+                </div>
+                <div class="nav-link">
+                  <div class="nav-link">Акции</div>
+                </div>
+                <div class="nav-link">
+                  <a href="news.html">Новости</a>
+                </div>
+                <div class="nav-link">
+                  <a href="contacts.html">Контакты</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <img class="nav__menu" src="./icons/menu-alt-2.png" alt="">
-    </nav>
+      </nav>
+    </header>
 
     <section class="contacts container__center">
-        <h2 class="contacts__title">Контакты</h2>
-        <div class="contacts__line"></div>
-        <div class="contacts__main">
-            <div class="contacts__main-left">
-                <div>
-                    <h3>Наша почта</h3>
-                    <p>trodatkg@gmail.com</p>
-                </div>
-                <div>
-                    <h3>Контакты</h3>
-                    <p>+996 500 234 543</p>
-                    <p>+996 500 234 543</p>
-                </div>
-                <div>
-                    <h3>Соц. сети</h3>
-                    <img src="./icons/instagram.png" alt="" />
-                    <img src="./icons/facebook.png" alt="" />
-                </div>
-                <div>
-                    <h3>Адреса</h3>
-                    <p>Токтогула 125/1 (Бизнес центр<br> Avangard), Bishkek, Kyrgyzstan</p>
-                </div>
-            </div>
-            <div class="contacts__main-right">
-                <img src="./icons/map.png" alt="">
-            </div>
+      <h2 class="contacts__title">Контакты</h2>
+      <div class="contacts__line"></div>
+      <div class="contacts__main">
+        <div class="contacts__main-left">
+          <div>
+            <h3>Наша почта</h3>
+            <p>trodatkg@gmail.com</p>
+          </div>
+          <div>
+            <h3>Контакты</h3>
+            <p>+996 500 234 543</p>
+            <p>+996 500 234 543</p>
+          </div>
+          <div>
+            <h3>Соц. сети</h3>
+            <img src="./icons/instagram.png" alt="" />
+            <img src="./icons/facebook.png" alt="" />
+          </div>
+          <div>
+            <h3>Адреса</h3>
+            <p>
+              Токтогула 125/1 (Бизнес центр<br />
+              Avangard), Bishkek, Kyrgyzstan
+            </p>
+          </div>
         </div>
+        <div class="contacts__main-right">
+          <img src="./icons/map.png" alt="" />
+        </div>
+      </div>
     </section>
-    <footer class="footer">
-        <div class="container__center">
-            <div class="footer__top">
-                <div class="footer__main">
-                    <img src="./icons/logo.png" alt="">
-                    <p>Крупнейший производитель оснасток для<br> печатей и штампов в мире</p>
-                    <img src="./icons/CTA.png" alt="">
-                </div>
-                <div class="footer__nav">
-                    <div>
-                        <h6>Навигация</h6>
-                        <p>Категории</p>
-                        <p>О компании</p>
-                        <p>Новости</p>
-                        <p>Контакты</p>
-                        <p>Профиль</p>
-                    </div>
-                    <div>
-                        <h6>Печати</h6>
-                        <p>Круглые</p>
-                        <p>Прямоугольные</p>
-                        <p>Плоские</p>
-                        <p>Рельефные</p>
-                    </div>
-                    <div>
-                        <h6>Штампы</h6>
-                        <p>Датер</p>
-                        <p>Овальные </p>
-                        <p>Бухгалтерские</p>
-                        <p>Угловые</p>
-                        <p>Банковские</p>
-                    </div>
-                    <div>
-                        <h6>Контакты</h6>
-                        <p>trodatkg@gmail.com</p>
-                        <p>Токтогула 125/1<br> (Бизнес центр<br> Avangard), Bishkek,<br> Kyrgyzstan</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer__bottom">
-            <img src="./icons/Group 39550.svg" alt="">
-            <p>Trodat © 2023. All Rights Reserved</p>
-        </div>
-    </footer>
-</body>
 
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__top">
+          <div class="footer__main">
+            <img src="./icons/logo.png" alt="" />
+            <p>
+              Крупнейший производитель оснасток для<br />
+              печатей и штампов в мире
+            </p>
+            <div class="footer-phone-number-or-phone-number">
+              <div class="footer-phone-number">+996  553 66 47 87</div>
+              <div>или</div>
+              <div class="footer-phone-number">+996  553 66 47 87</div>
+            </div>
+          </div>
+          <div class="footer__nav">
+            <div>
+              <h6>Навигация</h6>
+              <p>Категории</p>
+              <p>О компании</p>
+              <p>Новости</p>
+              <p>Контакты</p>
+              <p>Профиль</p>
+            </div>
+            <div>
+              <h6>Печати</h6>
+              <p>Круглые</p>
+              <p>Прямоугольные</p>
+              <p>Плоские</p>
+              <p>Рельефные</p>
+            </div>
+            <div>
+              <h6>Штампы</h6>
+              <p>Датер</p>
+              <p>Овальные</p>
+              <p>Бухгалтерские</p>
+              <p>Угловые</p>
+              <p>Банковские</p>
+            </div>
+            <div>
+              <h6>Контакты</h6>
+              <p>trodatkg@gmail.com</p>
+              <p>
+                Токтогула 125/1<br />
+                (Бизнес центр<br />
+                Avangard), Bishkek,<br />
+                Kyrgyzstan
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <div class="container__center">
+          <div class="footer-bottom-certificate">
+            <img src="./icons/Group 39550.svg" alt="" />
+            <p>Trodat © 2023. All Rights Reserved</p>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./js/cart.js"></script>
+    <script src="./drawer.js"></script>
+  </body>
 </html>

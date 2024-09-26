@@ -148,3 +148,8 @@
   display: grid;
   gap: 39px;
 }
+
+.product-overview__image-item {
+  width: 100%;
+  aspect-ratio: 1/1;
+}

@@ -98,6 +98,7 @@
   font-weight: 500;
   color: #2f2f2f;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .cart-summary__checkout-button {
@@ -107,9 +108,16 @@
   border-radius: 100px;
   border: 1px solid #ee575c;
   padding: 10px 55px;
+  cursor: pointer;
 }
 
 .cart-summary {
   display: grid;
   gap: 30px;
+
+  padding-bottom: 2rem;
+}
+
+.product-order-item-delete {
+  cursor: pointer;
 }

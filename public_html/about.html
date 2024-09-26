@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./styles/catalog.css" />
     <link rel="stylesheet" href="./styles/global.css" />
     <link rel="stylesheet" href="./styles/about.css" />
+    <link rel="stylesheet" href="./styles/cart.css" />
   </head>
 
   <body>
@@ -358,5 +359,44 @@
         </div>
       </footer>
     </div>
+
+    <div class="cart-modal" id="cart-modal">
+      <div class="cart-modal__content">
+        <div class="cart-modal__header">
+          <div class="cart-modal__title">Корзина</div>
+          <img src="./icons/close.svg" alt="close" class="cart-modal__close" />
+        </div>
+
+        <div class="cart-modal__body">
+          <div class="cart-modal__items-count">5 товаров</div>
+          <div
+            class="cart-modal__products order-products"
+            id="order-products"
+          ></div>
+
+          <div class="cart-summary">
+            <div class="cart-summary__total">
+              <div class="cart-summary__total-label">Итоговая сумма:</div>
+              <div class="cart-summary__total-value">10 500</div>
+            </div>
+
+            <div class="cart-summary__actions">
+              <div
+                class="cart-summary__continue-shopping"
+                id="cart-summary__continue-shopping"
+              >
+                Продолжить покупку
+              </div>
+              <button class="cart-summary__checkout-button">
+                Оформить заказ
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./drawer.js"></script>
+    <script src="./js/cart.js"></script>
   </body>
 </html>
