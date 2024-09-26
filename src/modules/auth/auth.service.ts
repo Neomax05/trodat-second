@@ -6,6 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { SignUpDto } from './dto/sign-up.dto';
 import * as bcryptjs from 'bcryptjs';
 import { SignInDto } from './dto/sign-in.dto';
+import { ChangeAuthValuesDto } from './dto/change.dto';
 
 @Injectable()
 export class AuthService {
@@ -53,5 +54,21 @@ export class AuthService {
       full_name: user.full_name,
       phone_number: user.phone_number,
     };
+  }
+
+  async changeUser(@Body() signUpDto: ChangeAuthValuesDto) {
+    const { email } = signUpDto;
+
+    const user = await this.userModel.findOneAndUpdate({ email }, signUpDto);
+
+    const newUser = {
+      email: user.email,
+      full_name: user.full_name,
+      phone_number: user.phone_number,
+      avatar: user.avatar,
+      role: user.role,
+    };
+
+    return newUser;
   }
 }

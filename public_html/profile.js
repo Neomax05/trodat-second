@@ -150,7 +150,7 @@ const signInFetch = async (values) => {
         LOCALSTORAGE_KEY,
         JSON.stringify({ ...result, ...values })
       );
-      renderUserInfo(values);
+      renderUserInfo(result);
       toggleAuthState(true);
       handleBackdrop();
     }
@@ -179,6 +179,27 @@ const signUpFetch = async (values) => {
     console.log(error);
   }
 };
+
+const changeUserValues = async (values) => {
+  try {
+    const valuesJson = JSON.stringify(values);
+    const response = await fetch(`http://localhost:8080/api/auth/change`, {
+      method: 'PUT',
+      body: valuesJson,
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const result = await response.json();
+    if (!result.error) {
+      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(result));
+      renderUserInfo(values);
+      toggleAuthState(true);
+      handleBackdrop();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const fetchAuthLogin = async (values) => {
   try {
     localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(values));
@@ -285,6 +306,7 @@ signUpModalFieldsFirstForm?.addEventListener('submit', (e) => {
   renderUserInfo(values);
 
   fetchAuthLogin(values);
+  changeUserValues(values);
   handleBackdrop();
 });
 
