@@ -24,7 +24,7 @@ export class Parser {
 
   async init() {
     this.browser = await chromium.launch({
-      headless: false,
+      headless: true,
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
