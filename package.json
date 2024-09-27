@@ -7,15 +7,16 @@
   "license": "UNLICENSED",
   "scripts": {
     "install-build": "nest build",
-    "build": "npm run playwright:install && npm run install-build",
+    "build": "npm run playwright:install-deps && npm run playwright:install && npm run install-build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "command:init": "ts-node src/console init",
     "playwright:install": "npx playwright install",
+    "playwright:install-deps": "npx playwright install-deps",
     "install-start": "nest start",
-    "start": "npm run playwright:install && npm run install-start"
+    "start": "npm run playwright:install-deps && npm run playwright:install && npm run install-start"
   },
   "dependencies": {
     "@nestjs/axios": "^3.0.2",
