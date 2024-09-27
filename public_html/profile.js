@@ -253,7 +253,7 @@ signUpButton.addEventListener('click', () => {
   signInModalClose();
   signUpModalFieldsFirstForm.setAttribute('name', 'next');
   signInModalFieldsNext.innerHTML = 'Далее';
-  signUpEmailInput.setAttribute('disabled', false);
+  signUpEmailInput.removeAttribute('disabled');
 });
 
 backdrop.addEventListener('click', handleBackdrop);
