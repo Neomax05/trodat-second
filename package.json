@@ -8,12 +8,13 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
-    "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "command:init": "ts-node src/console init"
+    "command:init": "ts-node src/console init",
+    "playwright:install": "npx playwright install",
+    "install-start": "nest start",
+    "start": "npm run playwright:install && npm run install-start"
   },
   "dependencies": {
     "@nestjs/axios": "^3.0.2",
