@@ -4,6 +4,6 @@ import { isDev } from './constants';
 // http://127.0.0.1:3010/api
 
 export const api = axios.create({
-  baseURL: isDev ? 'http://localhost:8080/api' : 'http://212.67.8.153:3010/api',
+  baseURL: 'https://trodat-kg.onrender.com/api',
   responseType: 'json',
 });

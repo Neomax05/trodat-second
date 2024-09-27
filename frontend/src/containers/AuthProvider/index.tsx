@@ -1,7 +1,7 @@
-import React, {FC, ReactNode, useState} from 'react';
+import React, { FC, ReactNode, useState } from 'react';
 import Auth from '../../contexts/Auth';
 
-const AuthProvider: FC<{children: ReactNode}> = ({children}) => {
+const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [user, setUser] = useState<string | null>(null);
 
@@ -11,13 +11,14 @@ const AuthProvider: FC<{children: ReactNode}> = ({children}) => {
   };
 
   return (
-    <Auth.Provider value={{
-      user,
-      isLogin,
-      onLogin
-    }}
+    <Auth.Provider
+      value={{
+        user,
+        isLogin,
+        onLogin,
+      }}
     >
-      { children }
+      {children}
     </Auth.Provider>
   );
 };
