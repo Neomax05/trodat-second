@@ -13,6 +13,11 @@
 
 /* Modal content (drawer) */
 .cart-modal__content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.cart-modal-content {
   background-color: white;
   width: 550px; /* Drawer width */
   max-width: 100%;
@@ -61,7 +66,7 @@
   left: 0;
 }
 
-.cart-modal__content.open {
+.cart-modal-content.open {
   transform: translateX(0); /* Slide drawer into view */
 }
 
@@ -119,5 +124,32 @@
 }
 
 .product-order-item-delete {
+  cursor: pointer;
+}
+
+.order-confirmation__image {
+  width: 70%;
+  aspect-ratio: 1/1;
+}
+
+.order-confirmation__title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  color: #2f2f2f;
+}
+
+.order-confirmation__message {
+  color: #a0a0a0;
+  max-width: 346px;
+  text-align: center;
+}
+
+.order-confirmation__button {
+  border-radius: 100px;
+  color: #2f2f2f;
+  font-weight: 600;
+  padding: 12px 105px;
+  border: 0;
   cursor: pointer;
 }

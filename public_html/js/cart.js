@@ -60,17 +60,28 @@ const closeButton = document.querySelector('.cart-modal__close');
 const cartSummaryContinueShopping = document.getElementById(
   'cart-summary__continue-shopping'
 );
+const cartSummaryCheckoutButton = document.getElementById(
+  'cart-summary__checkout-button'
+);
+const orderConfirmationImage = document.getElementById(
+  'order-confirmation__image'
+);
+const orderConfirmationButton = document.getElementById(
+  'order-confirmation__button'
+);
+
+const swiperEl = document.getElementById('swiper-container-cart');
 
 // Function to open the drawer
 function openCartModal() {
   cartModal.classList.add('open');
-  document.querySelector('.cart-modal__content').classList.add('open');
+  document.querySelector('.cart-modal-content').classList.add('open');
 }
 
 // Function to close the drawer
 function closeCartModal() {
   cartModal.classList.remove('open');
-  document.querySelector('.cart-modal__content').classList.remove('open');
+  document.querySelector('.cart-modal-content').classList.remove('open');
 }
 
 // Event listener for the close button
@@ -87,5 +98,17 @@ const renderCartProductListOrderItem = (list) => {
 
   orderProducts.innerHTML = renderList.join('');
 };
+
+cartSummaryCheckoutButton.addEventListener('click', () => {
+  console.log('click');
+  console.log(swiperEl, 'swipeer');
+  swiperEl.swiper.slideNext();
+  orderConfirmationImage.style.display = 'block';
+});
+
+orderConfirmationButton.addEventListener('click', () => {
+  swiperEl.swiper.slidePrev();
+  orderConfirmationImage.style.display = 'none';
+});
 
 renderCartProductListOrderItem(orders);

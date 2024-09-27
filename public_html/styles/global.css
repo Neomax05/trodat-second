@@ -510,12 +510,20 @@ body {
   width: 100%;
 }
 
+.h-full {
+  height: 100%;
+}
+
 .flex {
   display: flex;
 }
 
 .grid {
   display: grid;
+}
+
+.place-center {
+  place-items: center;
 }
 
 .items-center {
