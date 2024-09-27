@@ -6,9 +6,10 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "check-device": "node -e \"console.log(`Platform: ${process.platform}, Architecture: ${process.arch}`)\"",
     "check-xauth": "echo 'To install xauth, run the following command based on your OS:' && echo 'For Ubuntu/Debian: sudo apt-get install -y xauth' && echo 'For CentOS/RHEL: sudo yum install -y xorg-x11-xauth' && echo 'For Alpine: apk add --no-cache xauth'",
     "install-build": "xvfb-run nest build",
-    "build": "npm run playwright:install-deps && npm run playwright:install && npm run install-build",
+    "build": "npm run playwright:install-deps && npm run playwright:install && npm run check-device && npm run install-build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
