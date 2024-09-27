@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { isDev } from './constants';
 
 // http://127.0.0.1:3010/api
 

@@ -22,17 +22,15 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: '/',
+    path: '/admin',
     element: (
       <Private>
         <Layout />
       </Private>
     ),
-    id: 'admin',
     children: [
       {
-        path: '',
-        id: 'home',
+        index: true,
         element: (
           <WithRouter>
             <Home />

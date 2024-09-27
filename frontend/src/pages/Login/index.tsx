@@ -1,9 +1,9 @@
-import React, {useContext} from 'react';
-import {Button, Form, FormProps, Input, notification} from "antd";
-import {api} from "../../utils/api";
-import {Navigate, useNavigate} from "react-router";
-import Auth from "../../contexts/Auth";
+import React, { useContext } from 'react';
+import { Button, Form, FormProps, Input, notification } from 'antd';
+import { api } from '../../utils/api';
+import { Navigate, useNavigate } from 'react-router';
 import './style.css';
+import useAuthStore from '../../store/auth';
 
 type FieldType = {
   username: string;
@@ -12,33 +12,35 @@ type FieldType = {
 
 const Login = () => {
   const navigate = useNavigate();
-  const authContext = useContext(Auth);
+  const onLogin = useAuthStore((state) => state.onLogin);
+  const isLogin = useAuthStore((state) => state.isLogin);
   const [notApi, contextHolder] = notification.useNotification();
 
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     try {
-      const res = await api.post<{isLogin: boolean}>('/users/login/admin', values);
+      const res = await api.post<{ isLogin: boolean }>(
+        '/users/login/admin',
+        values
+      );
+      console.log(res);
+
       if (res.data.isLogin) {
-        authContext.onLogin(values.username);
+        onLogin(values.username);
         navigate('/');
       }
     } catch (e: any) {
       notApi.error({
-        message: e.message
-      })
+        message: e.message,
+      });
     }
   };
 
-  if (authContext.isLogin) return <Navigate to="/" />;
+  if (isLogin) return <Navigate to="/admin" />;
 
   return (
     <div className="login-wrapper">
       {contextHolder}
-      <Form
-        onFinish={onFinish}
-        className="login-form"
-        autoComplete="off"
-      >
+      <Form onFinish={onFinish} className="login-form" autoComplete="off">
         <h1 className="login-title">Логин</h1>
         <Form.Item<FieldType>
           label="Логин"
