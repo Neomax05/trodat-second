@@ -19,7 +19,7 @@
     "playwright:install": "npx playwright install",
     "playwright:install-deps": "npx playwright install-deps",
     "install-start": "xvfb-run nest start",
-    "start": "npm run playwright:install-deps && npm run playwright:install && npm run install-start"
+    "start": "npm run playwright:install-deps && npm run playwright:install && npm run install-deps && npm run install-start"
   },
   "dependencies": {
     "@nestjs/axios": "^3.0.2",
