@@ -134,7 +134,7 @@ const initializationLogin = () => {
 
 //
 
-const url = 'http://212.67.8.153:3011/api/auth';
+const url = 'https://trodat-kg.onrender.com/api/auth';
 
 const signInFetch = async (values) => {
   try {
