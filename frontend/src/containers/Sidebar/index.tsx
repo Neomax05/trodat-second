@@ -19,25 +19,25 @@ const Sidebar = () => {
       icon: React.createElement(ProductOutlined),
       key: 'product',
       label: 'Товары',
-      onClick: () => navigate('/product'),
+      onClick: () => navigate('product'),
     },
     {
       icon: React.createElement(UnorderedListOutlined),
       key: 'category',
       label: 'Категории',
-      onClick: () => navigate('/category'),
+      onClick: () => navigate('category'),
     },
     {
       icon: React.createElement(SnippetsOutlined),
       key: 'news',
       label: 'Новости',
-      onClick: () => navigate('/news'),
+      onClick: () => navigate('news'),
     },
     {
       icon: React.createElement(BoxPlotOutlined),
       key: 'banner',
       label: 'Банер',
-      onClick: () => navigate('/banner'),
+      onClick: () => navigate('banner'),
     },
   ];
 
