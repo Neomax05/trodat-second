@@ -1,4 +1,4 @@
-const url = 'http://212.67.8.153:3011';
+const url = 'https://trodat-kg.onrender.com';
 
 const thumbs = document.getElementById('thumbs');
 
