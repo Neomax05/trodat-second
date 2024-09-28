@@ -94,7 +94,7 @@ const startTimer = (initialSeconds) => {
   const timerInterval = setInterval(changeTimer, 1000);
 };
 
-const verifyUrl = 'https://trodat-kg.onrender.com/api/verification';
+const verifyUrl = `${config.apiUrl}/api/verification`;
 
 const sendCodeWithPhoneNumberAsync = async (values) => {
   try {

@@ -1,4 +1,4 @@
-const url = 'https://trodat-kg.onrender.com';
+const url = config.apiUrl;
 
 const thumbs = document.getElementById('thumbs');
 

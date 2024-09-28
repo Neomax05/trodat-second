@@ -132,7 +132,7 @@ const initializationLogin = () => {
   renderUserInfo(values);
 };
 
-const url = 'https://trodat-kg.onrender.com/api/auth';
+const url = `${config.apiUrl}/api/auth`;
 
 const signInFetch = async (values) => {
   try {

@@ -1,15 +1,15 @@
 function updateFavoritesUI() {
-    const favoritesBody = document.querySelector(".profile__info-fav");
-    favoritesBody.innerHTML = '';
+  const favoritesBody = document.querySelector('.profile__info-fav');
+  favoritesBody.innerHTML = '';
 
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-    favorites.forEach(product => {
-        let productEl = document.createElement('div');
-        productEl.className = 'item';
-        productEl.dataset.id = product.id;
+  favorites.forEach((product) => {
+    let productEl = document.createElement('div');
+    productEl.className = 'item';
+    productEl.dataset.id = product.id;
 
-        productEl.innerHTML = `
+    productEl.innerHTML = `
             <div class="item__top">
                 <p>${product.number}</p>
                 <img class="item__fav" src="./icons/heart.png" alt="Favorite" />
@@ -27,11 +27,10 @@ function updateFavoritesUI() {
                 <img class="item__cart" src="./icons/Property 1=Variant2.png" alt="Add to Cart">
             </div>
         `;
-        favoritesBody.appendChild(productEl);
-    });
-
+    favoritesBody.appendChild(productEl);
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    updateFavoritesUI()
+  updateFavoritesUI();
 });
