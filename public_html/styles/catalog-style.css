@@ -24,6 +24,8 @@
 
   background-color: #f1f1f1;
   border: 1px solid #f1f1f1;
+
+  cursor: pointer;
 }
 
 .catalog-header__search {
@@ -72,8 +74,9 @@
 
 .catalog-section__content {
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1.2fr 4fr;
   padding: 2rem 0;
+  gap: 2rem;
 }
 
 .catalog-sidebar__size-options {
@@ -123,9 +126,8 @@
 .catalog-products {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 23px;
+  gap: 10px;
   place-items: start;
-  padding: 2rem;
 }
 
 .pagination {
@@ -158,4 +160,22 @@
   background-color: #ee575c;
   border: 1px solid #ee575c;
   color: #fff;
+}
+
+.product-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-item-title {
+  flex-grow: 1;
+}
+
+.icon {
+  cursor: pointer;
+}
+
+.product-item-image > a > img {
+  width: 100%;
+  aspect-ratio: 1/1;
 }

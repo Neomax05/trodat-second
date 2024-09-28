@@ -12,7 +12,7 @@ const Products = () => {
   const [products, setProducts] = useState<ProductType[]>([]);
   const [loading, setLoading] = useState(false);
   const [changeCategory, setChangeCategory] = useState<null | ProductType>(
-    null,
+    null
   );
   const productRef = useRef<HTMLDivElement>(null);
 
@@ -135,7 +135,7 @@ const Products = () => {
 
   const handleChangeCategory = async (
     categoryId: string,
-    productId: string,
+    productId: string
   ) => {
     setLoading(true);
     api
@@ -147,7 +147,7 @@ const Products = () => {
         setChangeCategory(null);
         const copyProducts = [...products];
         const index = copyProducts.findIndex(
-          (product) => product._id === productId,
+          (product) => product._id === productId
         );
         copyProducts[index] = res.data;
         setProducts(copyProducts);

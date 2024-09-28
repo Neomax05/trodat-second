@@ -40,6 +40,9 @@ export class User implements IUser {
 
   @Prop()
   code: string;
+
+  @Prop()
+  cartId: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

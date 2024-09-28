@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Param, Put, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ProductsService } from './products.service';
+import { IntegrationProduct } from 'src/types/integration.type';
 
 @Controller('products')
 export class ProductsController {
@@ -18,13 +19,13 @@ export class ProductsController {
   @Get('notInCategory/:categoryId')
   async getProductsNotInCategory(@Param() param: { categoryId: string }) {
     return await this.productsService.getProductsNotInCategory(
-      param.categoryId,
+      param.categoryId
     );
   }
 
   @Put('changeCategory')
   async changeCategory(
-    @Body() body: { categoryId: string; productId: string },
+    @Body() body: { categoryId: string; productId: string }
   ) {
     console.log('body', body);
     return this.productsService.changeCategory(body.productId, body.categoryId);
@@ -38,6 +39,12 @@ export class ProductsController {
   @Get('parse')
   async parse(@Query('id') id: string) {
     const parsedData = await this.productsService.parse(id);
+
+    this.productsService.createProduct1C(
+      parsedData as unknown as IntegrationProduct,
+      parsedData.description,
+      parsedData.st
+    );
 
     return parsedData;
   }

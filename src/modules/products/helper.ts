@@ -36,7 +36,7 @@ export const getGoodsFrom1C = async () => {
           configName: 'yourConfigName',
           configVersion: 'yourConfigVersion',
         },
-      },
+      }
     );
 
     const goods = data?.result?.goods || [];

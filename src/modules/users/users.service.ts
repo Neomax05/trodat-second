@@ -1,13 +1,17 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, Param } from '@nestjs/common';
 import { User } from './schemas/user.schema';
 import { CreateAdminDto, LoginAdminDto } from './dto';
 import { UserRole } from './enums';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { CartService } from '../cart/cart.service';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    private cartService: CartService
+  ) {}
 
   async create(data) {
     const user = new this.userModel(data);
@@ -15,11 +19,13 @@ export class UsersService {
   }
 
   async findByEmail(email: string) {
-    const user = this.userModel.findOne({
-      where: {
-        email: email,
-      },
-    });
+    const user = this.userModel
+      .findOne({
+        where: {
+          email: email,
+        },
+      })
+      .lean();
 
     return user;
   }
@@ -47,5 +53,41 @@ export class UsersService {
     return {
       isLogin: true,
     };
+  }
+
+  async addToCart(
+    userId: string,
+    productId: string,
+    quantity: number
+  ): Promise<User> {
+    const cart = await this.cartService.addToCart(userId, productId);
+
+    return this.userModel.findOneAndUpdate(
+      { email: userId },
+      { cartId: cart.userId }, // Ensure no duplicates
+      { new: true, lean: true }
+    );
+  }
+
+  async removeFromCart(userId: string, productId: string): Promise<User> {
+    return this.userModel.findByIdAndUpdate(
+      userId,
+      { $pull: { cart: productId } },
+      { new: true, lean: true }
+    );
+  }
+
+  async getCart(userId: string): Promise<string[]> {
+    const user = await this.userModel.findOne({ email: userId }).lean();
+
+    const cart = await this.cartService.getCart(userId);
+    console.log(cart, user, 'cart');
+
+    return [];
+    // return user.cart;
+  }
+
+  async getCarts(userId) {
+    return await this.cartService.getCart(userId);
   }
 }

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { CategoryModule } from './modules/category/category.module';
 import { UsersModule } from './modules/users/users.module';
 import { MongoConfig } from './modules/config/configs';
@@ -16,6 +16,7 @@ import { MulterModule } from '@nestjs/platform-express';
 import { AuthModule } from './modules/auth/auth.module';
 import { BannerModule } from './modules/banner/banner.module';
 import { VerificationCodeModule } from './modules/verification/verification.module';
+import { CartModule } from './modules/cart/cart.module';
 
 @Module({
   imports: [
@@ -26,7 +27,6 @@ import { VerificationCodeModule } from './modules/verification/verification.modu
       useClass: MongoConfig,
     }),
     CategoryModule,
-    UsersModule,
     ProductsModule,
     NewsModule,
     MinioClientModule,
@@ -47,9 +47,11 @@ import { VerificationCodeModule } from './modules/verification/verification.modu
       rootPath: join(__dirname, '..', 'appFrontend/build'),
       serveRoot: '/',
     }),
-    AuthModule,
     BannerModule,
     VerificationCodeModule,
+    CartModule,
+    forwardRef(() => AuthModule),
+    forwardRef(() => UsersModule),
   ],
 })
 export class AppModule {}

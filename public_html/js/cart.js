@@ -1,6 +1,4 @@
-// Get modal and close button elements
-
-const orders = [
+const ordersData = [
   {
     id: 1,
     total: 5200,
@@ -54,7 +52,7 @@ const renderCartProductOrderItem = (product) => {
       `;
 };
 
-const cartModal = document.getElementById('cart-modal');
+const cartModalContent = document.getElementById('cart-modal');
 const orderProducts = document.getElementById('order-products');
 const closeButton = document.querySelector('.cart-modal__close');
 const cartSummaryContinueShopping = document.getElementById(
@@ -74,13 +72,13 @@ const swiperEl = document.getElementById('swiper-container-cart');
 
 // Function to open the drawer
 function openCartModal() {
-  cartModal.classList.add('open');
+  cartModalContent.classList.add('open');
   document.querySelector('.cart-modal-content').classList.add('open');
 }
 
 // Function to close the drawer
 function closeCartModal() {
-  cartModal.classList.remove('open');
+  cartModalContent.classList.remove('open');
   document.querySelector('.cart-modal-content').classList.remove('open');
 }
 
@@ -111,4 +109,22 @@ orderConfirmationButton.addEventListener('click', () => {
   orderConfirmationImage.style.display = 'none';
 });
 
-renderCartProductListOrderItem(orders);
+const getOrderProducts = async () => {
+  try {
+    const LOCALSTORAGE_KEY = 'LOCALSTORAGE_KEY';
+
+    const values = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
+
+    const response = await fetch(
+      `${config.apiUrl}/api/users/cart/${values.email}`
+    );
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+getOrderProducts();
+
+renderCartProductListOrderItem(ordersData);

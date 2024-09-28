@@ -28,7 +28,7 @@ export class ProductsService {
 
   constructor(
     @InjectModel(Product.name) private readonly productModel: Model<Product>,
-    private categoryService: CategoryService,
+    private categoryService: CategoryService
   ) {
     this.parser = new Parser(this);
     this.parser.init();
@@ -70,7 +70,7 @@ export class ProductsService {
     const existingProduct = await this.findByProductId(data.product_id);
     if (existingProduct) {
       console.log(
-        `Product with ID ${data.product_id} already exists. Skipping creation.`,
+        `Product with ID ${data.product_id} already exists. Skipping creation.`
       );
       return;
     }
@@ -122,6 +122,10 @@ export class ProductsService {
       frame: options.frame,
       geometry: options.geometry,
       category: category?._id || null,
+      imageBase64: good.imageBase64,
+      imagesBase64: good.imagesBase64,
+      features: good.features,
+      colors: good.colors,
     });
     return product.save();
   }

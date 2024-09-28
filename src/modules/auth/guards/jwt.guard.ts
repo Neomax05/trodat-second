@@ -1,21 +1,38 @@
-import { ExecutionContext, Injectable } from '@nestjs/common';
+import {
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class JwtGuard extends AuthGuard('jwt') {
+  // Override canActivate method to include custom logic
   canActivate(
     context: ExecutionContext
   ): boolean | Promise<boolean> | Observable<boolean> {
-    console.log('jwt guard is active');
+    // Call the parent's canActivate method to perform the standard JWT validation
+    const result = super.canActivate(context);
+    // Check if it is a Promise or Observable
+    if (result instanceof Observable) {
+      return result
+        .toPromise()
+        .then((value) => this.handleResult(value, context));
+    }
+    if (result instanceof Promise) {
+      return result.then((value) => this.handleResult(value, context));
+    }
+    return this.handleResult(result, context);
+  }
 
-    const request: Request = context.switchToHttp().getRequest();
-    const authHeader = request.headers['authorization'];
-
-    console.log(authHeader);
-
-    if (!authHeader) return false;
-
-    return super.canActivate(context);
+  // Custom logic for handling result
+  private handleResult(result: boolean, context: ExecutionContext): boolean {
+    if (!result) {
+      throw new UnauthorizedException('Unauthorized access'); // Custom error message
+    }
+    // Optionally, you can add custom logic or logging here
+    console.log('JWT Guard is active and user is authorized');
+    return result;
   }
 }

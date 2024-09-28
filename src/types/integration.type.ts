@@ -19,6 +19,12 @@ export type ErrorIntegrationAnswer = {
   };
 };
 
+export interface FeatureItem {
+  title: string;
+  images: string[]; // Array of image URLs
+  text: string; // Description or text related to the feature
+}
+
 export type IntegrationProduct = {
   name: string;
   article: string;
@@ -36,6 +42,8 @@ export type IntegrationProduct = {
   originCountry: string;
   imageBase64: string;
   imagesBase64: [];
+  colors: string[];
+  features: FeatureItem[];
 };
 
 export type IntegrationGroup = {

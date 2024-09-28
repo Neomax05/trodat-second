@@ -47,12 +47,7 @@ export class Parser {
     }
   }
 
-  async parseTrodat2(article: string): Promise<{
-    description: string;
-    size: string;
-    imagesBase64: string[];
-    imageBase64: string;
-  }> {
+  async parseTrodat2(article: string): Promise<IntegrationProduct> {
     try {
       console.log('parseTrodat2 method called', article);
       if (!this.browser) {
@@ -84,7 +79,7 @@ export class Parser {
           size: '',
           imagesBase64: [],
           imageBase64: '',
-        };
+        } as unknown as IntegrationProduct;
       }
       let usingIndex = 0;
       for (const [i, answer] of answerArr.entries()) {
@@ -122,13 +117,84 @@ export class Parser {
         (el: HTMLImageElement) => el.src
       );
 
+      const productImprint = await page.$eval(
+        '.product-imprint img',
+        (el: HTMLImageElement) => el.src
+      );
+      const captionImg = await page.$eval(
+        '.caption img',
+        (el: HTMLImageElement) => el.src
+      );
+
+      const filterColors = await page.$eval(
+        '.filter-colors li label span.tooltip',
+        (el) => el.textContent
+      );
+
+      const filterColorsImage = await page.$eval(
+        '.filter-colors li label img',
+        (el: HTMLImageElement) => el.src
+      );
+
+      const featuresData = await page.$$eval('.features-item', (items) => {
+        return items.map((item) => {
+          // Extract text from the <h5> tag (title)
+          const title = item.querySelector('h5')?.textContent.trim() || '';
+
+          // Extract all images within the features-item and get their src
+          const images = Array.from(item.querySelectorAll('img')).map(
+            (img) => img.src
+          );
+
+          // Extract text from the <span> tag, if available
+          const text = item.querySelector('span')?.textContent.trim() || '';
+
+          return { title, images, text };
+        });
+      });
+
+      const product1cId = '123';
+      const articleField = await page.$eval(
+        '.flex-block .h3',
+        (el) => el.textContent
+      );
+      const barcode = '';
+      const goodID = '5365';
+      const markType = '';
+      const measureCode = '';
+      const measureName = '';
+      const name = '434543';
+      const originCountry = '';
+      const ownerID = '';
+      const sku = '';
+      const st = '';
+      const type = 0;
+      const vat = '';
+      const colors = [{ image: filterColorsImage, name: filterColors }];
+
       await page.close();
       return {
         description: normalizeDescription || '',
         size: size || '',
-        imagesBase64: [imgUrl],
+        imagesBase64: [imgUrl, productImprint, captionImg],
         imageBase64: imgUrl,
-      };
+        article: articleField,
+        barcode,
+        goodID,
+        markType,
+        measureCode,
+        measureName,
+        name,
+        originCountry,
+        ownerID,
+        sku,
+        st,
+        type,
+        vat,
+        product1cId,
+        colors,
+        features: featuresData,
+      } as unknown as IntegrationProduct;
     } catch (error) {
       console.error('Error in parseTrodat2:', error);
       throw new InternalServerErrorException('Error in parseTrodat2');
@@ -186,6 +252,8 @@ export class Parser {
         originCountry: '',
         imageBase64: '',
         imagesBase64: [],
+        colors: [],
+        features: [],
       };
 
       const product = await this.productService.checkIsProductExist(good);

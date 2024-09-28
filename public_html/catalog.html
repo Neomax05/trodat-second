@@ -380,6 +380,129 @@
       </footer>
     </div>
 
+    <div class="cart-modal" id="cart-modal">
+      <div class="cart-modal-content">
+        <swiper-container class="h-full" id="swiper-container-cart">
+          <swiper-slide class="h-full">
+            <div class="cart-modal__content">
+              <div class="cart-modal__header">
+                <div class="cart-modal__title">Корзина</div>
+                <img
+                  src="./icons/close.svg"
+                  alt="close"
+                  class="cart-modal__close"
+                />
+              </div>
+
+              <div class="cart-modal__body">
+                <div class="cart-modal__items-count">5 товаров</div>
+                <div
+                  class="cart-modal__products order-products"
+                  id="order-products"
+                ></div>
+
+                <div class="cart-summary">
+                  <div class="cart-summary__total">
+                    <div class="cart-summary__total-label">Итоговая сумма:</div>
+                    <div class="cart-summary__total-value">10 500</div>
+                  </div>
+
+                  <div class="cart-summary__actions">
+                    <div
+                      class="cart-summary__continue-shopping"
+                      id="cart-summary__continue-shopping"
+                    >
+                      Продолжить покупку
+                    </div>
+                    <button
+                      class="cart-summary__checkout-button"
+                      id="cart-summary__checkout-button"
+                    >
+                      Оформить заказ
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </swiper-slide>
+
+          <swiper-slide class="h-full">
+            <div class="order-confirmation h-full grid items-center">
+              <div class="grid justify-center place-center gap-2">
+                <svg
+                  width="148"
+                  height="148"
+                  viewBox="0 0 148 148"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="order-confirmation__image none"
+                  id="order-confirmation__image"
+                >
+                  <circle
+                    cx="74"
+                    cy="74"
+                    r="70"
+                    stroke="#4AC100"
+                    stroke-width="8"
+                  >
+                    <animate
+                      attributeName="stroke-dasharray"
+                      from="440"
+                      to="0"
+                      dur="1s"
+                      fill="freeze"
+                    />
+                    <animate
+                      attributeName="stroke-dashoffset"
+                      from="440"
+                      to="0"
+                      dur="1s"
+                      fill="freeze"
+                    />
+                  </circle>
+                  <path
+                    d="M36.2838 69.7551L63.0501 96.4389L111.716 51.5615"
+                    stroke="#4AC100"
+                    stroke-width="8"
+                    stroke-linecap="round"
+                  >
+                    <animate
+                      attributeName="stroke-dasharray"
+                      from="70"
+                      to="0"
+                      dur="1s"
+                      begin="0.5s"
+                      fill="freeze"
+                    />
+                    <animate
+                      attributeName="stroke-dashoffset"
+                      from="70"
+                      to="0"
+                      dur="1s"
+                      begin="0.5s"
+                      fill="freeze"
+                    />
+                  </path>
+                </svg>
+
+                <div class="order-confirmation__title">Оформлен!</div>
+                <div class="order-confirmation__message">
+                  Спасибо за ваш заказ! Ваша покупка успешно оформлена.
+                </div>
+
+                <button
+                  class="order-confirmation__button"
+                  id="order-confirmation__button"
+                >
+                  Вернуться назад
+                </button>
+              </div>
+            </div>
+          </swiper-slide>
+        </swiper-container>
+      </div>
+    </div>
+
     <script src="./config/index.js"></script>
     <script src="./js/main.js"></script>
     <script src="./js/catalog.js"></script>

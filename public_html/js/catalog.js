@@ -2,73 +2,112 @@ const catalogProducts = document.getElementById('catalog-products');
 
 const data = [
   {
-    id: 1,
-    total: 5200,
-    isLike: false,
-    image: './icons/product-1.png',
-    title: 'Рельефная печать',
-    size: 'Размер: Max. 41мм* 24мм',
-    colors: ['white', 'orange', 'green', 'black', 'blue', '#882727'],
-    price: 3500,
+    name: 'Молоко пастеризованное ПРОСТОКВАШИНО 1,5%, 930мл',
+    article: '00001',
+    sku: '00001',
+    goodID: '00000001-0001-0001-0001-000000000001',
+    type: 0,
+    vat: 'Стандарт',
+    st: 'Торговля',
+    barcode: '1234567890;1234567891',
+    markType: 1,
+    measureCode: '333',
+    measureName: 'штучка',
+    ownerID: '00000001-0001-0001-0001-000000000001',
+    description: 'Описание товара',
+    originCountry: 'KG',
+    imageBase64: '',
+    ext: '',
+    size: 0,
+    imagesBase64: [],
   },
   {
-    id: 2,
-    total: 5200,
-    isLike: false,
-    image: './icons/product-1.png',
-    title: 'Рельефная печать',
-    size: 'Размер: Max. 41мм* 24мм',
-    colors: ['white', 'orange', 'green', 'black', 'blue', '#882727'],
-    price: 3500,
+    name: 'Молоко не пастеризованное ПРОСТОКВАШИНО 1,5%, 930мл',
+    article: '00002',
+    sku: '00002',
+    goodID: '00000002-0001-0001-0001-000000000001',
+    type: 0,
+    vat: 'Освобожденная',
+    st: 'Прочее',
+    barcode: '000000000002',
+    markType: 0,
+    measureCode: '',
+    measureName: '',
+    ownerID: '00000002-0001-0001-0001-000000000001',
+    description: '',
+    originCountry: '',
+    imageBase64: '',
+    ext: '',
+    size: 0,
+    imagesBase64: [],
   },
   {
-    id: 3,
-    total: 5200,
-    isLike: false,
-    image: './icons/product-1.png',
-    title: 'Рельефная печать',
-    size: 'Размер: Max. 41мм* 24мм',
-    colors: ['white', 'orange', 'green', 'black', 'blue', '#882727'],
-    price: 3500,
+    name: 'Доставка',
+    article: '',
+    sku: '00003',
+    goodID: '00000003-0001-0001-0001-000000000001',
+    type: 1,
+    vat: '',
+    st: '',
+    barcode: '',
+    markType: 0,
+    measureCode: '',
+    measureName: '',
+    ownerID: '',
+    description: '',
+    originCountry: '',
+    imageBase64: '',
+    ext: '',
+    size: 0,
+    imagesBase64: [],
   },
 ];
 
+function truncateString(str, maxLength) {
+  if (str.length <= maxLength) {
+    return str; // Return the original string if it's shorter than maxLength
+  }
+  return str.slice(0, maxLength - 3) + '...'; // Truncate and add ellipsis
+}
+
 const renderProductItem = (product) => {
   return `
-     <a href="product-detail.html" class="product-item p-1">
+     <div class="product-item p-1 h-full">
                     <div class="product-item-image">
-                      <img src="${product.image}" alt="" />
+                      <a href="product-detail.html">
+                      <img src="${
+                        product?.imageBase64 || './icons/placeholder.png'
+                      }" alt="${product?.name}" /></a>
                       <div class="product-item-image-bar">
                         <div class="flex justify-space">
-                          <div>${product.total}</div>
+                          <div>${product?.markType}</div>
                           <img src="./icons/heart.svg" alt="" />
                         </div>
                       </div>
                     </div>
-                    <div class="product-item-title">${product.title}</div>
+                    <a href="product-detail.html" class="product-item-title">${truncateString(
+                      product?.name,
+                      30
+                    )}</a>
                     <div class="grid gap-05">
-                      <div class="product-item-size">${product.size}</div>
-                      <div class="flex gap-05">
-                      ${product.colors
-                        .map(
-                          (color) =>
-                            `<div class="circle" style="background:${color};"></div>`
-                        )
-                        .join('')}
-                        
-                      </div>
+                      <div class="product-item-size">${product?.size}</div>
+                      
                     </div>
                     <div class="flex justify-space items-center py-1">
-                      <div class="product-item-price">${product.price} c.</div>
-                      <div class="icon">
+                      <div class="product-item-price">${
+                        product?.price || 0
+                      } c.</div>
+                      <div class="icon" onclick="addProductToCartAsync(${
+                        product?.sku || null
+                      })">
                         <img
                           src="./icons/cart-add.svg"
-                          alt=""
+                          alt="cart-add-icon"
                           class="cart-add-icon"
                         />
                       </div>
                     </div>
-                  </a>
+                  </div>
     `;
 };
 
@@ -78,4 +117,48 @@ const renderCatalogProductList = (list) => {
   catalogProducts.innerHTML = mapedList.join('');
 };
 
-renderCatalogProductList(data);
+const getProductsModalAsync = async () => {
+  try {
+    const response = await fetch(`${config.apiUrl}/api/products`);
+    const result = await response.json();
+    console.log(result);
+    if (Array.isArray(result)) {
+      renderCatalogProductList(result);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const addProductToCartAsync = async (id) => {
+  if (id === null) {
+    alert('product id not found');
+    return;
+  }
+  console.log('clicked', id);
+
+  const LOCALSTORAGE_KEY = 'LOCALSTORAGE_KEY';
+
+  const values = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
+
+  try {
+    const body = JSON.stringify({
+      productId: id,
+      quantity: 1,
+      email: values.email,
+    });
+    const response = await fetch(`${config.apiUrl}/api/users/cart/add`, {
+      method: 'POST',
+      body,
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    const result = await response.json();
+    console.log(result, 'result');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+getProductsModalAsync();

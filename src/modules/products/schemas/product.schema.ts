@@ -1,6 +1,7 @@
 import { IProduct } from '../interfaces/products.interface';
 import mongoose from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Features, FeaturesSchema } from './features.schema';
 
 @Schema()
 export class Product implements IProduct {
@@ -47,6 +48,19 @@ export class Product implements IProduct {
 
   @Prop()
   is_active: boolean;
+
+  @Prop()
+  imageBase64: string;
+
+  @Prop()
+  imagesBase64: string[];
+
+  @Prop({ type: Array })
+  features: {
+    title: string;
+    images: string[]; // Array of image URLs
+    text: string; // Description or text related to the feature
+  }[];
 
   // @ManyToOne(() => CategorySchema, (category) => category.products)
   // @JoinProp({ name: 'category_id' })
