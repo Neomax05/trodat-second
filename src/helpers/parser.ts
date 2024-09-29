@@ -49,9 +49,9 @@ export class Parser {
 
   async parseTrodat2(article: string): Promise<IntegrationProduct> {
     try {
-      console.log('parseTrodat2 method called', article);
+      console.log('🟡 parseTrodat2 method called', article);
       if (!this.browser) {
-        throw new InternalServerErrorException('Browser not initialized');
+        throw new InternalServerErrorException('🛑 Browser not initialized');
       }
       const page = await this.browser.newPage();
       await page.goto('https://trodat-russia.ru/search/');
@@ -121,20 +121,37 @@ export class Parser {
         '.product-imprint img',
         (el: HTMLImageElement) => el.src
       );
-      const captionImg = await page.$eval(
-        '.caption img',
-        (el: HTMLImageElement) => el.src
-      );
+      const captionImg = await page.evaluate(() => {
+        const imgElement =
+          document.querySelector<HTMLImageElement>('.caption img');
+        return imgElement ? imgElement.src : null;
+      });
 
-      const filterColors = await page.$eval(
-        '.filter-colors li label span.tooltip',
-        (el) => el.textContent
+      const filterColorsElement = await page.$(
+        '.filter-colors li label span.tooltip'
       );
+      let filterColors = null;
 
-      const filterColorsImage = await page.$eval(
-        '.filter-colors li label img',
-        (el: HTMLImageElement) => el.src
+      if (filterColorsElement) {
+        filterColors = await filterColorsElement.evaluate(
+          (el) => el.textContent
+        );
+      } else {
+        console.log('Tooltip element not found');
+      }
+
+      const filterColorsImageElement = await page.$(
+        '.filter-colors li label img'
       );
+      let filterColorsImage = null;
+
+      if (filterColorsImageElement) {
+        filterColorsImage = await filterColorsImageElement.evaluate(
+          (el: HTMLImageElement) => el.src
+        );
+      } else {
+        console.log('Image element not found');
+      }
 
       const featuresData = await page.$$eval('.features-item', (items) => {
         return items.map((item) => {
@@ -153,17 +170,17 @@ export class Parser {
         });
       });
 
-      const product1cId = '123';
+      const product1cId = '';
       const articleField = await page.$eval(
         '.flex-block .h3',
         (el) => el.textContent
       );
       const barcode = '';
-      const goodID = '5365';
+      const goodID = articleField;
       const markType = '';
       const measureCode = '';
       const measureName = '';
-      const name = '434543';
+      const name = articleField;
       const originCountry = '';
       const ownerID = '';
       const sku = '';

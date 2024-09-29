@@ -7,6 +7,7 @@ import {
   Param,
   ParseFilePipeBuilder,
   Post,
+  Put,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -22,6 +23,11 @@ export class BannerController {
   @Get()
   async getBanners() {
     return this.bannerSerive.getBanners();
+  }
+
+  @Get(':id')
+  async getBannerById(@Param('id') id: string) {
+    return this.bannerSerive.getBannerById(id);
   }
 
   @UseInterceptors(
@@ -45,6 +51,28 @@ export class BannerController {
     return await this.bannerSerive.createBanner({
       image: file.filename,
     });
+  }
+
+  @UseInterceptors(
+    FileInterceptor('image', {
+      dest: './uploads',
+    })
+  )
+  @Put(':id')
+  async editBanner(
+    @Body() data: BannerDto,
+    @Param('id') id: string,
+    @UploadedFile(
+      new ParseFilePipeBuilder()
+        .addFileTypeValidator({ fileType: '.(png|jpeg|jpg)' })
+        .addMaxSizeValidator({ maxSize: MAX_PROFILE_PICTURE_SIZE_IN_BYTES })
+        .build({ errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY })
+    )
+    file: Express.Multer.File
+  ) {
+    console.log(id, data, file, 'put');
+
+    return this.bannerSerive.editBanner(id, { ...data, image: file.filename });
   }
 
   @Delete(':id')

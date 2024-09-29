@@ -161,7 +161,7 @@ const Products = () => {
     api
       .get('/products/parse', {
         params: {
-          id: '52045',
+          id: 'М-1 Рельефная печать Ideal',
         },
       })
       .then((res) => {

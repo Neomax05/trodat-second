@@ -1,13 +1,17 @@
 // src/cart/cart.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, ObjectId, Types } from 'mongoose';
 import { Cart, CartDocument } from './schema/cart.schema';
 import { CreateCartItemDto } from './dto/create-cart-item.dto';
+import { ProductsService } from '../products/products.service';
 
 @Injectable()
 export class CartService {
-  constructor(@InjectModel(Cart.name) private cartModel: Model<CartDocument>) {}
+  constructor(
+    @InjectModel(Cart.name) private cartModel: Model<CartDocument>,
+    private productService: ProductsService
+  ) {}
 
   // Create or update the cart for a user
   async createCart(createCartDto: CreateCartItemDto): Promise<Cart> {
@@ -25,10 +29,14 @@ export class CartService {
   }
 
   // Add item to the cart
-  async addToCart(userId: string, productId: string): Promise<Cart | null> {
+  async addToCart(
+    userId: string,
+    productId: string,
+    quantity: number
+  ): Promise<Cart | null> {
     const cart = await this.cartModel.findOneAndUpdate(
       { userId: userId },
-      { $addToSet: { items: productId } }, // Use $addToSet to prevent duplicates
+      { $push: { items: { productId, quantity } } }, // Use $addToSet to prevent duplicates
       { new: true, upsert: true, lean: true } // Create a new cart if it doesn't exist
     );
     return cart;
@@ -61,5 +69,15 @@ export class CartService {
     }
 
     return cart; // Return the found cart
+  }
+
+  async getCarts(cartIds?: string[]) {
+    const carts = await this.productService.getProductWithQuery(cartIds);
+    const newCarts = carts.map((el) => ({
+      ...el,
+      _id: el._id.toString('hex'),
+    }));
+
+    return newCarts;
   }
 }

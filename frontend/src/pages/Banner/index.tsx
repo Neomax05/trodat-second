@@ -5,6 +5,7 @@ import { Button } from 'antd';
 import CreateBannerModal from './components/CreateBannerModal';
 import { api } from '../../utils/api';
 import BannerList from './components/BannerList';
+import EditBannerModal from './components/EditBannerModal';
 
 const BannerPage = () => {
   const cn = useClassName('banner');
@@ -53,9 +54,11 @@ const BannerPage = () => {
         handleOk={handleCreateNews}
         confirmLoading={false}
         handleCancel={() => setModal(false)}
+        getBanners={getBanners}
       />
+      <EditBannerModal confirmLoading={false} getBanners={getBanners} />
 
-      <BannerList list={banners} />
+      <BannerList list={banners} getBanners={getBanners} />
     </div>
   );
 };

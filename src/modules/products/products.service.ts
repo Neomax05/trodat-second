@@ -8,7 +8,7 @@ import { CreateParsedProductDto } from './dto/create-parsed-product.dto';
 import { Parser } from 'src/helpers/parser';
 import { downloadImagesByUrl } from 'src/helpers/utils';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import axios from 'axios';
 import {
   ErrorIntegrationAnswer,
@@ -155,5 +155,25 @@ export class ProductsService {
       console.error('Error during integration:', error);
       throw new InternalServerErrorException('Integration error');
     }
+  }
+
+  async getProductWithQuery(cartIds: string[]) {
+    const query: any = {};
+
+    if (cartIds) {
+      // Filter out invalid cart IDs and convert valid ones to ObjectId
+      const validCartIds = cartIds
+        .filter(Types.ObjectId.isValid) // Filter only valid ObjectId strings
+        .map((id) => new Types.ObjectId(id)); // Convert to ObjectId instances
+
+      if (validCartIds.length > 0) {
+        query._id = { $in: validCartIds };
+      } else {
+        return []; // Return an empty array if no valid IDs are found
+      }
+    }
+    const products = await this.productModel.find(query).lean().exec();
+
+    return products;
   }
 }

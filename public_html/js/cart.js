@@ -26,23 +26,33 @@ const renderCartProductOrderItem = (product) => {
       <div class="product-order-item flex justify-space items-center">
                     <div class="flex gap-1">
                       <div class="product-order-item-img">
-                        <img src="${product.image}" alt="" />
+                        <img src="${product?.imageBase64}" alt="" />
                       </div>
                       <div class="grid items-content-space">
-                        <div class="product-order-item-price">${product.total}</div>
+                        <div class="product-order-item-price">${
+                          product?.total || product.article
+                        }</div>
                         <div class="flex gap-2 product-order-item-action">
-                          <div class="product-order-item-title">${product.title}</div>
+                          <div class="product-order-item-title">${
+                            product?.title || product.name
+                          }</div>
                           <div class="flex gap-05 items-center product-order-item-title product-order-item-color">
                             Цвета корпуса:
   
-                            <div class="circle" style="background: ${product.color};"></div>
+                            <div class="circle" style="background: ${(
+                              product?.color || []
+                            ).join('')};"></div>
                           </div>
-                          <div class="product-order-item-title">Кол-во: ${product.count} шт</div>
+                          <div class="product-order-item-title">Кол-во: ${
+                            product?.count || 1
+                          } шт</div>
                         </div>
                       </div>
                     </div>
                     <div class="grid gap-3 justify-items-end">
-                        <div class="product-order-item-price" style="color: #000;">${product.price} c.</div>
+                        <div class="product-order-item-price" style="color: #000;">${
+                          product?.price || product.article
+                        } c.</div>
                         <div class="flex gap-05 product-order-item-delete">
                             <img src="./icons/delete.svg" alt="" />
                             <div style="color: #ACACAC;">Удалить товар</div>
@@ -68,7 +78,9 @@ const orderConfirmationButton = document.getElementById(
   'order-confirmation__button'
 );
 
-const swiperEl = document.getElementById('swiper-container-cart');
+const swiperEl = document.querySelector('.swiper-container-cart');
+
+const swiper = swiperEl.swiper;
 
 // Function to open the drawer
 function openCartModal() {
@@ -100,12 +112,12 @@ const renderCartProductListOrderItem = (list) => {
 cartSummaryCheckoutButton.addEventListener('click', () => {
   console.log('click');
   console.log(swiperEl, 'swipeer');
-  swiperEl.swiper.slideNext();
+  swiper.slideNext();
   orderConfirmationImage.style.display = 'block';
 });
 
 orderConfirmationButton.addEventListener('click', () => {
-  swiperEl.swiper.slidePrev();
+  swiper.slidePrev();
   orderConfirmationImage.style.display = 'none';
 });
 
@@ -120,11 +132,12 @@ const getOrderProducts = async () => {
     );
     const result = await response.json();
     console.log(result);
+    if (Array.isArray(result)) {
+      renderCartProductListOrderItem(result);
+    }
   } catch (error) {
     console.log(error);
   }
 };
 
 getOrderProducts();
-
-renderCartProductListOrderItem(ordersData);

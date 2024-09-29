@@ -9,15 +9,22 @@ import { toast } from 'react-hot-toast';
 
 interface IBannerItemProps {
   banner: IBannerItem;
+  changeSearchParam: (key: string, value: string) => void;
+  getBanners: () => Promise<void>;
 }
 
-const BannerItem: FC<IBannerItemProps> = ({ banner }) => {
+const BannerItem: FC<IBannerItemProps> = ({
+  banner,
+  changeSearchParam,
+  getBanners,
+}) => {
   const cn = useClassName('banner');
 
   const deleteBannerAsync = async (id: string) => {
     try {
       const { data } = await api.delete(`/banner/${id}`);
       console.log(data);
+      await getBanners();
       notification.success({ message: data?.message });
     } catch (error) {
       console.log(error);
@@ -25,6 +32,10 @@ const BannerItem: FC<IBannerItemProps> = ({ banner }) => {
         toast.error(error.message);
       }
     }
+  };
+
+  const handleEditBanner = () => {
+    changeSearchParam('id', banner._id);
   };
 
   return (
@@ -41,7 +52,7 @@ const BannerItem: FC<IBannerItemProps> = ({ banner }) => {
       <div>
         <div>{banner.title}</div>
         <div className={cn('banner-item-buttons')}>
-          <Button>Изменить</Button>
+          <Button onClick={handleEditBanner}>Изменить</Button>
           <Button
             type="primary"
             danger

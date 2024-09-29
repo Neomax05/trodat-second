@@ -60,7 +60,7 @@ export class UsersService {
     productId: string,
     quantity: number
   ): Promise<User> {
-    const cart = await this.cartService.addToCart(userId, productId);
+    const cart = await this.cartService.addToCart(userId, productId, quantity);
 
     return this.userModel.findOneAndUpdate(
       { email: userId },
@@ -87,7 +87,11 @@ export class UsersService {
     // return user.cart;
   }
 
-  async getCarts(userId) {
-    return await this.cartService.getCart(userId);
+  async getCarts(id: string) {
+    const cart = await this.cartService.getCart(id);
+
+    const cartIds = cart.items.map((el) => el.productId);
+
+    return await this.cartService.getCarts(cartIds);
   }
 }

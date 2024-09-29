@@ -17,10 +17,23 @@ export class BannerService {
     return this.bannerModel.find().exec();
   }
 
+  async getBannerById(id: string) {
+    return this.bannerModel.findById(id).lean();
+  }
+
   async createBanner(data: BannerDto) {
     const banner = this.bannerModel.create(data);
 
     return banner;
+  }
+
+  async editBanner(id: string | ObjectId, data: BannerDto) {
+    await this.bannerModel.findOneAndUpdate({ _id: id }, data, { lean: true });
+
+    if (data.image) {
+      const filePath = join(__dirname, '..', '..', '..', 'uploads', data.image);
+      await unlink(filePath);
+    }
   }
 
   async deleteBanner(id: string | ObjectId) {
@@ -35,7 +48,11 @@ export class BannerService {
         'uploads',
         banner.image
       );
-      await unlink(filePath);
+      try {
+        await unlink(filePath);
+      } catch (error) {
+        console.log('🔴 file not removed');
+      }
     }
 
     await this.bannerModel.findByIdAndDelete(id, {

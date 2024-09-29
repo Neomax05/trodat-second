@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useCallback } from 'react';
 import { Modal, Form, Upload, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useSearchParams } from 'react-router-dom';
@@ -10,6 +10,7 @@ type CreateBannerModalProps = {
   handleOk: (imageFile: File | null) => Promise<void>;
   confirmLoading: boolean;
   handleCancel: () => void;
+  getBanners: () => Promise<void>;
 };
 
 const CreateBannerModal: FC<CreateBannerModalProps> = ({
@@ -17,6 +18,7 @@ const CreateBannerModal: FC<CreateBannerModalProps> = ({
   handleOk,
   confirmLoading,
   handleCancel,
+  getBanners,
 }) => {
   const cn = useClassName('banner');
   const [form] = Form.useForm();
@@ -24,43 +26,44 @@ const CreateBannerModal: FC<CreateBannerModalProps> = ({
   const [previewImage, setPreviewImage] = useState<string>('');
   const [searchParams] = useSearchParams();
 
-  const resetValues = () => {
+  const id = searchParams.get('id');
+
+  // Reset form and state values
+  const resetValues = useCallback(() => {
     form.resetFields();
     setImageFile(null);
     setPreviewImage('');
-  };
+  }, [form]);
 
-  const onOk = () => {
+  // Handle image change and validation
+  const handleImageChange = useCallback((info: { fileList: any[] }) => {
+    const file = info.fileList[0]?.originFileObj;
+
+    if (file && file.type.startsWith('image/')) {
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onload = () => setPreviewImage(reader.result as string);
+      reader.readAsDataURL(file);
+    } else {
+      setImageFile(null);
+      setPreviewImage('');
+      alert('Please upload a valid image file');
+    }
+  }, []);
+
+  // Submit form after validation
+  const onOk = useCallback(() => {
     form
       .validateFields()
-      .then(() => {
-        handleOk(imageFile);
+      .then(async () => {
+        await handleOk(imageFile);
+        await getBanners();
         resetValues();
       })
       .catch((errorInfo) => {
-        console.log('Validation Failed:', errorInfo);
+        console.error('Validation Failed:', errorInfo);
       });
-  };
-
-  const id = searchParams.get('id');
-
-  const handleImageChange = (info: { file: any; fileList: any }) => {
-    if (info.fileList.length) {
-      const file = info.fileList[0]?.originFileObj;
-
-      if (file && file.type.startsWith('image/')) {
-        setImageFile(file);
-
-        const reader = new FileReader();
-        reader.onload = () => setPreviewImage(reader.result as string);
-        reader.readAsDataURL(file);
-      } else {
-        setImageFile(null);
-        setPreviewImage('');
-        alert('Please upload a valid image file');
-      }
-    }
-  };
+  }, [form, handleOk, getBanners, imageFile, resetValues]);
 
   return (
     <Modal
@@ -87,13 +90,14 @@ const CreateBannerModal: FC<CreateBannerModalProps> = ({
         >
           <Upload
             accept="image/*"
-            beforeUpload={() => false}
+            beforeUpload={() => false} // Prevent automatic upload
             onChange={handleImageChange}
             maxCount={1}
           >
             <Button icon={<UploadOutlined />}>Загрузить изображение</Button>
           </Upload>
         </Form.Item>
+
         {previewImage && (
           <div className={cn('image-container')}>
             <img
