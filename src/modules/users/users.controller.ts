@@ -3,15 +3,24 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
+  HttpStatus,
   Param,
+  ParseFilePipeBuilder,
   Post,
+  Put,
+  Req,
+  UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateAdminDto, LoginAdminDto } from './dto';
-import { User } from './users.decorator';
-import { JwtGuard } from '../auth/guards/jwt.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
+import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
+
+const MAX_PROFILE_PICTURE_SIZE_IN_BYTES = 5 * 1024 * 1024;
 
 @Controller('users')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -38,7 +47,7 @@ export class UsersController {
   }
 
   @Post('cart/remove')
-  async removeFromCart(@Body() { productId }, @User() user: CreateAdminDto) {
+  async removeFromCart() {
     // return this.usersService.removeFromCart(req.user.sub, productId);
   }
 
@@ -50,5 +59,28 @@ export class UsersController {
   @Get('cart/:id')
   async getCarts(@Param('id') id: string) {
     return await this.usersService.getCarts(id);
+  }
+
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: memoryStorage(),
+    })
+  )
+  @UseGuards(AuthGuard('jwt'))
+  @Put('upload')
+  async createBanner(
+    @Req() req: Request,
+    @UploadedFile(
+      new ParseFilePipeBuilder()
+        .addFileTypeValidator({ fileType: '.(png|jpeg|jpg)' })
+        .addMaxSizeValidator({ maxSize: MAX_PROFILE_PICTURE_SIZE_IN_BYTES })
+        .build({ errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY })
+    )
+    file: Express.Multer.File
+  ) {
+    const userId = req.user['userId'];
+    console.log(req.user, 'user req');
+
+    return await this.usersService.updateUserInfo(userId, file);
   }
 }

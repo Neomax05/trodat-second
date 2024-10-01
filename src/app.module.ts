@@ -17,6 +17,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { BannerModule } from './modules/banner/banner.module';
 import { VerificationCodeModule } from './modules/verification/verification.module';
 import { CartModule } from './modules/cart/cart.module';
+import { FavoriteModule } from './modules/favorite/favorite.module';
+import { FirebaseModule } from './modules/firebase/firebase.module';
 
 @Module({
   imports: [
@@ -52,6 +54,8 @@ import { CartModule } from './modules/cart/cart.module';
     CartModule,
     forwardRef(() => AuthModule),
     forwardRef(() => UsersModule),
+    FavoriteModule,
+    FirebaseModule,
   ],
 })
 export class AppModule {}

@@ -3,13 +3,14 @@ import { MinioService } from 'nestjs-minio-client';
 import { BufferedFile } from './interfaces/file.interface';
 import { MinioConfig } from '../config/configs/minio.config';
 import { getFileExtension, hashFileName } from 'src/helpers/utils';
+import { MongoAPIError, MongoAWSError } from 'mongodb';
 
 @Injectable()
 export class MinioClientService {
   private readonly logger: Logger;
   constructor(
     private readonly minio: MinioService,
-    private readonly fileConfig: MinioConfig,
+    private readonly fileConfig: MinioConfig
   ) {
     this.logger = new Logger('MinioStorageService');
   }
@@ -20,7 +21,7 @@ export class MinioClientService {
 
   async upload(
     file: BufferedFile,
-    baseBucket: string = this.fileConfig.getBucketName(),
+    baseBucket: string = this.fileConfig.getBucketName()
   ) {
     try {
       const config = this.fileConfig.create();
@@ -44,22 +45,26 @@ export class MinioClientService {
         url: `http://${config.endPoint}:${config.port}/${baseBucket}/${filename}`,
       };
     } catch (error) {
-      this.logger.error(`Error uploading file: ${error.message}`);
+      if (error instanceof MongoAWSError) {
+        this.logger.error(`Error uploading file: ${error.message}`);
+      }
       throw new HttpException('Error uploading file', HttpStatus.BAD_REQUEST);
     }
   }
 
   async delete(
     objectName: string,
-    baseBucket: string = this.fileConfig.getBucketName(),
+    baseBucket: string = this.fileConfig.getBucketName()
   ) {
     try {
       await this.client.removeObject(baseBucket, objectName);
     } catch (error) {
-      this.logger.error(`Error deleting file: ${error.message}`);
+      if (error instanceof MongoAPIError) {
+        this.logger.error(`Error deleting file: ${error.message}`);
+      }
       throw new HttpException(
         'Oops, something went wrong',
-        HttpStatus.BAD_REQUEST,
+        HttpStatus.BAD_REQUEST
       );
     }
   }
@@ -94,7 +99,7 @@ export class MinioClientService {
                 } else {
                   this.logger.log('Bucket policy set to public.');
                 }
-              },
+              }
             );
           }
         });

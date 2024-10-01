@@ -40,6 +40,7 @@ import {
 } from '@nestjs/mongoose';
 import { ConfigService } from '../config.service';
 import mongoose, { ConnectOptions } from 'mongoose';
+import { MongoAPIError } from 'mongodb';
 
 @Injectable()
 export class MongoConfig implements MongooseOptionsFactory {
@@ -67,7 +68,12 @@ export class MongoConfig implements MongooseOptionsFactory {
       await mongoose.connect(this.mongoUri, options);
       this.logger.log('База данных MongoDB Подключена');
     } catch (error) {
-      this.logger.error(' База данных MongoDB НЕ Подключена', error.stack);
+      if (error instanceof MongoAPIError) {
+        this.logger.error(
+          ' База данных MongoDB НЕ Подключена',
+          error.stack as string
+        );
+      }
       throw new InternalServerErrorException('Failed to connect to MongoDB');
     }
   }

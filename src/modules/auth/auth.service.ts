@@ -21,6 +21,46 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
+  hashValue(value: string) {
+    return bcryptjs.hash(value, 10);
+  }
+
+  async updateRtHash(userId: string, rt: string) {
+    const hash = await this.hashValue(rt);
+    await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      {
+        hashedRt: hash,
+      }
+    );
+  }
+
+  async getTokens(userId: string, email: string) {
+    const [at, rt] = await Promise.all([
+      this.jwtService.signAsync(
+        {
+          sub: userId,
+          email,
+        },
+        {
+          secret: 'abc123',
+          expiresIn: 60 * 60 * 24 * 7,
+        }
+      ),
+      this.jwtService.signAsync(
+        {
+          sub: userId,
+          email,
+        },
+        {
+          secret: 'rt-secret',
+          expiresIn: 60 * 60 * 24 * 7,
+        }
+      ),
+    ]);
+    return { access_token: at, refresh_token: rt };
+  }
+
   async signUp(@Body() signUpDto: SignUpDto) {
     const { password, email, ...signUpUser } = signUpDto;
     const hashedPassword = await bcryptjs.hash(password, 10);
@@ -31,10 +71,17 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    const token = this.jwtService.sign({ id: user._id });
+    const tokens = await this.getTokens(
+      user._id as unknown as string,
+      user.email
+    );
+    await this.updateRtHash(
+      user._id as unknown as string,
+      tokens.refresh_token
+    );
 
     return {
-      token,
+      ...tokens,
       email: user.email,
       full_name: user.full_name,
       phone_number: user.phone_number,
@@ -51,10 +98,17 @@ export class AuthService {
     if (!isPasswordMatched)
       throw new UnauthorizedException('Invalid email or password');
 
-    const token = this.jwtService.sign({ id: user._id });
+    const tokens = await this.getTokens(
+      user._id as unknown as string,
+      user.email
+    );
+    await this.updateRtHash(
+      user._id as unknown as string,
+      tokens.refresh_token
+    );
 
     return {
-      token,
+      ...tokens,
       email: user.email,
       full_name: user.full_name,
       phone_number: user.phone_number,

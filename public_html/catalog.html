@@ -162,7 +162,9 @@
                 src="./icons/filter-alt.svg"
                 alt="Сортировка иконка"
               />
-              <div class="catalog-header__text">Сортировка</div>
+              <div class="catalog-header__text" id="catalog-header__text">
+                Сортировка
+              </div>
             </button>
 
             <div class="catalog-header__search">
@@ -174,6 +176,7 @@
               <input
                 type="text"
                 class="catalog-header__search_input"
+                id="catalog-header__search_input"
                 placeholder="Искать товар..."
               />
             </div>
@@ -196,10 +199,12 @@
                 <div
                   class="catalog-sidebar__filter catalog-sidebar__filter--price"
                 >
-                  <label class="catalog-sidebar__label" for="">По ценам</label>
+                  <label class="catalog-sidebar__label" for=""
+                    >По диаметру (круглые штампы)</label
+                  >
                   <div class="catalog-sidebar__range-values">
-                    <div class="catalog-sidebar__range-min">250 с.</div>
-                    <div class="catalog-sidebar__range-max">4500 с.</div>
+                    <div class="catalog-sidebar__range-min">20 мм..</div>
+                    <div class="catalog-sidebar__range-max">100 мм.</div>
                   </div>
                   <input class="catalog-sidebar__range-input" type="range" />
                 </div>
@@ -223,87 +228,10 @@
 
                 <div class="catalog-sidebar__filter--categories">
                   <div class="catalog-sidebar__label-categories">Категории</div>
-                  <div class="catalog-sidebar__category-list">
-                    <div class="catalog-sidebar__category-item">
-                      <input
-                        class="catalog-sidebar__checkbox"
-                        type="checkbox"
-                      />
-                      <div class="catalog-sidebar__category-text">
-                        Круглые печати
-                      </div>
-                    </div>
-                    <div class="catalog-sidebar__category-item">
-                      <input
-                        class="catalog-sidebar__checkbox"
-                        type="checkbox"
-                      />
-                      <div class="catalog-sidebar__category-text">
-                        Прямоугольные печати
-                      </div>
-                    </div>
-                    <div class="catalog-sidebar__category-item">
-                      <input
-                        class="catalog-sidebar__checkbox"
-                        type="checkbox"
-                      />
-                      <div class="catalog-sidebar__category-text">
-                        Рельефные печати
-                      </div>
-                    </div>
-                    <div class="catalog-sidebar__category-item">
-                      <input
-                        class="catalog-sidebar__checkbox"
-                        type="checkbox"
-                      />
-                      <div class="catalog-sidebar__category-text">
-                        Квадратные штампы
-                      </div>
-                    </div>
-                    <div class="catalog-sidebar__category-item">
-                      <input
-                        class="catalog-sidebar__checkbox"
-                        type="checkbox"
-                      />
-                      <div class="catalog-sidebar__category-text">
-                        Нумераторы
-                      </div>
-                    </div>
-                    <div class="catalog-sidebar__category-item">
-                      <input
-                        class="catalog-sidebar__checkbox"
-                        type="checkbox"
-                      />
-                      <div class="catalog-sidebar__category-text">
-                        Карманные штампы
-                      </div>
-                    </div>
-                    <div class="catalog-sidebar__category-item">
-                      <input
-                        class="catalog-sidebar__checkbox"
-                        type="checkbox"
-                      />
-                      <div class="catalog-sidebar__category-text">Датеры</div>
-                    </div>
-                    <div class="catalog-sidebar__category-item">
-                      <input
-                        class="catalog-sidebar__checkbox"
-                        type="checkbox"
-                      />
-                      <div class="catalog-sidebar__category-text">
-                        Овальные печати
-                      </div>
-                    </div>
-                    <div class="catalog-sidebar__category-item">
-                      <input
-                        class="catalog-sidebar__checkbox"
-                        type="checkbox"
-                      />
-                      <div class="catalog-sidebar__category-text">
-                        Серия оснасток Professional
-                      </div>
-                    </div>
-                  </div>
+                  <div
+                    class="catalog-sidebar__category-list"
+                    id="categoryList"
+                  ></div>
                 </div>
               </div>
             </div>

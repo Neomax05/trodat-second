@@ -9,18 +9,15 @@ import { Parser } from 'src/helpers/parser';
 import { downloadImagesByUrl } from 'src/helpers/utils';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import axios from 'axios';
-import {
-  ErrorIntegrationAnswer,
-  IntegrationProduct,
-  SuccessIntegrationAnswer,
-} from '../../types/integration.type';
+import { IntegrationProduct } from '../../@types/integration.type';
 import { CategoryService } from '../category/category.service';
 import {
   getGoodsFrom1C,
   ParsedOptionsType,
   productRusFieldToEng,
 } from './helper';
+import { FavoriteService } from '../favorite/favorite.service';
+import { SearchProductsQuery } from './dto/products.dto';
 
 @Injectable()
 export class ProductsService {
@@ -28,7 +25,8 @@ export class ProductsService {
 
   constructor(
     @InjectModel(Product.name) private readonly productModel: Model<Product>,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private favoriteService: FavoriteService
   ) {
     this.parser = new Parser(this);
     this.parser.init();
@@ -74,19 +72,92 @@ export class ProductsService {
       );
       return;
     }
-    const downloaded_images = await downloadImagesByUrl(data.images);
+    await downloadImagesByUrl(data.images);
     data.is_active = false;
     await this.create(data);
   }
 
-  async getProducts() {
-    const mongodbProducts = await this.productModel
-      .find()
-      .populate('category')
-      .exec();
+  async getProducts(userId?: string, query?: SearchProductsQuery) {
+    const {
+      categories,
+      page = '1',
+      limit = '10',
+      sortBy = 'name',
+      sortOrder = 'desc',
+      search: searchQuery,
+    } = query || {};
+
+    // Prepare the search criteria if searchQuery is provided
+    const searchCriteria = searchQuery
+      ? {
+          $or: [
+            { name: { $regex: searchQuery, $options: 'i' } },
+            { description: { $regex: searchQuery, $options: 'i' } },
+            { product1cId: { $regex: searchQuery, $options: 'i' } },
+            { article: { $regex: searchQuery, $options: 'i' } },
+            { description1c: { $regex: searchQuery, $options: 'i' } },
+            { size: { $regex: searchQuery, $options: 'i' } },
+          ],
+
+          category: { $in: categories },
+        }
+      : {};
+
+    // Prepare the sort criteria
+    const sortCriteria = {};
+    if (sortBy) {
+      sortCriteria[sortBy] = sortOrder === 'desc' ? -1 : 1; // Determine the sort order
+    }
+
+    // Create the products query with search and sorting
+    const productTotal = await this.productModel.collection.count();
+
+    const productsQuery = this.productModel
+      .find(searchCriteria)
+      .sort(sortCriteria)
+      .lean(); // Use lean for better performance
+
+    // Implement pagination
+    const skip = (Number(page) - 1) * Number(limit);
+    productsQuery.skip(skip).limit(Number(limit)); // Apply pagination
+
+    // Execute the products query
+    const products = await productsQuery.exec();
+
+    // Get favorite product IDs if userId is provided
+    const favoriteProductIds = userId
+      ? await this.favoriteService.getFavorites(userId)
+      : [];
+
+    // Create a Set for faster lookup of favorite product IDs
+    const favoriteSet = new Set(
+      favoriteProductIds.map((fav) => fav?.product?._id?.toString())
+    );
+
+    // Combine products from MongoDB and 1C
     const goodsGetFrom1C = await getGoodsFrom1C();
 
-    return [...mongodbProducts, ...goodsGetFrom1C];
+    // Map products to include favorite status
+    const combinedProducts = [...products, ...goodsGetFrom1C].map((product) => {
+      const productId = product._id?.toString();
+      const isFavorite = productId ? favoriteSet.has(productId) : false;
+
+      return {
+        ...product,
+        isLike: isFavorite,
+      };
+    });
+
+    // Implement pagination on combined products
+    const totalProducts = combinedProducts.length + productTotal;
+    const paginatedProducts = combinedProducts;
+
+    return {
+      products: paginatedProducts, // Current page of products
+      total: totalProducts, // Total number of products
+      page: Number(page), // Current page
+      limit: Number(limit), // Limit per page
+    }; // Return the combined products with favorite status
   }
 
   getParseOptions(description: string): ParsedOptionsType {

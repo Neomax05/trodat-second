@@ -4,14 +4,22 @@ import { Model } from 'mongoose';
 import { BannerDto } from './dto/banner.dto';
 import { Banner } from './schema/banner.schema';
 import { ObjectId } from 'mongodb';
-import { unlink } from 'fs/promises';
-import { join } from 'path';
+import { FirebaseService } from '../firebase/firebase.service';
 
 @Injectable()
 export class BannerService {
   constructor(
-    @InjectModel(Banner.name) private readonly bannerModel: Model<Banner>
+    @InjectModel(Banner.name) private readonly bannerModel: Model<Banner>,
+    private firebaseService: FirebaseService
   ) {}
+
+  async uploadFile(file: Express.Multer.File): Promise<string> {
+    return this.firebaseService.uploadFile(file);
+  }
+
+  async deleteFile(fileName: string): Promise<void> {
+    return this.firebaseService.deleteFile(fileName);
+  }
 
   async getBanners() {
     return this.bannerModel.find().exec();
@@ -29,31 +37,10 @@ export class BannerService {
 
   async editBanner(id: string | ObjectId, data: BannerDto) {
     await this.bannerModel.findOneAndUpdate({ _id: id }, data, { lean: true });
-
-    if (data.image) {
-      const filePath = join(__dirname, '..', '..', '..', 'uploads', data.image);
-      await unlink(filePath);
-    }
   }
 
   async deleteBanner(id: string | ObjectId) {
-    const banner = await this.bannerModel.findById(id);
-
-    if (banner.image) {
-      const filePath = join(
-        __dirname,
-        '..',
-        '..',
-        '..',
-        'uploads',
-        banner.image
-      );
-      try {
-        await unlink(filePath);
-      } catch (error) {
-        console.log('🔴 file not removed');
-      }
-    }
+    await this.bannerModel.findById(id);
 
     await this.bannerModel.findByIdAndDelete(id, {
       lean: true,

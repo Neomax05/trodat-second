@@ -28,7 +28,7 @@ const EditBannerModal: FC<EditBannerModalProps> = ({
     try {
       const { data } = await api.get(`/banner/${id}`);
 
-      setPreviewImage(`${imageUrl}${data?.image}`);
+      setPreviewImage(data?.image);
     } catch (error) {
       console.log(error);
     }
@@ -70,6 +70,8 @@ const EditBannerModal: FC<EditBannerModalProps> = ({
     try {
       await form.validateFields();
       await handleCreateNews(imageFile);
+      searchParams.delete('id');
+      setSearchParams(searchParams);
       resetForm();
     } catch (error) {
       console.error('Validation failed:', error);

@@ -6,6 +6,8 @@ import { ConfigModule } from '../config/config.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CartModule } from '../cart/cart.module';
 import { AuthModule } from '../auth/auth.module';
+import { FavoriteModule } from '../favorite/favorite.module';
+import { FirebaseModule } from '../firebase/firebase.module';
 
 @Module({
   imports: [
@@ -13,6 +15,8 @@ import { AuthModule } from '../auth/auth.module';
     ConfigModule,
     AuthModule,
     CartModule,
+    FavoriteModule,
+    FirebaseModule,
   ],
 
   controllers: [UsersController],

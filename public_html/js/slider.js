@@ -12,7 +12,7 @@ let sliders = [
 
 const renderThumbItem = (slide) => {
   return `<img
-                  src="${url}/uploads/${slide.image}"
+                  src="${slide.image}"
                   alt="Slide 1"
                   class="slider-image"
                 />`;

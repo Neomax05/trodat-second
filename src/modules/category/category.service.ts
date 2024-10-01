@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { IntegrationGroup } from '../../types/integration.type';
+import { IntegrationGroup } from '../../@types/integration.type';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Category } from './schemas/category.schema';
@@ -7,7 +7,7 @@ import { Category } from './schemas/category.schema';
 @Injectable()
 export class CategoryService {
   constructor(
-    @InjectModel(Category.name) private readonly categoryModel: Model<Category>,
+    @InjectModel(Category.name) private readonly categoryModel: Model<Category>
   ) {}
 
   async getAllCategories() {

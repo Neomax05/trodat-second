@@ -1,14 +1,30 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Put,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
-import { IntegrationProduct } from 'src/types/integration.type';
+import { IntegrationProduct } from 'src/@types/integration.type';
+import { Request } from 'express';
+import { OptionalJwtAuthGuard } from './gruads/jwt.guads';
+import { SearchProductsQuery } from './dto/products.dto';
 
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
+  @UseGuards(OptionalJwtAuthGuard)
   @Get()
-  async getProducts() {
-    return await this.productsService.getProducts();
+  async getProducts(@Req() req: Request, @Query() query?: SearchProductsQuery) {
+    const userId = req.user ? req.user['userId'] : null;
+    console.log(userId, 'get product userid', query);
+
+    return await this.productsService.getProducts(userId, query);
   }
 
   @Get('byCategory/:categoryId')

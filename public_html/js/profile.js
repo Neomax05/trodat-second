@@ -125,7 +125,7 @@ const LOCALSTORAGE_KEY = 'LOCALSTORAGE_KEY';
 // Initialize login state
 const initializationLogin = () => {
   const values = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
-  const isAuth = values?.token;
+  const isAuth = values?.access_token;
 
   toggleAuthState(isAuth);
 

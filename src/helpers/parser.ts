@@ -8,7 +8,7 @@ import { Browser, chromium } from 'playwright';
 import { AppModule } from 'src/app.module';
 import { AppConfig } from 'src/modules/config/configs';
 import { ProductsService } from 'src/modules/products/products.service';
-import { IntegrationProduct } from '../types/integration.type';
+import { IntegrationProduct } from '../@types/integration.type';
 import { toBase64 } from './utils';
 
 @Injectable()

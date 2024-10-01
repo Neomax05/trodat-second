@@ -46,7 +46,7 @@ const BannerItem: FC<IBannerItemProps> = ({
             console.log(`current index: ${current}, prev index: ${prev}`),
         }}
       >
-        <Image width={200} src={`${imageUrl}${banner.image}`} />
+        <Image width={200} src={banner.image} />
       </Image.PreviewGroup>
 
       <div>

@@ -9,11 +9,13 @@ import {
   Post,
   Put,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { BannerDto } from './dto/banner.dto';
 import { BannerService } from './banner.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
 
 const MAX_PROFILE_PICTURE_SIZE_IN_BYTES = 5 * 1024 * 1024;
 
@@ -32,7 +34,7 @@ export class BannerController {
 
   @UseInterceptors(
     FileInterceptor('image', {
-      dest: './uploads',
+      storage: memoryStorage(),
     })
   )
   @Post()
@@ -46,16 +48,15 @@ export class BannerController {
     )
     file: Express.Multer.File
   ) {
-    console.log('data', data);
-    console.log('file', file);
+    const fileUrl = await this.bannerSerive.uploadFile(file);
     return await this.bannerSerive.createBanner({
-      image: file.filename,
+      image: fileUrl,
     });
   }
 
   @UseInterceptors(
     FileInterceptor('image', {
-      dest: './uploads',
+      storage: memoryStorage(),
     })
   )
   @Put(':id')
@@ -70,13 +71,27 @@ export class BannerController {
     )
     file: Express.Multer.File
   ) {
-    console.log(id, data, file, 'put');
+    const banner = await this.getBannerById(id);
+    const url = banner.image;
+    const fileName = url.substring(url.lastIndexOf('/') + 1);
+    console.log(fileName);
 
-    return this.bannerSerive.editBanner(id, { ...data, image: file.filename });
+    await this.bannerSerive.deleteFile(fileName);
+
+    const fileUrl = await this.bannerSerive.uploadFile(file);
+
+    return this.bannerSerive.editBanner(id, { ...data, image: fileUrl });
   }
 
   @Delete(':id')
   async deleteBanner(@Param('id') id: string) {
+    const banner = await this.getBannerById(id);
+    const url = banner.image;
+    const fileName = url.substring(url.lastIndexOf('/') + 1);
+    console.log(fileName);
+
+    await this.bannerSerive.deleteFile(fileName);
+
     return this.bannerSerive.deleteBanner(id);
   }
 }

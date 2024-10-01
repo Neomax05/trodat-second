@@ -1,0 +1,28 @@
+.nav-search-input {
+  max-width: 0;
+  opacity: 0;
+  padding: 0;
+  transition: all 300ms ease-in-out;
+  overflow: hidden; /* Prevent content overflow during transition */
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 24px;
+  background: #fff;
+}
+
+/* Full width input when active */
+.nav-search-input.active {
+  max-width: 100%; /* Expands to full width */
+  opacity: 1; /* Fades in */
+  padding: 10px; /* Adds padding smoothly */
+  width: 100%;
+}
+
+.nav-search-icon {
+  cursor: pointer;
+}
