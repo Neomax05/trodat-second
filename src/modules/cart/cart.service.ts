@@ -1,7 +1,6 @@
-// src/cart/cart.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, ObjectId, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { Cart, CartDocument } from './schema/cart.schema';
 import { CreateCartItemDto } from './dto/create-cart-item.dto';
 import { ProductsService } from '../products/products.service';
@@ -15,10 +14,8 @@ export class CartService {
 
   // Create or update the cart for a user
   async createCart(createCartDto: CreateCartItemDto): Promise<Cart> {
-    // Check if the cart already exists for the user
     const cart = await this.cartModel.findOne({ userId: createCartDto.userId });
 
-    // If cart exists, update it; if not, create a new cart
     if (cart) {
       cart.items = createCartDto.items; // Update items
       return cart.save(); // Save updated cart
@@ -42,20 +39,38 @@ export class CartService {
     return cart;
   }
 
-  // Remove item from the cart
+  // Remove single item from the cart
   async removeFromCart(
     userId: string,
     productId: string
   ): Promise<Cart | null> {
     const cart = await this.cartModel.findOneAndUpdate(
       { userId: userId },
-      { $pull: { items: productId } }, // Remove productId from items
+      { $pull: { items: { productId } } }, // Remove productId from items
       { new: true, lean: true } // Return the updated cart
     );
 
     if (!cart) {
-      throw new NotFoundException('Cart not found'); // Handle case where cart is not found
+      throw new NotFoundException('Cart not found');
     }
+
+    return cart;
+  }
+
+  // Remove multiple items from the cart
+  async removeMultipleItems(
+    userId: string,
+    productIds: string[]
+  ): Promise<Cart | null> {
+    const cart = await this.cartModel.findOne({ userId: userId }).lean();
+
+    console.log(cart, 'cart', userId, productIds);
+
+    if (!cart) {
+      throw new NotFoundException('🔴 Cart not found');
+    }
+
+    console.log('🟢 carts is sucessfully is removed');
 
     return cart;
   }
@@ -65,7 +80,7 @@ export class CartService {
     const cart = await this.cartModel.findOne({ userId: userId }).lean();
 
     if (!cart) {
-      throw new NotFoundException('Cart not found'); // Handle case where cart is not found
+      throw new NotFoundException('Cart not found');
     }
 
     return cart; // Return the found cart

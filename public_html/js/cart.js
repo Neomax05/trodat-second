@@ -21,6 +21,8 @@ const ordersData = [
   },
 ];
 
+let products = [];
+
 const renderCartProductOrderItem = (product) => {
   return `
       <div class="product-order-item flex justify-space items-center">
@@ -60,6 +62,63 @@ const renderCartProductOrderItem = (product) => {
                     </div>
                   </div>
       `;
+};
+
+function createOrder(products) {
+  // Map products to the desired structure
+  const items = products.map((product) => ({
+    productId: product._id, // Assuming you want to use 'product1cId' as 'productId'
+    quantity: product.quantity || 1, // Set a default quantity of 1 if not provided
+  }));
+
+  // Calculate the total amount (for demonstration purposes, I'll assume each product has a fixed price)
+  const totalAmount = items.reduce((total, item) => {
+    // Replace the fixed prices with actual prices for each product, if available
+    const pricePerProduct = 50; // Example fixed price for all products
+    return total + pricePerProduct * (item?.quantity || 1);
+  }, 0);
+
+  // Return the order object
+  return {
+    items: items,
+    totalAmount: totalAmount,
+  };
+}
+
+const getOrderProducts = async () => {
+  try {
+    const LOCALSTORAGE_KEY = 'LOCALSTORAGE_KEY';
+
+    const values = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
+
+    const response = await fetch(
+      `${config.apiUrl}/api/users/cart/${values.email}`
+    );
+    const result = await response.json();
+    console.log(result);
+    if (Array.isArray(result)) {
+      renderCartProductListOrderItem(result);
+      products = result;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const postOrderProducts = async () => {
+  const orderObject = createOrder(products);
+  const body = JSON.stringify(orderObject);
+
+  try {
+    const result = await fetchWithAuth({
+      url: `${config.apiUrl}/api/orders`,
+      method: 'POST',
+      body,
+    });
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const cartModalContent = document.getElementById('cart-modal');
@@ -109,9 +168,13 @@ const renderCartProductListOrderItem = (list) => {
   orderProducts.innerHTML = renderList.join('');
 };
 
-cartSummaryCheckoutButton.addEventListener('click', () => {
+cartSummaryCheckoutButton.addEventListener('click', async () => {
   console.log('click');
   console.log(swiperEl, 'swipeer');
+
+  const result = await postOrderProducts();
+  console.log(result);
+
   swiper.slideNext();
   orderConfirmationImage.style.display = 'block';
 });
@@ -120,24 +183,5 @@ orderConfirmationButton.addEventListener('click', () => {
   swiper.slidePrev();
   orderConfirmationImage.style.display = 'none';
 });
-
-const getOrderProducts = async () => {
-  try {
-    const LOCALSTORAGE_KEY = 'LOCALSTORAGE_KEY';
-
-    const values = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
-
-    const response = await fetch(
-      `${config.apiUrl}/api/users/cart/${values.email}`
-    );
-    const result = await response.json();
-    console.log(result);
-    if (Array.isArray(result)) {
-      renderCartProductListOrderItem(result);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 getOrderProducts();

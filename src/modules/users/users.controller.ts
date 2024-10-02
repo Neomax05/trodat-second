@@ -38,12 +38,11 @@ export class UsersController {
     return await this.usersService.loginAdmin(data);
   }
 
-  // @UseGuards(JwtGuard)
+  @UseGuards(AuthGuard('jwt'))
   @Post('cart/add')
-  async addToCart(@Body() { productId, email, quantity }) {
-    console.log(email, productId, quantity);
-
-    return this.usersService.addToCart(email, productId, quantity);
+  async addToCart(@Req() req: Request, @Body() { productId, quantity }) {
+    const userId = req.user['userId'];
+    return this.usersService.addToCart(userId, productId, quantity);
   }
 
   @Post('cart/remove')

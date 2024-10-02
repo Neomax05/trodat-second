@@ -19,6 +19,7 @@ import { VerificationCodeModule } from './modules/verification/verification.modu
 import { CartModule } from './modules/cart/cart.module';
 import { FavoriteModule } from './modules/favorite/favorite.module';
 import { FirebaseModule } from './modules/firebase/firebase.module';
+import { OrderModule } from './modules/order/order.module';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { FirebaseModule } from './modules/firebase/firebase.module';
     forwardRef(() => UsersModule),
     FavoriteModule,
     FirebaseModule,
+    OrderModule,
   ],
 })
 export class AppModule {}
