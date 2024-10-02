@@ -26,6 +26,14 @@ export class ProductsController {
 
     return await this.productsService.getProducts(userId, query);
   }
+  @UseGuards(OptionalJwtAuthGuard)
+  @Get('favorites')
+  async getProductsWithFavorites(@Req() req: Request) {
+    const userId = req.user ? req.user['userId'] : null;
+    console.log(userId, 'get product userid');
+
+    return await this.productsService.getProductsWithFavorites(userId);
+  }
 
   @Get('byCategory/:categoryId')
   async getProductsByCategoryId(@Param() param: { categoryId: string }) {

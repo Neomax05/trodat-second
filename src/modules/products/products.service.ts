@@ -160,6 +160,26 @@ export class ProductsService {
     }; // Return the combined products with favorite status
   }
 
+  async getProductsWithFavorites(userId: string) {
+    const favorites = await this.favoriteService.getFavorites(userId);
+
+    const favoriteItems = favorites
+      .map((item) => ({ ...item, isLike: true }))
+      .map((favorite) => favorite.product)
+      .filter((item) => Types.ObjectId.isValid(item)); // фильтруем некорректные ObjectId
+
+    // Преобразуем отфильтрованные строки в ObjectId
+    const objectIdItems = favoriteItems.map((item) => new Types.ObjectId(item));
+
+    // Используем $in для поиска всех продуктов по массиву ObjectId
+    const products = await this.productModel
+      .find({
+        _id: { $in: objectIdItems },
+      })
+      .lean();
+    return products.map((product) => ({ ...product, isLike: true }));
+  }
+
   getParseOptions(description: string): ParsedOptionsType {
     const parsedOptions: ParsedOptionsType = {};
     const strArr = description

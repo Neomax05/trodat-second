@@ -719,11 +719,7 @@ a {
   width: 100%;
   margin-bottom: 19rem;
 }
-.profile__info-fav {
-  display: flex;
-  gap: 25px;
-  flex-wrap: wrap;
-}
+
 .profile__info-rightLinks h4 {
   color: #868686;
   font-size: 16px;

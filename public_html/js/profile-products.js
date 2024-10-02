@@ -33,28 +33,7 @@ const data = [
   },
 ];
 
-const orders = [
-  {
-    id: 1,
-    total: 5200,
-    image: './icons/product-1.png',
-    title: 'Рельефная печать',
-    size: 'Размер: Max. 41мм* 24мм',
-    color: 'white',
-    count: 4,
-    price: 3500,
-  },
-  {
-    id: 2,
-    total: 5200,
-    image: './icons/product-1.png',
-    title: 'Рельефная печать',
-    size: 'Размер: Max. 41мм* 24мм',
-    color: 'red',
-    count: 5,
-    price: 3500,
-  },
-];
+const orders = [];
 
 const profileProducts = document.getElementById('profile-products');
 // profile tabs
@@ -65,6 +44,12 @@ const historyOrder = document.getElementById('history-order');
 const profileHistoryOrder = document.getElementById('profile-history-order');
 
 // order
+function truncateString(str, maxLength) {
+  if (str.length <= maxLength) {
+    return str; // Return the original string if it's shorter than maxLength
+  }
+  return str.slice(0, maxLength - 3) + '...'; // Truncate and add ellipsis
+}
 
 const renderProductOrderItem = (product) => {
   return `
@@ -95,42 +80,86 @@ const renderProductOrderItem = (product) => {
 
 const renderProductItem = (product) => {
   return `
-   <div class="product-item p-1">
-                  <div class="product-item-image">
-                    <img src="${product.image}" alt="" />
-                    <div class="product-item-image-bar">
-                      <div class="flex justify-space">
-                        <div>${product.total}</div>
-                        <img src="./icons/heart.svg" alt="" />
+     <div class="product-item p-1 h-full">
+                    <div class="product-item-image">
+                      <a href="product-detail.html">
+                      <img src="${
+                        product?.imageBase64 || './icons/placeholder.png'
+                      }" alt="${product?.name}" /></a>
+                      <div class="product-item-image-bar">
+                        <div class="flex justify-space">
+                          <div>${product?.markType}</div>
+                          <div class="icon favorite-icon" onclick="addProductToFavoriteAsync('${
+                            product?._id || null
+                          }')">
+                            <img src="${
+                              product.isLike
+                                ? './icons/heart-active.svg'
+                                : './icons/heart.svg'
+                            }" alt="" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <a href="product-detail.html" class="product-item-title">${truncateString(
+                      product?.name,
+                      30
+                    )}</a>
+                    <div class="grid gap-05">
+                      <div class="product-item-size">${product?.size}</div>
+                      
+                    </div>
+                    <div class="flex justify-space items-center py-1">
+                      <div class="product-item-price">${
+                        product?.price || 0
+                      } c.</div>
+                      <div class="icon" onclick="addProductToCartAsync('${
+                        product?._id || null
+                      }')">
+                        <img
+                          src="./icons/cart-add.svg"
+                          alt="cart-add-icon"
+                          class="cart-add-icon"
+                        />
                       </div>
                     </div>
                   </div>
-                  <div class="product-item-title">${product.title}</div>
-                  <div class="grid gap-05">
-                    <div class="product-item-size">${product.size}</div>
-                    <div class="flex gap-05">
-                    ${product.colors
-                      .map(
-                        (color) =>
-                          `<div class="circle" style="background:${color};"></div>`
-                      )
-                      .join('')}
-                      
-                    </div>
-                  </div>
-                  <div class="flex justify-space items-center py-1">
-                    <div class="product-item-price">${product.price} c.</div>
-                    <div class="icon">
-                      <img
-                        src="./icons/cart-add.svg"
-                        alt=""
-                        class="cart-add-icon"
-                      />
-                    </div>
-                  </div>
-                </div>
-  `;
+    `;
 };
+
+function generateUrlParams(params) {
+  const query = new URLSearchParams(params).toString();
+  return query ? `?${query}` : '';
+}
+
+async function fetchWithAuth({ url, method = 'GET', body, params }) {
+  const LOCALSTORAGE_KEY = 'LOCALSTORAGE_KEY';
+
+  const urlParam = generateUrlParams(params);
+
+  const values = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
+
+  const token = values.access_token;
+  try {
+    const response = await fetch(`${url}${urlParam}`, {
+      method: method, // or 'POST', 'PUT', etc.
+      body,
+      headers: {
+        Authorization: `Bearer ${token}`, // Authorization header with token
+        'Content-Type': 'application/json', // adjust as needed
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Fetch error:', error);
+  }
+}
 
 const renderProductListItem = (list) => {
   const renderList = list.map(renderProductItem);
@@ -160,8 +189,21 @@ historyOrder.addEventListener('click', () => {
   renderProductListOrderItem(orders);
 });
 
-const initializationProducts = () => {
-  renderProductListItem(data);
+const initializationProducts = () => {};
+
+const getFavoriteProducts = async () => {
+  try {
+    const result = await fetchWithAuth({
+      url: `${config.apiUrl}/api/products/favorites`,
+      method: 'GET',
+    });
+    console.log(result, 'result');
+    renderProductListItem(result);
+  } catch (error) {
+    console.log(error);
+  }
 };
+
+getFavoriteProducts();
 
 initializationProducts();
