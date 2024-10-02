@@ -4,7 +4,6 @@ import {
   Controller,
   Get,
   HttpStatus,
-  Param,
   ParseFilePipeBuilder,
   Post,
   Put,
@@ -42,7 +41,7 @@ export class UsersController {
   @Post('cart/add')
   async addToCart(@Req() req: Request, @Body() { productId, quantity }) {
     const userId = req.user['userId'];
-    return this.usersService.addToCart(userId, productId, quantity);
+    return await this.usersService.addToCart(userId, productId, quantity);
   }
 
   @Post('cart/remove')
@@ -55,9 +54,11 @@ export class UsersController {
     return this.usersService.getCart(email);
   }
 
-  @Get('cart/:id')
-  async getCarts(@Param('id') id: string) {
-    return await this.usersService.getCarts(id);
+  @UseGuards(AuthGuard('jwt'))
+  @Get('carts')
+  async getCarts(@Req() req: Request) {
+    const userId = req.user['userId'];
+    return await this.usersService.getCarts(userId);
   }
 
   @UseInterceptors(

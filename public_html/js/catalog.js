@@ -308,17 +308,11 @@ const addProductToCartAsync = async (id) => {
     alert('product id not found');
     return;
   }
-  console.log('clicked', id);
-
-  const LOCALSTORAGE_KEY = 'LOCALSTORAGE_KEY';
-
-  const values = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
 
   try {
     const body = JSON.stringify({
       productId: id,
       quantity: 1,
-      email: values.email,
     });
 
     const result = await fetchWithAuth({
@@ -326,6 +320,8 @@ const addProductToCartAsync = async (id) => {
       method: 'POST',
       body,
     });
+
+    getOrderProducts();
     console.log(result, 'result');
   } catch (error) {
     console.log(error);

@@ -76,7 +76,7 @@ export class UsersService {
   ): Promise<User> {
     const cart = await this.cartService.addToCart(userId, productId, quantity);
 
-    return this.userModel.findOneAndUpdate(
+    return await this.userModel.findOneAndUpdate(
       { email: userId },
       { cartId: cart.userId }, // Ensure no duplicates
       { new: true, lean: true }

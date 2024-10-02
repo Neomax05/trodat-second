@@ -55,7 +55,9 @@ const renderCartProductOrderItem = (product) => {
                         <div class="product-order-item-price" style="color: #000;">${
                           product?.price || product.article
                         } c.</div>
-                        <div class="flex gap-05 product-order-item-delete">
+                        <div class="flex gap-05 product-order-item-delete" onclick="removeOrderByIdAsync('${
+                          product._id || null
+                        }')">
                             <img src="./icons/delete.svg" alt="" />
                             <div style="color: #ACACAC;">Удалить товар</div>
                         </div>
@@ -87,19 +89,36 @@ function createOrder(products) {
 
 const getOrderProducts = async () => {
   try {
-    const LOCALSTORAGE_KEY = 'LOCALSTORAGE_KEY';
+    const result = await fetchWithAuth({
+      url: `${config.apiUrl}/api/users/carts`,
+    });
 
-    const values = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
-
-    const response = await fetch(
-      `${config.apiUrl}/api/users/cart/${values.email}`
-    );
-    const result = await response.json();
     console.log(result);
     if (Array.isArray(result)) {
       renderCartProductListOrderItem(result);
       products = result;
     }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const removeOrderByIdAsync = async (productId) => {
+  if (!productId) {
+    alert(' product is not defined');
+    return;
+  }
+
+  const body = JSON.stringify({ productId });
+  try {
+    const result = await fetchWithAuth({
+      url: `${config.apiUrl}/api/cart`,
+      method: 'DELETE',
+      body,
+    });
+
+    console.log(result);
+    getOrderProducts();
   } catch (error) {
     console.log(error);
   }
@@ -115,6 +134,9 @@ const postOrderProducts = async () => {
       method: 'POST',
       body,
     });
+
+    getOrderProducts();
+
     return result;
   } catch (error) {
     console.log(error);
