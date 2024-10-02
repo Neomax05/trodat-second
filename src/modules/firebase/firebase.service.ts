@@ -7,19 +7,29 @@ import { ConfigService } from '@nestjs/config';
 export class FirebaseService {
   constructor(private readonly configService: ConfigService) {
     if (!admin.apps.length) {
+      const projectId = this.configService.get<string>('FIREBASE_PROJECT_ID');
+      const clientEmail = this.configService.get<string>(
+        'FIREBASE_CLIENT_EMAIL'
+      );
+      const privateKey = this.configService
+        .get<string>('FIREBASE_PRIVATE_KEY')
+        ?.replace(/\\n/g, '\n');
+
+      const storageBucket = this.configService.get<string>(
+        'FIREBASE_STORAGE_BUCKET'
+      );
+
+      console.log(privateKey, privateKey, clientEmail, storageBucket);
+
       const firebaseParams: ServiceAccount = {
-        projectId: this.configService.get<string>('FIREBASE_PROJECT_ID'),
-        clientEmail: this.configService.get<string>('FIREBASE_CLIENT_EMAIL'),
-        privateKey: this.configService
-          .get<string>('FIREBASE_PRIVATE_KEY')
-          ?.replace(/\\n/g, '\n'),
+        projectId,
+        clientEmail,
+        privateKey,
       };
 
       admin.initializeApp({
         credential: admin.credential.cert(firebaseParams),
-        storageBucket: this.configService.get<string>(
-          'FIREBASE_STORAGE_BUCKET'
-        ),
+        storageBucket,
       });
     }
   }
