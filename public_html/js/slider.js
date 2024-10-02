@@ -1,6 +1,13 @@
 const url = config.apiUrl;
 
 const thumbs = document.getElementById('thumbs');
+const swiperThumbsContainer = document.getElementById('thumbSwiperContainer');
+const nextSlide = document.getElementById('next-slide');
+const prevSlide = document.getElementById('prev-slide');
+
+const mainSwiperContainerRoot = document.getElementById(
+  'main-swiper-container'
+);
 
 let sliders = [
   { id: 1, image: './icons/banner-active-image.png' },
@@ -11,16 +18,38 @@ let sliders = [
 ];
 
 const renderThumbItem = (slide) => {
-  return `<img
-                  src="${slide.image}"
-                  alt="Slide 1"
-                  class="slider-image"
-                />`;
+  return ` <swiper-slide class="h-full">
+                    <img src="${slide.image}" />
+                  </swiper-slide>`;
+};
+
+const renderThumbMainItem = (slide) => {
+  return ` <swiper-slide class="w-full-important h-full">
+                    <img src="${slide.image}" />
+                  </swiper-slide>`;
 };
 
 const renderThumbs = (list) => {
   const mapedList = list.map(renderThumbItem);
-  thumbs.innerHTML = mapedList.join('');
+  const mapedMainList = list.map(renderThumbMainItem);
+
+  const thumbsContainer = `
+     <swiper-container
+                  class="mySwiper2"
+                  loop="true"
+                  space-between="10"
+                  slides-per-view="5"
+                  free-mode="true"
+                  watch-slides-progress="true"
+                  id="thumbs-swiper-container"
+                >
+                ${mapedList.join('')}
+                </swiper-container>
+  `;
+
+  swiperThumbsContainer.innerHTML = thumbsContainer;
+
+  mainSwiperContainerRoot.innerHTML = mapedMainList.join('');
 };
 
 const getBannersAsync = async () => {
@@ -37,72 +66,47 @@ const getBannersAsync = async () => {
     const result = await response.json();
     sliders = result;
     renderThumbs(result);
-    setupSlider();
   } catch (error) {
     console.log(error);
   }
 };
 
-const setupSlider = () => {
-  const images = document.querySelectorAll('#thumbs .slider-image');
-  const mainImage = document.getElementById('banner-main-image');
-  const currentSlideElement = document.getElementById('current-slide');
-  const totalSlidesElement = document.getElementById('total-slides');
-  const nextButton = document.getElementById('next-slide');
-  const prevButton = document.getElementById('prev-slide');
-  const nextButtonSm = document.getElementById('next-slide-sm');
-  const prevButtonSm = document.getElementById('prev-slide-sm');
-
-  let currentIndex = 0;
-  const totalSlides = sliders.length;
-
-  // Set the total number of slides dynamically
-  totalSlidesElement.textContent = String(totalSlides).padStart(2, '0');
-
-  // Function to update the main banner image and slide number
-  function updateSlide(index) {
-    // Remove the 'active' class from all thumbnail images
-    images.forEach((img) => img.classList.remove('active'));
-
-    // Add 'active' class to the current thumbnail
-    images[index]?.classList.add('active');
-
-    // Update the main banner image to match the active thumbnail
-    mainImage.src = images[index]?.src;
-
-    // Update the current slide number
-    currentSlideElement.textContent = String(index + 1).padStart(2, '0');
-  }
-
-  // Event listener for the "Next" button
-  const nextHandler = () => {
-    currentIndex = (currentIndex + 1) % totalSlides;
-    updateSlide(currentIndex);
-  };
-
-  const prevHandler = () => {
-    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-    updateSlide(currentIndex);
-  };
-  nextButton.addEventListener('click', nextHandler);
-  nextButtonSm.addEventListener('click', nextHandler);
-
-  // Event listener for the "Previous" button
-  prevButton.addEventListener('click', prevHandler);
-  prevButtonSm.addEventListener('click', prevHandler);
-
-  // Thumbnail click event to directly select a slide
-  images.forEach((image, index) => {
-    image.addEventListener('click', function () {
-      currentIndex = index;
-      updateSlide(currentIndex);
-    });
-  });
-
-  // Initialize the slider with the first image active
-  updateSlide(currentIndex);
-};
-
 document.addEventListener('DOMContentLoaded', async function () {
   await getBannersAsync();
+  const params = {
+    injectStyles: [
+      `
+    .swiper-pagination-bullet {
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      line-height: 20px;
+      font-size: 12px;
+      color: #000;
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .swiper-pagination-bullet-active {
+      color: #fff;
+      background: #007aff;
+    }
+    `,
+    ],
+    pagination: {
+      clickable: true,
+      el: '.banner-bottom-navigate-current-page',
+    },
+  };
+
+  Object.assign(mainSwiperContainerRoot, params);
+
+  mainSwiperContainerRoot.initialize();
+
+  nextSlide.addEventListener('click', () => {
+    mainSwiperContainerRoot.swiper.slideNext();
+  });
+  prevSlide.addEventListener('click', () => {
+    mainSwiperContainerRoot.swiper.slidePrev();
+  });
 });

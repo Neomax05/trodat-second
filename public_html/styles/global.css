@@ -537,6 +537,9 @@ body {
 .w-full {
   width: 100%;
 }
+.w-full-important {
+  width: 100% !important;
+}
 
 .h-full {
   height: 100%;

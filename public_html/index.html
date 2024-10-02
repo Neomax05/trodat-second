@@ -9,10 +9,7 @@
     <link rel="stylesheet" href="./styles/catalog.css" />
     <link rel="stylesheet" href="./styles/cart.css" />
     <link rel="stylesheet" href="./styles/search.css" />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/swiper/swiper-bundle.min.css"
-    />
+    <link rel="stylesheet" href="./styles/slider.css" />
   </head>
 
   <body>
@@ -202,11 +199,24 @@
             </div>
             <div class="banner-slider-image">
               <!-- Main Banner Image, will change dynamically -->
-              <img
-                src="./icons/banner-active-image.png"
-                alt="Banner Image"
-                id="banner-main-image"
-              />
+              <div id="mainSwiperContainer">
+                <swiper-container
+                  style="
+                    --swiper-navigation-color: #fff;
+                    --swiper-pagination-color: #fff;
+                  "
+                  class="mySwiper"
+                  thumbs-swiper=".mySwiper2"
+                  loop="true"
+                  space-between="10"
+                  navigation="true"
+                  pagination="true"
+                  pagination-type="fraction"
+                  init="false"
+                  id="main-swiper-container"
+                >
+                </swiper-container>
+              </div>
 
               <div class="flex gap-1 none banner-navigation-buttons">
                 <img
@@ -234,6 +244,7 @@
                   <span>/</span>
                   <span id="total-slides">05</span>
                 </div>
+
                 <div class="flex gap-1">
                   <img
                     src="./icons/arrow-left.svg"
@@ -247,7 +258,7 @@
                   />
                 </div>
               </div>
-              <div class="images grid gap-1 thumbs" id="thumbs"></div>
+              <div id="thumbSwiperContainer"></div>
 
               <div class="banner-eco none">
                 <img src="./icons/eko-logo.svg" alt="" />
