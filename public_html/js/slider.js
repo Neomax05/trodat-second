@@ -2,6 +2,18 @@ const url = config.apiUrl;
 
 const thumbs = document.getElementById('thumbs');
 const swiperThumbsContainer = document.getElementById('thumbSwiperContainer');
+const trodatBishkekMySwiper2 = document.getElementById(
+  'trodatBishkekMySwiper2'
+);
+const trodatBishkekSwiperContainer = document.getElementById(
+  'trodat-bishkek-swiper-container'
+);
+const nextSlideSmTrodatBishkek = document.getElementById(
+  'next-slide-sm-trodat-bishkek'
+);
+const prevSlideSmTrodatBishkek = document.getElementById(
+  'prev-slide-sm-trodat-bishkek'
+);
 const nextSlide = document.getElementById('next-slide');
 const prevSlide = document.getElementById('prev-slide');
 
@@ -102,9 +114,37 @@ document.addEventListener('DOMContentLoaded', async function () {
     },
   };
 
+  const paramsTrodatBishkek = {
+    injectStyles: [
+      `
+    .swiper-pagination-bullet {
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      line-height: 20px;
+      font-size: 12px;
+      color: #000;
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .swiper-pagination-bullet-active {
+      color: #fff;
+      background: #007aff;
+    }
+    `,
+    ],
+    pagination: {
+      clickable: true,
+      el: '.banner-navigation-buttons-trodat-bishkek',
+    },
+  };
+
   Object.assign(mainSwiperContainerRoot, params);
+  Object.assign(trodatBishkekSwiperContainer, paramsTrodatBishkek);
 
   mainSwiperContainerRoot.initialize();
+  trodatBishkekSwiperContainer.initialize();
 
   const slideNextHandler = () => {
     mainSwiperContainerRoot.swiper.slideNext();
@@ -114,8 +154,25 @@ document.addEventListener('DOMContentLoaded', async function () {
     mainSwiperContainerRoot.swiper.slidePrev();
   };
 
+  const slideNextTrodatBishkekHandler = () => {
+    trodatBishkekSwiperContainer.swiper.slideNext();
+  };
+
+  const slidePrevTrodatBishkekHandler = () => {
+    trodatBishkekSwiperContainer.swiper.slidePrev();
+  };
+
   nextSlide.addEventListener('click', slideNextHandler);
   prevSlide.addEventListener('click', slidePrevHandler);
   nextSlideSm.addEventListener('click', slideNextHandler);
   prevSlideSm.addEventListener('click', slidePrevHandler);
+
+  nextSlideSmTrodatBishkek.addEventListener(
+    'click',
+    slideNextTrodatBishkekHandler
+  );
+  prevSlideSmTrodatBishkek.addEventListener(
+    'click',
+    slidePrevTrodatBishkekHandler
+  );
 });

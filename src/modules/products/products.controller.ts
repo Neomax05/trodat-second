@@ -35,6 +35,11 @@ export class ProductsController {
     return await this.productsService.getProductsWithFavorites(userId);
   }
 
+  @Get('categories')
+  async getProductCategories() {
+    return await this.productsService.getProductsWithCategories();
+  }
+
   @Get('byCategory/:categoryId')
   async getProductsByCategoryId(@Param() param: { categoryId: string }) {
     return await this.productsService.getProductsByCategoryId(param.categoryId);

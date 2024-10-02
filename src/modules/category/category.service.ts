@@ -42,6 +42,10 @@ export class CategoryService {
     return this.categoryModel.findOne({ category1cId: id });
   }
 
+  async getCategoriesByIds(categoriesIds: string[]) {
+    return await this.categoryModel.find({ _id: { $in: categoriesIds } });
+  }
+
   async createCategory(name: string) {
     const category = new this.categoryModel({
       category1cId: null,

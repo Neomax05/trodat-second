@@ -277,7 +277,31 @@
           <div class="bishkek-trodat-section">
             <div class="product-image-container">
               <div class="py-1">
-                <img src="./icons/about-2.png" alt="Trodat" />
+                <swiper-container
+                  style="
+                    --swiper-navigation-color: #fff;
+                    --swiper-pagination-color: #fff;
+                  "
+                  class="trodatBishkekMySwiper"
+                  thumbs-swiper=".trodatBishkekMySwiper2"
+                  loop="true"
+                  space-between="10"
+                  navigation="false"
+                  pagination="true"
+                  init="false"
+                  id="trodat-bishkek-swiper-container"
+                >
+                  <swiper-slide class="w-full-important h-full">
+                    <img src="./icons/about-2.png" />
+                  </swiper-slide>
+                  <swiper-slide class="w-full-important h-full">
+                    <img src="./icons/about-black.png" />
+                  </swiper-slide>
+                  <swiper-slide class="w-full-important h-full">
+                    <img src="./icons/about-blue.png" />
+                  </swiper-slide>
+                </swiper-container>
+
                 <div
                   class="flex justify-space items-center pt-1 bishkek-trodat-actions"
                 >
@@ -285,19 +309,15 @@
                     <img
                       src="./icons/arrow-left.svg"
                       alt="Previous"
-                      id="prev-slide-sm"
+                      id="prev-slide-sm-trodat-bishkek"
                     />
                     <img
                       src="./icons/arrow-right.svg"
                       alt="Next"
-                      id="next-slide-sm"
+                      id="next-slide-sm-trodat-bishkek"
                     />
                   </div>
-                  <div class="dots-container">
-                    <span class="dot active"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                  </div>
+                  <div class="banner-navigation-buttons-trodat-bishkek"></div>
 
                   <div></div>
                 </div>
@@ -311,7 +331,25 @@
                   </div>
                   <p class="subtitle">Всегда на шаг впереди</p>
                 </div>
-                <img src="./icons/about-blue.png" alt="" />
+                <swiper-container
+                  class="trodatBishkekMySwiper2"
+                  id="trodatBishkekMySwiper2"
+                  loop="true"
+                  space-between="10"
+                  navigation="false"
+                  pagination="false"
+                  initial-slide="2"
+                >
+                  <swiper-slide class="w-full-important h-full">
+                    <img src="./icons/about-2.png" />
+                  </swiper-slide>
+                  <swiper-slide class="w-full-important h-full">
+                    <img src="./icons/about-black.png" />
+                  </swiper-slide>
+                  <swiper-slide class="w-full-important h-full">
+                    <img src="./icons/about-blue.png" />
+                  </swiper-slide>
+                </swiper-container>
               </div>
             </div>
             <div class="text-container">
@@ -969,5 +1007,6 @@
     <script src="./js/index.js"></script>
     <script src="./js/cart.js"></script>
     <script src="./js/search.js"></script>
+    <script src="./js/news.js"></script>
   </body>
 </html>

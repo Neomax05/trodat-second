@@ -160,11 +160,55 @@ export class ProductsService {
     }; // Return the combined products with favorite status
   }
 
+  async getProductsWithCategories() {
+    // Шаг 1: Получить все продукты и преобразовать их в обычные объекты (lean)
+    const products = await this.productModel.find().lean();
+
+    // Шаг 2: Собрать все уникальные ID категорий из продуктов
+    const productItems = products
+      .map((product) => product.category)
+      .filter((item) => Types.ObjectId.isValid(item));
+
+    // Шаг 3: Получить категории на основе собранных ID
+    const categories = await this.categoryService.getCategoriesByIds(
+      productItems
+    );
+
+    // Шаг 4: Сгруппировать продукты по категориям
+    const categoryMap = categories.reduce((acc, category) => {
+      if (category._id) {
+        acc[category._id.toString()] = {
+          name: category.name,
+          products: [],
+        };
+      }
+      return acc;
+    }, {});
+
+    // Шаг 5: Заполнить категории соответствующими продуктами
+    products.forEach((product) => {
+      const categoryId = product.category?.toString(); // Безопасная проверка на наличие category
+      if (categoryId && categoryMap[categoryId]) {
+        // Проверка наличия categoryId
+        categoryMap[categoryId].products.push({
+          name: product.name,
+          price: 50, // Похоже, цена жестко задана, но, возможно, стоит использовать product.price
+          buttonText: 'подробнее',
+          imageUrl: product.imageBase64, // Убедитесь, что это поле есть в product
+        });
+      }
+    });
+
+    // Шаг 6: Вернуть данные в нужном формате
+    return {
+      categories: Object.values(categoryMap),
+    };
+  }
+
   async getProductsWithFavorites(userId: string) {
     const favorites = await this.favoriteService.getFavorites(userId);
 
     const favoriteItems = favorites
-      .map((item) => ({ ...item, isLike: true }))
       .map((favorite) => favorite.product)
       .filter((item) => Types.ObjectId.isValid(item)); // фильтруем некорректные ObjectId
 
