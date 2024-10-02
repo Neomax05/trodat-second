@@ -427,6 +427,16 @@ h1 {
   cursor: pointer;
 }
 
+.news-product-item__details-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.news-product-item__button-wrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+
 @media (max-width: 1024px) {
   .banner-headlines h1 {
     font-size: 40px;
@@ -501,11 +511,17 @@ h1 {
     position: relative;
     z-index: 100;
   }
-  .zoomed-in-image-headlines h1 {
-    flex-shrink: 0;
+  .zoomed-in-image-headlines > div {
     position: absolute;
     top: 10%;
     left: -110%;
+    display: flex;
+    width: 225%;
+    overflow: hidden; /* Или max-content вместо фиксированной ширины */
+  }
+  .zoomed-in-image-headlines > div > h1 {
+    flex-shrink: 1; /* Позволяет заголовку сжиматься, если нужно */
+    flex-grow: 1; /* Это позволяет элементу расти при необходимости */
   }
 
   .text-container > h1,
