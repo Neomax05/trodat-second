@@ -5,6 +5,9 @@ const swiperThumbsContainer = document.getElementById('thumbSwiperContainer');
 const nextSlide = document.getElementById('next-slide');
 const prevSlide = document.getElementById('prev-slide');
 
+const nextSlideSm = document.getElementById('next-slide-sm');
+const prevSlideSm = document.getElementById('prev-slide-sm');
+
 const mainSwiperContainerRoot = document.getElementById(
   'main-swiper-container'
 );
@@ -103,10 +106,16 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   mainSwiperContainerRoot.initialize();
 
-  nextSlide.addEventListener('click', () => {
+  const slideNextHandler = () => {
     mainSwiperContainerRoot.swiper.slideNext();
-  });
-  prevSlide.addEventListener('click', () => {
+  };
+
+  const slidePrevHandler = () => {
     mainSwiperContainerRoot.swiper.slidePrev();
-  });
+  };
+
+  nextSlide.addEventListener('click', slideNextHandler);
+  prevSlide.addEventListener('click', slidePrevHandler);
+  nextSlideSm.addEventListener('click', slideNextHandler);
+  prevSlideSm.addEventListener('click', slidePrevHandler);
 });
