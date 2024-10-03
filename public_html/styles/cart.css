@@ -45,6 +45,8 @@
 
 .cart-modal__close {
   cursor: pointer;
+  width: auto;
+  height: auto;
 }
 
 /* Body */
@@ -59,6 +61,7 @@
 .cart-modal__items-count {
   font-size: 16px;
   margin-bottom: 8px;
+  text-align: left;
 }
 
 /* Open state */
@@ -128,7 +131,10 @@
 .product-order-item-delete {
   cursor: pointer;
 }
-
+.product-order-item-delete img {
+  width: auto;
+  height: auto;
+}
 .order-confirmation__image {
   width: 70%;
   aspect-ratio: 1/1;

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./styles/catalog.css" />
     <link rel="stylesheet" href="./styles/product-detail.css" />
     <link rel="stylesheet" href="./styles/cart.css">
+    <link rel="stylesheet" href="./styles/search.css">
    
   </head>
   <body>
@@ -25,7 +26,7 @@
                 <img class="nav__logo-mob" src="./icons/logo-2.png" alt="" />
               </div>
 
-              <div class="nav__center gap-05">
+              <div class="nav__center gap-05" id="nav-center-links">
                 <div>
                   <a href="./index.html">Главная</a>
                 </div>
@@ -46,9 +47,34 @@
                 </div>
               </div>
 
-              <div class="nav__right justify-center gap-1">
-                <div class="nav-search-icon">
-                  <img alt="" src="./icons/search.svg" />
+              <div
+                class="nav__right justify-center gap-1"
+                id="nav-right-actions"
+              >
+                <div class="nav-search-input" id="searchInputContainer">
+                  <div class="catalog-header__search">
+                    <img
+                      src="./icons/search.svg"
+                      alt=""
+                      class="catalog-header__search_icon"
+                    />
+                    <input
+                      type="text"
+                      class="catalog-header__search_input py-05"
+                      id="catalog-header__search_input"
+                      placeholder="Искать товар..."
+                    />
+                  </div>
+                </div>
+                <div
+                  class="nav-search-icon"
+                  id="nav-search-icon-initial-container"
+                >
+                  <img
+                    alt=""
+                    src="./icons/search.svg"
+                    id="nav-search-icon-initial"
+                  />
                 </div>
                 <div class="nav-search-icon">
                   <a href="./profile.html"
@@ -56,7 +82,7 @@
                   /></a>
                 </div>
 
-                <div class="nav__right-cart">
+                <div class="nav__right-cart" id="open-cart-button">
                   <div class="nav__right-text">корзина</div>
                   <div class="nav__right-img">
                     <img alt="" src="./icons/cart.svg" />
@@ -78,7 +104,7 @@
                   </a>
                 </div>
 
-                <div class="nav-cart-icon">
+                <div class="nav-cart-icon" id="open-cart-button-sm">
                   <img src="./icons/cart.svg" alt="" />
                   <div class="nav-cart-icon-badge">5</div>
                 </div>
@@ -479,5 +505,6 @@
     <script src="./config/index.js"></script>
     <script src="./js/product-detail-products.js"></script>
     <script src="./js/cart.js"></script>
+    <script src="./js/search.js"></script>
   </body>
 </html>
