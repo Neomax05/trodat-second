@@ -130,9 +130,7 @@ export class ProductsService {
       : [];
 
     // Create a Set for faster lookup of favorite product IDs
-    const favoriteSet = new Set(
-      favoriteProductIds.map((fav) => fav?.product?._id?.toString())
-    );
+    const favoriteSet = new Set(favoriteProductIds.map((fav) => fav?.product));
 
     // Combine products from MongoDB and 1C
     const goodsGetFrom1C = await getGoodsFrom1C();
