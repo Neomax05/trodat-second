@@ -22,8 +22,8 @@ export class AuthController {
   }
 
   @Put('change')
-  changeUserValues(@Body() authValues: ChangeAuthValuesDto) {
-    return this.authService.changeUser(authValues);
+  async changeUserValues(@Body() authValues: ChangeAuthValuesDto) {
+    return await this.authService.changeUser(authValues);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -33,11 +33,13 @@ export class AuthController {
     return await this.authService.logout(userId);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Post('change-password')
-  changePassword(@Body() changePasswordDto: ChangePasswordDto) {
-    return this.authService.changePassword(
-      changePasswordDto.phone_number,
-      changePasswordDto.password
-    );
+  changePassword(
+    @Req() req: Request,
+    @Body() changePasswordDto: ChangePasswordDto
+  ) {
+    const userId = req.user['userId'];
+    return this.authService.changePassword(userId, changePasswordDto.password);
   }
 }

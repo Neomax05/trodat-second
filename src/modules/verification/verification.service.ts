@@ -19,10 +19,12 @@ export class VerificationService {
   }
 
   // Store the code in the database
-  async storeCode(phoneNumber: string, code: string): Promise<void> {
-    const existingRecord = await this.verificationCodeModel.findOne({
-      phone_number: phoneNumber,
-    });
+  async storeCode(
+    userId: string,
+    phoneNumber: string,
+    code: string
+  ): Promise<void> {
+    const existingRecord = await this.verificationCodeModel.findById(userId);
 
     if (existingRecord) {
       // Update existing record with new code
@@ -32,17 +34,17 @@ export class VerificationService {
     } else {
       // Create new record
 
-      await this.verificationCodeModel.findOneAndUpdate(
-        { phone_number: phoneNumber },
-        { code, isVerified: false }
-      );
+      await this.verificationCodeModel.findByIdAndUpdate(userId, {
+        code,
+        isVerified: false,
+      });
     }
   }
 
   // Verify the code provided by the user
-  async verifyCode(phoneNumber: string, code: string): Promise<boolean> {
+  async verifyCode(userId: string, code: string): Promise<boolean> {
     const verificationRecord = await this.verificationCodeModel.findOne({
-      phone_number: phoneNumber,
+      _id: userId,
       code,
     });
 

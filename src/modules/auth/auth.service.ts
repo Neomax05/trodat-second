@@ -135,22 +135,25 @@ export class AuthService {
       changeUserValuesDto
     );
 
+    const tokens = await this.getTokens(
+      user._id as unknown as string,
+      user.email
+    );
+
     const newUser = {
       email: changeUserValuesDto.email,
       full_name: changeUserValuesDto.full_name,
       phone_number: changeUserValuesDto.phone_number,
       avatar: changeUserValuesDto.avatar,
       role: user.role,
+      ...tokens,
     };
 
     return newUser;
   }
 
-  async changePassword(
-    phoneNumber: string,
-    newPassword: string
-  ): Promise<boolean> {
-    const user = await this.userModel.findOne({ phone_number: phoneNumber });
+  async changePassword(userId: string, newPassword: string): Promise<boolean> {
+    const user = await this.userModel.findById(userId);
 
     if (!user) {
       throw new BadRequestException('Invalid verification code.');

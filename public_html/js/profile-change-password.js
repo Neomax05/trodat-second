@@ -98,12 +98,11 @@ const verifyUrl = `${config.apiUrl}/api/verification`;
 
 const sendCodeWithPhoneNumberAsync = async (values) => {
   try {
-    const response = await fetch(`${verifyUrl}/send-code`, {
-      method: 'POST',
+    const result = await fetchWithAuth({
+      url: `${verifyUrl}/send-code`,
       body: JSON.stringify(values),
-      headers: { 'Content-Type': 'application/json' },
+      method: 'POST',
     });
-    const result = await response.json();
 
     console.log(result);
 
@@ -119,12 +118,11 @@ const sendCodeWithPhoneNumberAsync = async (values) => {
 
 const verifyCodeWithPhoneNumberAsync = async (values) => {
   try {
-    const response = await fetch(`${verifyUrl}/verify-code`, {
+    const result = await fetchWithAuth({
+      url: `${verifyUrl}/verify-code`,
       method: 'POST',
       body: JSON.stringify(values),
-      headers: { 'Content-Type': 'application/json' },
     });
-    const result = await response.json();
 
     console.log(result);
 
@@ -139,12 +137,11 @@ const verifyCodeWithPhoneNumberAsync = async (values) => {
 
 const changePasswordAsync = async (values) => {
   try {
-    const response = await fetch(`${url}/change-password`, {
+    const result = await fetchWithAuth({
+      url: `${url}/change-password`,
       method: 'POST',
       body: JSON.stringify(values),
-      headers: { 'Content-Type': 'application/json' },
     });
-    const result = await response.json();
 
     console.log(result);
 
@@ -169,6 +166,7 @@ changePasswordModalFirstModal.addEventListener('submit', async (e) => {
   const regexPhoneNumber = /^\+\d{9,15}$/;
 
   if (!regexPhoneNumber.test(phone_number)) {
+    alert('phone number is not correct');
     return;
   }
 
@@ -214,9 +212,11 @@ changePasswordModalThirthModal.addEventListener('submit', async (e) => {
   await changePasswordAsync({ phone_number, password });
 });
 
-sendCodeAgainText.addEventListener('click', () => {
+sendCodeAgainText.addEventListener('click', async () => {
   SendCodeAgainViaTime.textContent = '1:00';
   startTimer(60);
+  const phone_number = changePasswordModalPhoneNumberInput.value;
+  await sendCodeWithPhoneNumberAsync({ phone_number });
   sendCodeAgainText.style.display = 'none';
   SendCodeAgainVia.style.display = 'block';
 });
