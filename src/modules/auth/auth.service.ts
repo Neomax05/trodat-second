@@ -88,6 +88,18 @@ export class AuthService {
     };
   }
 
+  async logout(userId: string) {
+    const user = await this.userModel.findById(userId).lean();
+
+    if (!user) {
+      throw new UnauthorizedException('not founds');
+    }
+
+    return {
+      message: 'successfully logout',
+    };
+  }
+
   async signIn(@Body() signInDto: SignInDto) {
     const { email, password } = signInDto;
 

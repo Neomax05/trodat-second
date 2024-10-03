@@ -1,9 +1,11 @@
-import { Body, Controller, Post, Put } from '@nestjs/common';
+import { Body, Controller, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignUpDto } from './dto/sign-up.dto';
 import { SignInDto } from './dto/sign-in.dto';
 import { ChangeAuthValuesDto } from './dto/change.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -22,6 +24,13 @@ export class AuthController {
   @Put('change')
   changeUserValues(@Body() authValues: ChangeAuthValuesDto) {
     return this.authService.changeUser(authValues);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('logout')
+  async logout(@Req() req: Request) {
+    const userId = req.user['userId'];
+    return await this.authService.logout(userId);
   }
 
   @Post('change-password')
