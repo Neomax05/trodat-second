@@ -9,6 +9,7 @@ import {
 } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
+import LogoutButton from './LogoutButton';
 
 const Sidebar = () => {
   const location = useLocation();
@@ -55,8 +56,8 @@ const Sidebar = () => {
   ];
 
   return (
-    <div style={{ width: 300, borderRight: '1px solid rgba(5, 5, 5, 0.06)' }}>
-      <h2 style={{ textAlign: 'center' }}>
+    <div style={{}}>
+      <h2 style={{ textAlign: 'center', margin: 0 }}>
         <Link to="/" style={{ textDecoration: 'none', color: '#444' }}>
           Trodat
         </Link>
@@ -64,9 +65,11 @@ const Sidebar = () => {
       <Menu
         mode="inline"
         selectedKeys={[activeKey]}
-        style={{ height: '100%', borderRight: 'none' }}
+        style={{ height: '85%', borderRight: 'none', textAlign: 'left' }}
         items={menuList}
       />
+
+      <LogoutButton />
     </div>
   );
 };

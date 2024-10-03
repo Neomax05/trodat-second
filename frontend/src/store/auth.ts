@@ -11,6 +11,7 @@ interface IAuthState extends AuthResponse {
 // Define the actions interface
 interface IAuthAction {
   onLogin: (data: AuthResponse) => void;
+  logout: () => void;
 }
 
 // Combine state and actions into a single type
@@ -39,6 +40,17 @@ const authStateCreator: AuthStateCreator = (set) => ({
   phone_number: '',
   refresh_token: '',
   onLogin: (username) => set({ isLogin: true, ...username }),
+  logout: () => {
+    set({
+      isLogin: false,
+      username: null,
+      access_token: '',
+      email: '',
+      full_name: '',
+      phone_number: '',
+      refresh_token: '',
+    });
+  },
 });
 
 // Persist options for the store
