@@ -173,6 +173,31 @@ async function fetchWithAuth({ url, method = 'GET', body, params }) {
   }
 }
 
+const addProductToCartAsync = async (id) => {
+  if (id === null) {
+    alert('product id not found');
+    return;
+  }
+
+  try {
+    const body = JSON.stringify({
+      productId: id,
+      quantity: 1,
+    });
+
+    const result = await fetchWithAuth({
+      url: `${config.apiUrl}/api/users/cart/add`,
+      method: 'POST',
+      body,
+    });
+
+    getOrderProducts();
+    console.log(result, 'result');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const renderProductListItem = (list) => {
   const renderList = list.map(renderProductItem);
 

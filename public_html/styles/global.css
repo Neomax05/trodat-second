@@ -314,6 +314,11 @@ body {
   width: 300%;
 }
 
+.nav__right-text {
+  font-size: 12px;
+  color: #000000;
+}
+
 #change-password-modal-code-input {
   font-size: 30px;
   line-height: 27px;

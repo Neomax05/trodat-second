@@ -1,3 +1,6 @@
+const navCartIconBadge = document.getElementById('nav-cart-icon-badge');
+const navCartIconBadgeSm = document.getElementById('nav-cart-icon-badge-sm');
+
 const ordersData = [
   {
     id: 1,
@@ -87,6 +90,8 @@ function createOrder(products) {
   };
 }
 
+console.log(navCartIconBadge, navCartIconBadgeSm);
+
 const getOrderProducts = async () => {
   try {
     const result = await fetchWithAuth({
@@ -96,6 +101,8 @@ const getOrderProducts = async () => {
     console.log(result);
     if (Array.isArray(result)) {
       renderCartProductListOrderItem(result);
+      navCartIconBadge.innerHTML = result.length;
+      navCartIconBadgeSm.innerHTML = result.length;
       products = result;
     }
   } catch (error) {
