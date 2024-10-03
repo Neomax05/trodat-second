@@ -9,7 +9,12 @@ import ChangeCategoryModal from './components/ChangeCategoryModal';
 
 const Products = () => {
   const cn = useClassName('products');
-  const [products, setProducts] = useState<ProductType[]>([]);
+  const [products, setProducts] = useState<{
+    products: ProductType[];
+    total?: number;
+    page?: number;
+    limit?: number;
+  }>({ products: [] });
   const [loading, setLoading] = useState(false);
   const [changeCategory, setChangeCategory] = useState<null | ProductType>(
     null
@@ -121,7 +126,7 @@ const Products = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await api.get<ProductType[]>('/products');
+        const res = await api.get('/products');
         setProducts(res.data);
         setLoading(false);
       } catch (e) {
@@ -145,12 +150,12 @@ const Products = () => {
       })
       .then((res) => {
         setChangeCategory(null);
-        const copyProducts = [...products];
+        const copyProducts = [...products.products];
         const index = copyProducts.findIndex(
           (product) => product._id === productId
         );
         copyProducts[index] = res.data;
-        setProducts(copyProducts);
+        setProducts({ products: copyProducts });
       })
       .catch((err) => alert(err))
       .finally(() => setLoading(false));
@@ -166,7 +171,10 @@ const Products = () => {
       })
       .then((res) => {
         console.log(res.data, 'res');
-        setProducts((prev) => [...prev, res.data]);
+        setProducts((prev) => ({
+          ...prev,
+          products: [...prev.products, res.data],
+        }));
       })
       .catch((err) => alert(err))
       .finally(() => setLoading(false));
@@ -185,7 +193,7 @@ const Products = () => {
         scroll={{ x: 1200 }}
         loading={loading}
         columns={columns}
-        dataSource={products}
+        dataSource={products.products}
       />
       {changeCategory && (
         <ChangeCategoryModal

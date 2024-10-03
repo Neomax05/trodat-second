@@ -5,6 +5,7 @@ import {
   SnippetsOutlined,
   UnorderedListOutlined,
   BoxPlotOutlined,
+  UsergroupAddOutlined,
 } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -38,6 +39,18 @@ const Sidebar = () => {
       key: 'banner',
       label: 'Банер',
       onClick: () => navigate('banner'),
+    },
+    {
+      icon: React.createElement(UsergroupAddOutlined),
+      key: 'order',
+      label: 'Заказы',
+      onClick: () => navigate('order'),
+    },
+    {
+      icon: React.createElement(UsergroupAddOutlined),
+      key: 'users',
+      label: 'Пользователь',
+      onClick: () => navigate('users'),
     },
   ];
 

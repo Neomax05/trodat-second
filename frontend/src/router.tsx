@@ -10,6 +10,8 @@ const Products = React.lazy(() => import('./pages/Products'));
 const Home = React.lazy(() => import('./pages/Home'));
 const Category = React.lazy(() => import('./pages/Category'));
 const Banner = React.lazy(() => import('./pages/Banner'));
+const Order = React.lazy(() => import('./pages/Order'));
+const Users = React.lazy(() => import('./pages/Users'));
 
 export const router = createBrowserRouter([
   { path: '/', element: <Navigate to="/auth" /> },
@@ -70,6 +72,22 @@ export const router = createBrowserRouter([
         element: (
           <WithRouter>
             <Banner />
+          </WithRouter>
+        ),
+      },
+      {
+        path: 'order',
+        element: (
+          <WithRouter>
+            <Order />
+          </WithRouter>
+        ),
+      },
+      {
+        path: 'users',
+        element: (
+          <WithRouter>
+            <Users />
           </WithRouter>
         ),
       },

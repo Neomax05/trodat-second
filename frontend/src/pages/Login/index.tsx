@@ -4,9 +4,10 @@ import { api } from '../../utils/api';
 import { Navigate, useNavigate } from 'react-router';
 import './style.css';
 import useAuthStore from '../../store/auth';
+import { AuthResponse } from '../../types/user.type';
 
 type FieldType = {
-  username: string;
+  email: string;
   password: string;
 };
 
@@ -18,14 +19,11 @@ const Login = () => {
 
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     try {
-      const res = await api.post<{ isLogin: boolean }>(
-        '/users/login/admin',
-        values
-      );
+      const res = await api.post<AuthResponse>('/auth/sign-in', values);
       console.log(res);
 
-      if (res.data.isLogin) {
-        onLogin(values.username);
+      if (res.data.access_token) {
+        onLogin(res.data);
         navigate('/');
       }
     } catch (e: any) {
@@ -44,7 +42,7 @@ const Login = () => {
         <h1 className="login-title">Логин</h1>
         <Form.Item<FieldType>
           label="Логин"
-          name="username"
+          name="email"
           rules={[{ required: true, message: 'Введите логин' }]}
         >
           <Input />
