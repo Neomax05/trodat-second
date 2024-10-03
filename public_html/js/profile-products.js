@@ -33,7 +33,7 @@ const data = [
   },
 ];
 
-const orders = [];
+let orders = [];
 
 const profileProducts = document.getElementById('profile-products');
 // profile tabs
@@ -56,22 +56,34 @@ const renderProductOrderItem = (product) => {
     <div class="product-order-item flex justify-space items-center">
                   <div class="flex gap-1">
                     <div class="product-order-item-img">
-                      <img src="${product.image}" alt="" />
+                      <img src="${
+                        product?.imageBase64 || './icons/placeholder.png'
+                      }" alt="" />
                     </div>
                     <div class="grid items-content-space">
-                      <div class="product-order-item-price">${product.total}</div>
+                      <div class="product-order-item-price">${
+                        product?.total
+                      }</div>
                       <div class="flex gap-2 product-order-item-action">
-                        <div class="product-order-item-title">${product.title}</div>
+                        <div class="product-order-item-title">${
+                          product?.title
+                        }</div>
                         <div class="flex gap-05 items-center product-order-item-title product-order-item-color">
                           Цвета корпуса:
 
-                          <div class="circle" style="background: ${product.color};"></div>
+                          <div class="circle" style="background: ${
+                            product?.color
+                          };"></div>
                         </div>
-                        <div class="product-order-item-title">Кол-во: ${product.count} шт</div>
+                        <div class="product-order-item-title">Кол-во: ${
+                          product?.count
+                        } шт</div>
                       </div>
                     </div>
                   </div>
-                  <div class="product-order-item-price" style="color: #000;">${product.price} c.</div>
+                  <div class="product-order-item-price" style="color: #000;">${
+                    product?.price
+                  } c.</div>
                 </div>
     `;
 };
@@ -204,6 +216,22 @@ const getFavoriteProducts = async () => {
   }
 };
 
+const getOrdersProductsAsync = async () => {
+  try {
+    const result = await fetchWithAuth({
+      url: `${config.apiUrl}/api/orders`,
+      method: 'GET',
+    });
+    console.log(result, 'result');
+    if (Array.isArray(result)) {
+      orders = result;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 getFavoriteProducts();
+getOrdersProductsAsync();
 
 initializationProducts();

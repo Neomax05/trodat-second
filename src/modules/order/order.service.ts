@@ -24,8 +24,16 @@ export class OrderService {
     return newOrder.save();
   }
 
-  async getOrdersByUserId(userId: string): Promise<Order[]> {
-    return this.orderModel.find({ userId }).exec();
+  async getOrdersByUserId(userId: string) {
+    const orders = await this.orderModel
+      .find({ userId }, { items: 1, createdAt: 1, totalAmount: 1 })
+      .exec();
+    const items = orders.map((order) =>
+      order.items.map((item) => item.productId)
+    );
+    const productIds = items.flat(1);
+    const productsData = await this.userService.getProductsByIds(productIds);
+    return productsData;
   }
 
   async getAllOrder() {
