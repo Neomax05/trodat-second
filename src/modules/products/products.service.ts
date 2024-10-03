@@ -160,6 +160,10 @@ export class ProductsService {
     }; // Return the combined products with favorite status
   }
 
+  async getProductsByIds(ids: string[]) {
+    return await this.productModel.find({ _id: ids }).lean();
+  }
+
   async getProductsWithCategories() {
     // Шаг 1: Получить все продукты и преобразовать их в обычные объекты (lean)
     const products = await this.productModel.find().lean();

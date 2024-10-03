@@ -2,6 +2,7 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  ForbiddenException,
   Get,
   HttpStatus,
   ParseFilePipeBuilder,
@@ -59,6 +60,16 @@ export class UsersController {
   async getCarts(@Req() req: Request) {
     const userId = req.user['userId'];
     return await this.usersService.getCarts(userId);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('all')
+  async getAllUsers(@Req() req: Request) {
+    const userEmail = req.user['email'];
+    if (userEmail !== 'admin@trodat.kg') {
+      throw new ForbiddenException('Forbidden');
+    }
+    return await this.usersService.getAllUsers();
   }
 
   @UseInterceptors(

@@ -109,6 +109,42 @@ export class UsersService {
     return await this.cartService.getCarts(cartIds);
   }
 
+  async getUsers(userIds: string[]) {
+    return await this.userModel
+      .find(
+        { _id: { $in: userIds } },
+        { avatar: 1, email: 1, full_name: 1, phone_number: 1 }
+      )
+      .lean();
+  }
+
+  async getAllUsers() {
+    const users = await this.userModel
+      .find(
+        {},
+        {
+          avatar: 1,
+          created_at: 1,
+          email: 1,
+          full_name: 1,
+          phone_number: 1,
+          role: 1,
+          updated_at: 1,
+        }
+      )
+      .lean();
+
+    return users.map((user) => ({ ...user, _id: user._id?.toString() }));
+  }
+
+  async removeMultipleItems(userId: string, productIds: string[]) {
+    return await this.cartService.removeMultipleItems(userId, productIds);
+  }
+
+  async getProductsByIds(ids: string[]) {
+    return await this.cartService.getProductsByIds(ids);
+  }
+
   async updateUserInfo(userId: string, file: Express.Multer.File) {
     const user = await this.userModel.findById(userId).lean();
 

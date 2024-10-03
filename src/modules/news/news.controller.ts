@@ -9,13 +9,13 @@ import {
   ParseFilePipeBuilder,
   Patch,
   Post,
-  Put,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { NewsService } from './news.service';
 import { NewsCreateDto, NewsUpdateDto } from './dto/create-news.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
 
 const MAX_PROFILE_PICTURE_SIZE_IN_BYTES = 5 * 1024 * 1024;
 
@@ -35,7 +35,7 @@ export class NewsController {
 
   @UseInterceptors(
     FileInterceptor('image', {
-      dest: './uploads',
+      storage: memoryStorage(),
     })
   )
   @Post()
@@ -51,16 +51,13 @@ export class NewsController {
   ) {
     console.log('data', data);
     console.log('file', file);
-    return await this.categoryService.createNews({
-      ...data,
-      image: file.filename,
-    });
+    return await this.categoryService.createNews(data, file);
   }
 
   @Patch(':id')
   @UseInterceptors(
     FileInterceptor('image', {
-      dest: './uploads',
+      storage: memoryStorage(),
     })
   )
   async updateNews(
@@ -75,10 +72,9 @@ export class NewsController {
 
     const updateData = {
       ...data,
-      image: file ? file.filename : existingNews.image,
     };
 
-    await this.categoryService.updateNews(id, updateData);
+    await this.categoryService.updateNews(id, updateData, file);
     return await this.categoryService.getNewsById(id);
   }
 

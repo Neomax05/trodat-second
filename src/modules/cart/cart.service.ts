@@ -95,4 +95,8 @@ export class CartService {
 
     return newCarts;
   }
+
+  async getProductsByIds(ids: string[]) {
+    return await this.productService.getProductsByIds(ids);
+  }
 }
