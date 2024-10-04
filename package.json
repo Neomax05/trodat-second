@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "install-deps": "apt install xvfb",
+    "install-deps": "cat /etc/*release",
     "check-device": "node -e \"console.log('Platform: ' + process.platform + ', Architecture: ' + process.arch)\"",
     "check-xauth": "echo 'To install xauth, run the following command based on your OS:' && echo 'For Ubuntu/Debian: sudo apt-get install -y xauth' && echo 'For CentOS/RHEL: sudo yum install -y xorg-x11-xauth' && echo 'For Alpine: apk add --no-cache xauth'",
     "install-build": "xvfb-run -a nest build",
