@@ -20,7 +20,7 @@ async function fetchWithAuth({ url, method = 'GET', body, params }) {
     const response = await fetch(`${url}${urlParam}`, {
       body,
       headers: {
-        Authorization: `Bearer ${token}`, // Authorization header with token
+        Authorization: `Bearer ${token}`, // Authorization header with toke
         'Content-Type': 'application/json', // adjust as needed
       },
     });
