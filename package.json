@@ -9,7 +9,8 @@
     "check-device": "node -e \"console.log('Platform: ' + process.platform + ', Architecture: ' + process.arch)\"",
     "install-build": "xvfb-run -a nest build",
     "install-deps": "apk add --no-cache xauth xvfb",
-    "build": "npm run check-device && npm run playwright:install-deps && npm run playwright:install && npm run install-deps && npm run install-build",
+    "build": "nest build",
+    "build-for": "npm run check-device && npm run playwright:install-deps && npm run playwright:install && npm run install-deps && npm run install-build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -18,7 +19,8 @@
     "playwright:install": "npx playwright install",
     "playwright:install-deps": "npx playwright install-deps",
     "install-start": "xvfb-run -a nest start",
-    "start": "npm run playwright:install-deps && npm run playwright:install && npm run install-deps && npm run install-start",
+    "start-for": "npm run playwright:install-deps && npm run playwright:install && npm run install-deps && npm run install-start",
+    "start": "nest start",
     "start:dev": "nest start --watch"
   },
   "dependencies": {
