@@ -8,7 +8,7 @@
   "scripts": {
     "yum-update": "npm install yup",
     "yum-install": "sudo yum install xorg-x11-server-Xvfb",
-    "install-deps": "npm run yup-update && yum-install",
+    "install-deps": "npm run yum-update && yum-install",
     "check-device": "node -e \"console.log('Platform: ' + process.platform + ', Architecture: ' + process.arch)\"",
     "check-xauth": "echo 'To install xauth, run the following command based on your OS:' && echo 'For Ubuntu/Debian: sudo apt-get install -y xauth' && echo 'For CentOS/RHEL: sudo yum install -y xorg-x11-xauth' && echo 'For Alpine: apk add --no-cache xauth'",
     "install-build": "xvfb-run -a nest build",
