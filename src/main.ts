@@ -3,8 +3,6 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { AppConfig } from './modules/config/configs';
 
-// import { createCA, createCert } from 'mkcert';
-
 const pathKey = `-----BEGIN PRIVATE KEY-----
 MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDcA+HMKsOECxBP
 rZjvxX8bG08P1flTE3TMBmPTiFB7stPK313LBab/VQLVKuVmoBwkCTLovRU9egqF
