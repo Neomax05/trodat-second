@@ -18,7 +18,6 @@ async function fetchWithAuth({ url, method = 'GET', body, params }) {
   const token = values.access_token;
   try {
     const response = await fetch(`${url}${urlParam}`, {
-      method: method, //
       body,
       headers: {
         Authorization: `Bearer ${token}`, // Authorization header with token
