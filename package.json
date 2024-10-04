@@ -6,9 +6,9 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "install-deps": "apk add --no-cache xauth xvfb",
     "check-device": "node -e \"console.log('Platform: ' + process.platform + ', Architecture: ' + process.arch)\"",
     "install-build": "xvfb-run -a nest build",
+    "install-deps": "apk add --no-cache xauth xvfb",
     "build": "npm run check-device && npm run playwright:install-deps && npm run playwright:install && npm run install-deps && npm run install-build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start:debug": "nest start --debug --watch",
